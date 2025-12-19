@@ -1,0 +1,165 @@
+[tool.poetry]
+name = "mobility-datasets"
+version = "0.1.0"
+description = "Python library for downloading, loading, and working with autonomous driving and mobility datasets"
+authors = ["Martin Habedank, martin.habedank@gmail.com"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/mhabedank/mobility-datasets"
+repository = "https://github.com/mhabedank/mobility-datasets"
+documentation = "https://mobility-datasets.readthedocs.io"
+keywords = ["autonomous-driving", "sensor-fusion", "kitti", "dataset-loader", "mobility", "trajectory-estimation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+packages = [{include = "mobility_datasets", from = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+numpy = "^1.24.0"
+scipy = "^1.10.0"
+pandas = "^2.0.0"
+click = "^8.1.0"
+pyyaml = "^6.0"
+requests = "^2.31.0"
+tqdm = "^4.66.0"
+typing-extensions = {version = "^4.7.0", python = "<3.10"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+black = "^23.7.0"
+ruff = "^0.0.285"
+mypy = "^1.5.0"
+pre-commit = "^3.3.0"
+ipython = "^8.14.0"
+jupyter = "^1.0.0"
+poethepoet = "^0.24.0"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = "^9.0.4"
+sphinx-rtd-theme = "^3.0.2"
+sphinx-click = "^6.2.0"
+sphinx-autodoc-typehints = "^3.6.0"
+
+[tool.poetry.scripts]
+mds = "mobility_datasets.cli.main:cli"
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+strict_optional = true
+
+[[tool.mypy.overrides]]
+module = [
+    "scipy.*",
+    "pandas.*",
+    "tqdm.*",
+]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers --cov=mobility_datasets --cov-report=term-missing"
+testpaths = [
+    "tests",
+]
+pythonpath = [
+    "src"
+]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "*/tests/*",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poe.tasks]
+docs = "sphinx-build -b html docs/source docs/build/html"
+docs-clean = "rm -rf docs/build/"
+
+test = "pytest"
+test-verbose = "pytest -v"
+test-cov = "pytest --cov=mobility_datasets --cov-report=term-missing"
+
+docs-serve.sequence = ["docs-clean", "docs", { cmd = "python -m http.server -d docs/build/html 8000" }]
+docs-serve.help = "Clean, build and serve docs on localhost:8000"
+
+[tool.poe.tasks.docs-rebuild]
+sequence = ["docs-clean", "docs"]
