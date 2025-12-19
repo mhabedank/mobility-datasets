@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from mobility_datasets.common.base import BaseDataset, DatasetConfig, Sample
+from mobility_datasets.common.base import DatasetConfig, Sample
 from mobility_datasets.common.coordinates import CoordinateSystem, Transform
 
 

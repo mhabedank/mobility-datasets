@@ -46,7 +46,7 @@ class WaymoDataset(BaseDataset):
         Returns:
             List of Sample objects.
         """
-        samples = []
+        samples: List[Sample] = []
 
         # Check if dataset exists
         if not self.config.root_dir.exists():

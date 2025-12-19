@@ -97,19 +97,23 @@ class Transform:
         points = np.asarray(points)
 
         # Handle both (N, 3) and (3, N) formats
-        if points.shape[0] == 3 and len(points.shape) == 2:
-            # (3, N) format
-            transformed = self.rotation @ points + self.translation[:, np.newaxis]
-        elif len(points.shape) == 2 and points.shape[1] == 3:
-            # (N, 3) format
-            transformed = (self.rotation @ points.T).T + self.translation
-        elif len(points.shape) == 1 and points.shape[0] == 3:
+        if len(points.shape) == 1 and points.shape[0] == 3:
             # Single point (3,) format
+            assert self.rotation is not None
+            assert self.translation is not None
             transformed = self.rotation @ points + self.translation
+        elif len(points.shape) == 2 and points.shape[1] == 3:
+            # (N, 3) format - most common format
+            assert self.rotation is not None
+            assert self.translation is not None
+            transformed = (self.rotation @ points.T).T + self.translation
+        elif len(points.shape) == 2 and points.shape[0] == 3:
+            # (3, N) format
+            assert self.rotation is not None
+            assert self.translation is not None
+            transformed = self.rotation @ points + self.translation[:, np.newaxis]
         else:
-            raise ValueError(
-                f"Points must have shape (N, 3), (3, N), or (3,), got {points.shape}"
-            )
+            raise ValueError(f"Points must have shape (N, 3), (3, N), or (3,), got {points.shape}")
 
         return transformed
 
@@ -119,6 +123,8 @@ class Transform:
         Returns:
             Inverse Transform object.
         """
+        assert self.rotation is not None
+        assert self.translation is not None
         inv_rotation = self.rotation.T
         inv_translation = -inv_rotation @ self.translation
 
@@ -138,6 +144,10 @@ class Transform:
         Returns:
             Composed Transform object.
         """
+        assert self.rotation is not None
+        assert self.translation is not None
+        assert other.rotation is not None
+        assert other.translation is not None
         composed_rotation = other.rotation @ self.rotation
         composed_translation = other.rotation @ self.translation + other.translation
 

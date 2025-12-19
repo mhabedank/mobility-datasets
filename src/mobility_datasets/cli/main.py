@@ -11,7 +11,6 @@ from mobility_datasets.kitti.dataset import KITTIDataset
 from mobility_datasets.nuscenes.dataset import NuScenesDataset
 from mobility_datasets.waymo.dataset import WaymoDataset
 
-
 DATASET_CLASSES = {
     "kitti": KITTIDataset,
     "nuscenes": NuScenesDataset,
@@ -51,9 +50,7 @@ def dataset() -> None:
     type=click.Path(path_type=Path),
     help="Output directory for downloaded files (defaults to root-dir)",
 )
-def download(
-    dataset_name: str, root_dir: Path, split: str, output_dir: Optional[Path]
-) -> None:
+def download(dataset_name: str, root_dir: Path, split: str, output_dir: Optional[Path]) -> None:
     """Download a dataset.
 
     DATASET_NAME: Name of the dataset (kitti, nuscenes, or waymo)
@@ -73,7 +70,7 @@ def download(
         click.echo(f"✓ Download instructions provided for {dataset_name}")
     except Exception as e:
         click.echo(f"✗ Error: {e}", err=True)
-        raise click.Abort()
+        raise click.Abort() from e
 
 
 @dataset.command()
@@ -156,7 +153,7 @@ def info(dataset_name: str, root_dir: Path, split: str, format: str) -> None:
             click.echo(json.dumps(info_dict, indent=2))
         else:
             # Text format
-            click.echo(f"\nDataset Information:\n")
+            click.echo("\nDataset Information:\n")
             click.echo("=" * 60)
             for key, value in info_dict.items():
                 click.echo(f"{key}: {value}")
@@ -164,7 +161,7 @@ def info(dataset_name: str, root_dir: Path, split: str, format: str) -> None:
 
     except Exception as e:
         click.echo(f"✗ Error: {e}", err=True)
-        raise click.Abort()
+        raise click.Abort() from e
 
 
 if __name__ == "__main__":
