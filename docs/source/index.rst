@@ -1,20 +1,37 @@
 ================================================================================
-mobility-datasets
+Mobility Datasets Documentation
 ================================================================================
 
 Python library for downloading, loading, and working with autonomous driving
-and mobility datasets.
+and mobility datasets like KITTI, nuScenes, and Waymo.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Getting Started
 
-   overview
-   cli
-   api
-   data_dictionary
+   quickstart/index
 
-Indices and tables
+.. toctree::
+   :maxdepth: 2
+   :caption: User Guides
+
+   guides/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Command-Line Interface
+
+   cli/index
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference
+
+   api/index
+
+---
+
+Indices and Tables
 ==================
 
 * :ref:`genindex`
