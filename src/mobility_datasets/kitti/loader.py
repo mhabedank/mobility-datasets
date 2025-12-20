@@ -2,7 +2,7 @@
 
 import zipfile
 from pathlib import Path
-from typing import List
+from typing import Dict, List
 
 import requests
 from tqdm import tqdm
@@ -264,3 +264,97 @@ class KITTIDownloader:
         if not keep_zip:
             zip_path.unlink()
             print(f"✓ Removed {filename}")
+
+    def health_check(self) -> Dict[str, bool]:
+        """
+        Check availability of all KITTI dataset files on S3.
+
+        Performs HTTP HEAD requests to verify that all dataset files are
+        accessible without downloading them. Useful for verifying download
+        URLs before attempting large downloads or in integration tests.
+
+        Returns
+        -------
+        Dict[str, bool]
+            Dictionary mapping component names to their availability status.
+            True if file exists and is accessible (HTTP 200), False otherwise.
+
+        Examples
+        --------
+        Check availability before downloading:
+
+        >>> from mobility_datasets.kitti.loader import KITTIDownloader
+        >>> downloader = KITTIDownloader()
+        >>> status = downloader.health_check()
+        Checking KITTI dataset availability on S3...
+        Base URL: https://s3.eu-central-1.amazonaws.com/avg-kitti/
+        ----------------------------------------
+        ✓ oxts            : data_tracking_oxts.zip (8.1 MB)
+        ✓ calib           : data_tracking_calib.zip (0.1 MB)
+        ✓ label           : data_tracking_label_2.zip (2.2 MB)
+        ✓ image_left      : data_tracking_image_2.zip (15000.0 MB)
+        ✓ image_right     : data_tracking_image_3.zip (14000.0 MB)
+        ✓ velodyne        : data_tracking_velodyne.zip (35000.0 MB)
+        ----------------------------------------
+        Summary: 6/6 files available
+
+        >>> print(status)
+        {'oxts': True, 'calib': True, 'label': True, ...}
+
+        >>> if all(status.values()):
+        ...     downloader.download(["oxts", "calib"])
+
+        Only download if files are available:
+
+        >>> status = downloader.health_check()
+        >>> available_components = [k for k, v in status.items() if v]
+        >>> downloader.download(available_components)
+
+        Notes
+        -----
+        This method only checks if files exist and are accessible via HTTP HEAD.
+        It does not verify file integrity or completeness.
+
+        Network errors or temporary unavailability will result in False status
+        for affected components.
+
+        The method has a 10-second timeout per file check.
+
+        See Also
+        --------
+        download : Download dataset components
+        download_all : Download all available components
+        """
+        print("Checking KITTI dataset availability on S3...")
+        print(f"Base URL: {self.BASE_URL}")
+        print("-" * 60)
+
+        status = {}
+
+        for component, filename in self.AVAILABLE_FILES.items():
+            url = self.BASE_URL + filename
+
+            try:
+                response = requests.head(url, timeout=10)
+
+                if response.status_code == 200:
+                    # Extract file size from Content-Length header
+                    size_bytes = int(response.headers.get("content-length", 0))
+                    size_mb = size_bytes / (1024 * 1024)
+
+                    print(f"✓ {component:15s}: {filename:40s} ({size_mb:.1f} MB)")
+                    status[component] = True
+                else:
+                    print(f"✗ {component:15s}: {filename:40s} (HTTP {response.status_code})")
+                    status[component] = False
+
+            except requests.exceptions.RequestException as e:
+                print(f"✗ {component:15s}: {filename:40s} (Error: {type(e).__name__})")
+                status[component] = False
+
+        print("-" * 60)
+        available = sum(status.values())
+        total = len(status)
+        print(f"Summary: {available}/{total} files available")
+
+        return status
