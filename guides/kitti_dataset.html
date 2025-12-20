@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KITTI Dataset Overview &mdash; Mobility Datasets 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Command-Line Interface" href="../cli/index.html" />
+    <link rel="prev" title="User Guides" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Mobility Datasets
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/index.html">Quick Start</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guides</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User Guides</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#available-guides">Available Guides</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#kitti-dataset">KITTI Dataset</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">KITTI Dataset Overview</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#coming-soon">Coming Soon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#contributing-guides">Contributing Guides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Command-Line Interface</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../cli/index.html">Command-Line Interface</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Mobility Datasets</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">User Guides</a></li>
+      <li class="breadcrumb-item active">KITTI Dataset Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/guides/kitti_dataset.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="kitti-dataset-overview">
+<h1>KITTI Dataset Overview<a class="headerlink" href="#kitti-dataset-overview" title="Link to this heading"></a></h1>
+<p>The KITTI Vision Benchmark Suite is one of the most influential datasets for autonomous driving research, providing synchronized multi-modal sensor data for various computer vision and robotics tasks.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#dataset-information" id="id4">Dataset Information</a></p>
+<ul>
+<li><p><a class="reference internal" href="#overview" id="id5">Overview</a></p></li>
+<li><p><a class="reference internal" href="#sensor-suite" id="id6">Sensor Suite</a></p></li>
+<li><p><a class="reference internal" href="#available-benchmarks" id="id7">Available Benchmarks</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#licensing-and-citation" id="id8">Licensing and Citation</a></p>
+<ul>
+<li><p><a class="reference internal" href="#license" id="id9">License</a></p></li>
+<li><p><a class="reference internal" href="#required-citations" id="id10">Required Citations</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#dataset-structure" id="id11">Dataset Structure</a></p>
+<ul>
+<li><p><a class="reference internal" href="#directory-organization" id="id12">Directory Organization</a></p></li>
+<li><p><a class="reference internal" href="#odometry-sequences" id="id13">Odometry Sequences</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#data-formats" id="id14">Data Formats</a></p>
+<ul>
+<li><p><a class="reference internal" href="#ground-truth-poses-dataset-poses" id="id15">Ground Truth Poses (<code class="docutils literal notranslate"><span class="pre">dataset/poses/</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#oxts-gps-imu-data-raw-data-oxts" id="id16">OXTS GPS/IMU Data (<code class="docutils literal notranslate"><span class="pre">raw_data/.../oxts/</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#velodyne-lidar-raw-data-velodyne-points" id="id17">Velodyne LiDAR (<code class="docutils literal notranslate"><span class="pre">raw_data/.../velodyne_points/</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#timestamps" id="id18">Timestamps</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#oxts-data-dictionary" id="id19">OXTS Data Dictionary</a></p>
+<ul>
+<li><p><a class="reference internal" href="#coordinate-systems" id="id20">Coordinate Systems</a></p></li>
+<li><p><a class="reference internal" href="#field-descriptions" id="id21">Field Descriptions</a></p></li>
+<li><p><a class="reference internal" href="#reading-oxts-data" id="id22">Reading OXTS Data</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#data-access" id="id23">Data Access</a></p>
+<ul>
+<li><p><a class="reference internal" href="#official-downloads" id="id24">Official Downloads</a></p></li>
+<li><p><a class="reference internal" href="#available-downloads" id="id25">Available Downloads</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#see-also" id="id26">See Also</a></p></li>
+</ul>
+</nav>
+<p>—</p>
+<section id="dataset-information">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Dataset Information</a><a class="headerlink" href="#dataset-information" title="Link to this heading"></a></h2>
+<section id="overview">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Overview</a><a class="headerlink" href="#overview" title="Link to this heading"></a></h3>
+<p>The KITTI (Karlsruhe Institute of Technology and Toyota Technological Institute at Chicago) dataset was created to advance computer vision and robotic algorithms for autonomous driving. It contains real-world traffic scenarios recorded in and around Karlsruhe, Germany.</p>
+<p><strong>Key Characteristics:</strong></p>
+<ul class="simple">
+<li><p><strong>Recording Platform:</strong> Modified VW Passat B6 station wagon</p></li>
+<li><p><strong>Total Duration:</strong> ~6 hours of driving data</p></li>
+<li><p><strong>Recording Frequency:</strong> 10-100 Hz depending on sensor</p></li>
+<li><p><strong>Data Volume:</strong> &gt;50 GB (raw data significantly larger)</p></li>
+<li><p><strong>Environments:</strong> Urban, suburban, rural, and highway scenarios</p></li>
+<li><p><strong>Recording Dates:</strong> September 26, 28, 29, 30, 2011 and October 3, 2011</p></li>
+</ul>
+</section>
+<section id="sensor-suite">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Sensor Suite</a><a class="headerlink" href="#sensor-suite" title="Link to this heading"></a></h3>
+<p>The recording platform was equipped with:</p>
+<p><strong>Cameras:</strong></p>
+<ul class="simple">
+<li><p>2× PointGray Flea2 grayscale cameras (1392×512 px, global shutter)</p></li>
+<li><p>2× PointGray Flea2 color cameras (1392×512 px, global shutter)</p></li>
+<li><p>4× Edmund Optics lenses (4mm, ~90° horizontal FOV, ~35° vertical ROI)</p></li>
+<li><p>Stereo baseline: ~54 cm for both grayscale and color pairs</p></li>
+<li><p>Frame rate: ~10 Hz (triggered by Velodyne)</p></li>
+</ul>
+<p><strong>3D LiDAR:</strong></p>
+<ul class="simple">
+<li><p>1× Velodyne HDL-64E rotating 3D laser scanner</p></li>
+<li><p>64 beams, 0.09° angular resolution</p></li>
+<li><p>Rotation speed: 10 Hz</p></li>
+<li><p>Range: 120 m</p></li>
+<li><p>Accuracy: 2 cm distance</p></li>
+<li><p>Point cloud density: ~100,000 points/scan (~1.3M points/second)</p></li>
+<li><p>Field of view: 360° horizontal, 26.8° vertical</p></li>
+</ul>
+<p><strong>GPS/IMU:</strong></p>
+<ul class="simple">
+<li><p>1× OXTS RT3003 inertial navigation system</p></li>
+<li><p>6-axis IMU (3-axis gyroscope + 3-axis accelerometer)</p></li>
+<li><p>Frequency: 100 Hz</p></li>
+<li><p>GPS: L1/L2 RTK (Real-Time Kinematic) corrections</p></li>
+<li><p>Position accuracy: &lt;10 cm (with RTK), 0.02 m resolution</p></li>
+<li><p>Orientation accuracy: 0.1° resolution</p></li>
+</ul>
+</section>
+<section id="available-benchmarks">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Available Benchmarks</a><a class="headerlink" href="#available-benchmarks" title="Link to this heading"></a></h3>
+<p>The KITTI dataset supports multiple computer vision tasks:</p>
+<ul class="simple">
+<li><p><strong>Stereo Vision</strong> (2012/2015): 194/200 stereo pairs with ground truth disparities</p></li>
+<li><p><strong>Optical Flow</strong> (2012/2015): Semi-dense ground truth for motion estimation</p></li>
+<li><p><strong>Visual Odometry/SLAM:</strong> 22 sequences (11 training, 11 test) with accurate trajectories</p></li>
+<li><p><strong>Object Detection/Tracking:</strong> 7,481 training + 7,518 test images with 3D bounding boxes</p></li>
+<li><p><strong>Semantic Segmentation:</strong> Pixel-level and instance-level annotations</p></li>
+<li><p><strong>Depth Prediction/Completion:</strong> LiDAR-based depth maps</p></li>
+<li><p><strong>Road/Lane Detection:</strong> Road surface segmentation</p></li>
+</ul>
+<p>For sensor fusion applications, the <strong>Odometry Benchmark</strong> is most relevant as it provides:</p>
+<ul class="simple">
+<li><p>Ground truth 6-DOF poses from RTK-GPS/IMU</p></li>
+<li><p>Raw GPS/IMU measurements (OXTS data)</p></li>
+<li><p>Synchronized camera images</p></li>
+<li><p>LiDAR point clouds</p></li>
+</ul>
+<p>—</p>
+</section>
+</section>
+<section id="licensing-and-citation">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Licensing and Citation</a><a class="headerlink" href="#licensing-and-citation" title="Link to this heading"></a></h2>
+<section id="license">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">License</a><a class="headerlink" href="#license" title="Link to this heading"></a></h3>
+<p>The KITTI dataset is distributed under the <strong>Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License</strong> (CC BY-NC-SA 3.0).</p>
+<p>This means:</p>
+<ul class="simple">
+<li><p>✓ <strong>Attribution:</strong> You must cite the original authors</p></li>
+<li><p>✓ <strong>Share-Alike:</strong> Derivative works must use the same license</p></li>
+<li><p>✗ <strong>Non-Commercial:</strong> Commercial use is not permitted</p></li>
+<li><p>✓ <strong>Academic Use:</strong> Freely available for research and education</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The KITTI dataset is <strong>made available for academic use only</strong>. Commercial applications require permission from the dataset creators.</p>
+</div>
+</section>
+<section id="required-citations">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Required Citations</a><a class="headerlink" href="#required-citations" title="Link to this heading"></a></h3>
+<p>When using the KITTI dataset, you must cite the appropriate papers:</p>
+<p><strong>For Odometry/Stereo/Flow/Object Detection/Tracking:</strong></p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">Geiger2012CVPR</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Andreas Geiger and Philip Lenz and Raquel Urtasun}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Are we ready for Autonomous Driving?</span>
+<span class="s">           The KITTI Vision Benchmark Suite}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">booktitle</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Conference on Computer Vision and</span>
+<span class="s">               Pattern Recognition (CVPR)}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2012}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>For Raw Dataset:</strong></p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">Geiger2013IJRR</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Andreas Geiger and Philip Lenz and</span>
+<span class="s">            Christoph Stiller and Raquel Urtasun}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{Vision meets Robotics: The KITTI Dataset}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">journal</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{International Journal of Robotics Research (IJRR)}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">{2013}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Official Website:</strong> <a class="reference external" href="http://www.cvlibs.net/datasets/kitti/">http://www.cvlibs.net/datasets/kitti/</a></p>
+<p>—</p>
+</section>
+</section>
+<section id="dataset-structure">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Dataset Structure</a><a class="headerlink" href="#dataset-structure" title="Link to this heading"></a></h2>
+<section id="directory-organization">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Directory Organization</a><a class="headerlink" href="#directory-organization" title="Link to this heading"></a></h3>
+<p>The KITTI dataset is organized into two main components:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>kitti/
+├── dataset/                    # Processed benchmark data
+│   ├── poses/                  # Ground truth poses (odometry)
+│   │   ├── 00.txt              # Sequence 00 poses
+│   │   ├── 01.txt              # Sequence 01 poses
+│   │   └── ...                 # Sequences 02-10
+│   └── sequences/              # Odometry sequences
+│       ├── 00/                 # Sequence 00
+│       │   ├── image_0/        # Left grayscale camera
+│       │   ├── image_1/        # Right grayscale camera
+│       │   ├── image_2/        # Left color camera
+│       │   ├── image_3/        # Right color camera
+│       │   ├── calib.txt       # Calibration data
+│       │   └── times.txt       # Frame timestamps
+│       └── 01/                 # Sequence 01
+│           └── ...
+│
+└── raw_data/                   # Raw sensor data
+    └── 2011_10_03/             # Recording date
+        ├── 2011_10_03_drive_0027_sync/  # Drive (→ Sequence 00)
+        │   ├── image_00/       # Cameras
+        │   ├── image_01/
+        │   ├── image_02/
+        │   ├── image_03/
+        │   ├── oxts/           # GPS/IMU data (100 Hz)
+        │   │   ├── data/
+        │   │   │   ├── 0000000000.txt
+        │   │   │   └── ...
+        │   │   ├── dataformat.txt
+        │   │   └── timestamps.txt
+        │   └── velodyne_points/ # LiDAR scans
+        ├── 2011_10_03_drive_0042_sync/  # Drive (→ Sequence 01)
+        └── calib_*.txt         # Calibration files
+</pre></div>
+</div>
+</section>
+<section id="odometry-sequences">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Odometry Sequences</a><a class="headerlink" href="#odometry-sequences" title="Link to this heading"></a></h3>
+<p>The odometry benchmark contains 22 sequences (00-21):</p>
+<ul class="simple">
+<li><p><strong>Training sequences:</strong> 00-10 (ground truth available)</p></li>
+<li><p><strong>Test sequences:</strong> 11-21 (ground truth withheld for evaluation)</p></li>
+</ul>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Odometry Sequence Details</span><a class="headerlink" href="#id2" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 10.0%" />
+<col style="width: 30.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
+<col style="width: 30.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Seq</p></th>
+<th class="head"><p>Raw Data Drive</p></th>
+<th class="head"><p>Frames</p></th>
+<th class="head"><p>Distance</p></th>
+<th class="head"><p>Environment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>00</p></td>
+<td><p>2011_10_03_drive_0027</p></td>
+<td><p>4,541</p></td>
+<td><p>3.7 km</p></td>
+<td><p>Residential</p></td>
+</tr>
+<tr class="row-odd"><td><p>01</p></td>
+<td><p>2011_10_03_drive_0042</p></td>
+<td><p>1,101</p></td>
+<td><p>1.1 km</p></td>
+<td><p>Highway</p></td>
+</tr>
+<tr class="row-even"><td><p>02</p></td>
+<td><p>2011_10_03_drive_0034</p></td>
+<td><p>4,661</p></td>
+<td><p>5.1 km</p></td>
+<td><p>Urban + Residential</p></td>
+</tr>
+<tr class="row-odd"><td><p>03</p></td>
+<td><p>2011_09_26_drive_0067</p></td>
+<td><p>801</p></td>
+<td><p>0.6 km</p></td>
+<td><p>Residential</p></td>
+</tr>
+<tr class="row-even"><td><p>04</p></td>
+<td><p>2011_09_30_drive_0016</p></td>
+<td><p>271</p></td>
+<td><p>0.4 km</p></td>
+<td><p>Road</p></td>
+</tr>
+<tr class="row-odd"><td><p>05</p></td>
+<td><p>2011_09_30_drive_0018</p></td>
+<td><p>2,761</p></td>
+<td><p>2.2 km</p></td>
+<td><p>Residential</p></td>
+</tr>
+<tr class="row-even"><td><p>06</p></td>
+<td><p>2011_09_30_drive_0020</p></td>
+<td><p>1,101</p></td>
+<td><p>1.2 km</p></td>
+<td><p>Residential</p></td>
+</tr>
+<tr class="row-odd"><td><p>07</p></td>
+<td><p>2011_09_30_drive_0027</p></td>
+<td><p>1,101</p></td>
+<td><p>0.7 km</p></td>
+<td><p>Residential</p></td>
+</tr>
+<tr class="row-even"><td><p>08</p></td>
+<td><p>2011_09_30_drive_0028</p></td>
+<td><p>4,071</p></td>
+<td><p>3.4 km</p></td>
+<td><p>Urban + Residential</p></td>
+</tr>
+<tr class="row-odd"><td><p>09</p></td>
+<td><p>2011_09_30_drive_0033</p></td>
+<td><p>1,591</p></td>
+<td><p>1.7 km</p></td>
+<td><p>Residential</p></td>
+</tr>
+<tr class="row-even"><td><p>10</p></td>
+<td><p>2011_09_30_drive_0034</p></td>
+<td><p>1,201</p></td>
+<td><p>0.9 km</p></td>
+<td><p>Residential</p></td>
+</tr>
+</tbody>
+</table>
+<p>—</p>
+</section>
+</section>
+<section id="data-formats">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Data Formats</a><a class="headerlink" href="#data-formats" title="Link to this heading"></a></h2>
+<section id="ground-truth-poses-dataset-poses">
+<h3><a class="toc-backref" href="#id15" role="doc-backlink">Ground Truth Poses (<code class="docutils literal notranslate"><span class="pre">dataset/poses/</span></code>)</a><a class="headerlink" href="#ground-truth-poses-dataset-poses" title="Link to this heading"></a></h3>
+<p><strong>File Format:</strong> Plain text files (e.g., <code class="docutils literal notranslate"><span class="pre">00.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">01.txt</span></code>)</p>
+<p><strong>Content:</strong> One 3×4 transformation matrix per line (12 values)</p>
+<p><strong>Structure:</strong> <code class="docutils literal notranslate"><span class="pre">[R</span> <span class="pre">|</span> <span class="pre">t]</span></code> where:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">R</span></code>: 3×3 rotation matrix (orientation)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">t</span></code>: 3×1 translation vector (position)</p></li>
+</ul>
+<p><strong>Format per line:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>r11 r12 r13 tx r21 r22 r23 ty r31 r32 r33 tz
+</pre></div>
+</div>
+<p><strong>Example (Frame 0 - Start position):</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1.000000e+00 9.043680e-12 2.326809e-11 5.551115e-17 ...
+</pre></div>
+</div>
+<p>Represents the matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}T_0 = \begin{bmatrix}
+1.0 &amp; 0.0 &amp; 0.0 &amp; 0.0 \\
+0.0 &amp; 1.0 &amp; 0.0 &amp; 0.0 \\
+0.0 &amp; 0.0 &amp; 1.0 &amp; 0.0
+\end{bmatrix}\end{split}\]</div>
+<p><strong>Coordinate System:</strong></p>
+<ul class="simple">
+<li><p><strong>X:</strong> Right</p></li>
+<li><p><strong>Y:</strong> Down</p></li>
+<li><p><strong>Z:</strong> Forward</p></li>
+</ul>
+<p><strong>Accuracy:</strong> &lt;10 cm (RTK-GPS corrected)</p>
+<p><strong>Frequency:</strong> ~10 Hz (matches camera frame rate)</p>
+</section>
+<section id="oxts-gps-imu-data-raw-data-oxts">
+<h3><a class="toc-backref" href="#id16" role="doc-backlink">OXTS GPS/IMU Data (<code class="docutils literal notranslate"><span class="pre">raw_data/.../oxts/</span></code>)</a><a class="headerlink" href="#oxts-gps-imu-data-raw-data-oxts" title="Link to this heading"></a></h3>
+<p><strong>Location:</strong> <code class="docutils literal notranslate"><span class="pre">raw_data/{date}/{drive}_sync/oxts/data/</span></code></p>
+<p><strong>File Format:</strong> Plain text files, one per frame (e.g., <code class="docutils literal notranslate"><span class="pre">0000000000.txt</span></code>)</p>
+<p><strong>Content:</strong> 30 space-separated values per line</p>
+<p><strong>Frequency:</strong> 100 Hz (resampled to ~10 Hz for synchronized data)</p>
+<p><strong>Accuracy:</strong>
+- Position: 0.02 m (RTK-GPS)
+- Orientation: 0.1°</p>
+<p>See <a class="reference internal" href="#oxts-data-dictionary"><span class="std std-ref">OXTS Data Dictionary</span></a> for detailed field descriptions.</p>
+</section>
+<section id="velodyne-lidar-raw-data-velodyne-points">
+<h3><a class="toc-backref" href="#id17" role="doc-backlink">Velodyne LiDAR (<code class="docutils literal notranslate"><span class="pre">raw_data/.../velodyne_points/</span></code>)</a><a class="headerlink" href="#velodyne-lidar-raw-data-velodyne-points" title="Link to this heading"></a></h3>
+<p><strong>File Format:</strong> Binary files (<code class="docutils literal notranslate"><span class="pre">*.bin</span></code>)</p>
+<p><strong>Content:</strong> (x, y, z, reflectance) point cloud</p>
+<p><strong>Data Type:</strong> 4× <code class="docutils literal notranslate"><span class="pre">float32</span></code> (4 bytes each = 16 bytes per point)</p>
+<p><strong>Structure:</strong> Flat array <code class="docutils literal notranslate"><span class="pre">[x0,</span> <span class="pre">y0,</span> <span class="pre">z0,</span> <span class="pre">r0,</span> <span class="pre">x1,</span> <span class="pre">y1,</span> <span class="pre">z1,</span> <span class="pre">r1,</span> <span class="pre">...]</span></code></p>
+<p><strong>Point Count:</strong> ~100,000 points per scan</p>
+<p><strong>Reading in Python:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Read point cloud</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="s1">&#39;0000000000.bin&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">points</span> <span class="o">=</span> <span class="n">points</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># Shape: (N, 4)</span>
+
+<span class="c1"># Extract components</span>
+<span class="n">xyz</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">]</span>        <span class="c1"># 3D coordinates</span>
+<span class="n">reflectance</span> <span class="o">=</span> <span class="n">points</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span> <span class="c1"># Intensity values</span>
+</pre></div>
+</div>
+<p><strong>Coordinate System:</strong></p>
+<ul class="simple">
+<li><p><strong>X:</strong> Forward</p></li>
+<li><p><strong>Y:</strong> Left</p></li>
+<li><p><strong>Z:</strong> Up</p></li>
+</ul>
+</section>
+<section id="timestamps">
+<h3><a class="toc-backref" href="#id18" role="doc-backlink">Timestamps</a><a class="headerlink" href="#timestamps" title="Link to this heading"></a></h3>
+<p><strong>Location:</strong> <code class="docutils literal notranslate"><span class="pre">timestamps.txt</span></code> in each sensor folder</p>
+<p><strong>Format:</strong> One timestamp per line</p>
+<p><strong>Example:</strong></p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2011-10-03 09:47:51.802280320
+2011-10-03 09:47:51.902263040
+...
+</pre></div>
+</div>
+<p><strong>Precision:</strong> Nanosecond accuracy</p>
+<p><strong>Synchronization:</strong>
+- Cameras triggered by Velodyne at ~10 Hz
+- GPS/IMU closest measurement selected from 100 Hz stream</p>
+<p>—</p>
+</section>
+</section>
+<section id="oxts-data-dictionary">
+<span id="id1"></span><h2><a class="toc-backref" href="#id19" role="doc-backlink">OXTS Data Dictionary</a><a class="headerlink" href="#oxts-data-dictionary" title="Link to this heading"></a></h2>
+<p>Each OXTS file contains 30 values representing GPS position, orientation, velocities, accelerations, and sensor metadata.</p>
+<section id="coordinate-systems">
+<h3><a class="toc-backref" href="#id20" role="doc-backlink">Coordinate Systems</a><a class="headerlink" href="#coordinate-systems" title="Link to this heading"></a></h3>
+<p>OXTS data uses two coordinate systems:</p>
+<p><strong>1. Vehicle Body Frame (x, y, z):</strong></p>
+<ul class="simple">
+<li><p><strong>x:</strong> Forward (vehicle front)</p></li>
+<li><p><strong>y:</strong> Left</p></li>
+<li><p><strong>z:</strong> Up (vehicle top)</p></li>
+</ul>
+<p><strong>2. Earth-Surface Tangent Plane (f, l, u):</strong></p>
+<ul class="simple">
+<li><p><strong>f:</strong> Forward (tangent to earth surface)</p></li>
+<li><p><strong>l:</strong> Leftward (parallel to earth surface)</p></li>
+<li><p><strong>u:</strong> Upward (perpendicular to earth surface)</p></li>
+</ul>
+</section>
+<section id="field-descriptions">
+<h3><a class="toc-backref" href="#id21" role="doc-backlink">Field Descriptions</a><a class="headerlink" href="#field-descriptions" title="Link to this heading"></a></h3>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">OXTS Data Fields (30 values per frame)</span><a class="headerlink" href="#id3" title="Link to this table"></a></caption>
+<colgroup>
+<col style="width: 5.0%" />
+<col style="width: 20.0%" />
+<col style="width: 15.0%" />
+<col style="width: 15.0%" />
+<col style="width: 45.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Field Name</p></th>
+<th class="head"><p>Unit</p></th>
+<th class="head"><p>Frame</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lat</span></code></p></td>
+<td><p>deg</p></td>
+<td><p>WGS84</p></td>
+<td><p>Latitude of OXTS unit</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lon</span></code></p></td>
+<td><p>deg</p></td>
+<td><p>WGS84</p></td>
+<td><p>Longitude of OXTS unit</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">alt</span></code></p></td>
+<td><p>m</p></td>
+<td><p>WGS84</p></td>
+<td><p>Altitude above WGS84 ellipsoid</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">roll</span></code></p></td>
+<td><p>rad</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Roll angle (0=level, +left up, −right up), range: [−π, π]</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pitch</span></code></p></td>
+<td><p>rad</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Pitch angle (0=level, +nose up, −nose down), range: [−π, π]</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">yaw</span></code></p></td>
+<td><p>rad</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Heading (0=east, +counterclockwise), range: [−π, π]</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vn</span></code></p></td>
+<td><p>m/s</p></td>
+<td><p>Earth</p></td>
+<td><p>Velocity north</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ve</span></code></p></td>
+<td><p>m/s</p></td>
+<td><p>Earth</p></td>
+<td><p>Velocity east</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vf</span></code></p></td>
+<td><p>m/s</p></td>
+<td><p>Earth</p></td>
+<td><p>Forward velocity (parallel to earth surface)</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vl</span></code></p></td>
+<td><p>m/s</p></td>
+<td><p>Earth</p></td>
+<td><p>Leftward velocity (parallel to earth surface)</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vu</span></code></p></td>
+<td><p>m/s</p></td>
+<td><p>Earth</p></td>
+<td><p>Upward velocity (perpendicular to earth surface)</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ax</span></code></p></td>
+<td><p>m/s²</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Acceleration in x (forward direction)</p></td>
+</tr>
+<tr class="row-even"><td><p>13</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ay</span></code></p></td>
+<td><p>m/s²</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Acceleration in y (left direction)</p></td>
+</tr>
+<tr class="row-odd"><td><p>14</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">az</span></code></p></td>
+<td><p>m/s²</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Acceleration in z (up direction)</p></td>
+</tr>
+<tr class="row-even"><td><p>15</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">af</span></code></p></td>
+<td><p>m/s²</p></td>
+<td><p>Earth</p></td>
+<td><p>Forward acceleration</p></td>
+</tr>
+<tr class="row-odd"><td><p>16</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">al</span></code></p></td>
+<td><p>m/s²</p></td>
+<td><p>Earth</p></td>
+<td><p>Leftward acceleration</p></td>
+</tr>
+<tr class="row-even"><td><p>17</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">au</span></code></p></td>
+<td><p>m/s²</p></td>
+<td><p>Earth</p></td>
+<td><p>Upward acceleration</p></td>
+</tr>
+<tr class="row-odd"><td><p>18</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wx</span></code></p></td>
+<td><p>rad/s</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Angular rate around x (roll rate)</p></td>
+</tr>
+<tr class="row-even"><td><p>19</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wy</span></code></p></td>
+<td><p>rad/s</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Angular rate around y (pitch rate)</p></td>
+</tr>
+<tr class="row-odd"><td><p>20</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wz</span></code></p></td>
+<td><p>rad/s</p></td>
+<td><p>Vehicle</p></td>
+<td><p>Angular rate around z (yaw rate)</p></td>
+</tr>
+<tr class="row-even"><td><p>21</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wf</span></code></p></td>
+<td><p>rad/s</p></td>
+<td><p>Earth</p></td>
+<td><p>Angular rate around forward axis</p></td>
+</tr>
+<tr class="row-odd"><td><p>22</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wl</span></code></p></td>
+<td><p>rad/s</p></td>
+<td><p>Earth</p></td>
+<td><p>Angular rate around leftward axis</p></td>
+</tr>
+<tr class="row-even"><td><p>23</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">wu</span></code></p></td>
+<td><p>rad/s</p></td>
+<td><p>Earth</p></td>
+<td><p>Angular rate around upward axis</p></td>
+</tr>
+<tr class="row-odd"><td><p>24</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pos_accuracy</span></code></p></td>
+<td><p>m</p></td>
+<td><p>—</p></td>
+<td><p>Position accuracy (north/east)</p></td>
+</tr>
+<tr class="row-even"><td><p>25</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vel_accuracy</span></code></p></td>
+<td><p>m/s</p></td>
+<td><p>—</p></td>
+<td><p>Velocity accuracy (north/east)</p></td>
+</tr>
+<tr class="row-odd"><td><p>26</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">navstat</span></code></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Navigation status (quality indicator)</p></td>
+</tr>
+<tr class="row-even"><td><p>27</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">numsats</span></code></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Number of satellites tracked</p></td>
+</tr>
+<tr class="row-odd"><td><p>28</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">posmode</span></code></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Position mode of primary GPS receiver</p></td>
+</tr>
+<tr class="row-even"><td><p>29</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">velmode</span></code></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Velocity mode of primary GPS receiver</p></td>
+</tr>
+<tr class="row-odd"><td><p>30</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">orimode</span></code></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>Orientation mode of IMU</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Missing Data:</strong> Communication outages (~1 second) are linearly interpolated, with fields 28-30 set to <code class="docutils literal notranslate"><span class="pre">-1</span></code> to indicate missing information.</p>
+</div>
+</section>
+<section id="reading-oxts-data">
+<h3><a class="toc-backref" href="#id22" role="doc-backlink">Reading OXTS Data</a><a class="headerlink" href="#reading-oxts-data" title="Link to this heading"></a></h3>
+<p><strong>Python Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Read single OXTS measurement</span>
+<span class="n">oxts_file</span> <span class="o">=</span> <span class="s1">&#39;raw_data/2011_10_03/drive_0027_sync/oxts/data/0000000000.txt&#39;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">oxts_file</span><span class="p">)</span>
+
+<span class="c1"># Extract specific fields</span>
+<span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">alt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">roll</span><span class="p">,</span> <span class="n">pitch</span><span class="p">,</span> <span class="n">yaw</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">az</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">11</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">12</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span>  <span class="c1"># Vehicle frame</span>
+<span class="n">wx</span><span class="p">,</span> <span class="n">wy</span><span class="p">,</span> <span class="n">wz</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">17</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">18</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="mi">19</span><span class="p">]</span>  <span class="c1"># Angular rates</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Position: </span><span class="si">{</span><span class="n">lat</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">°, </span><span class="si">{</span><span class="n">lon</span><span class="si">:</span><span class="s2">.6f</span><span class="si">}</span><span class="s2">°, </span><span class="si">{</span><span class="n">alt</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">m&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Orientation: roll=</span><span class="si">{</span><span class="n">roll</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, pitch=</span><span class="si">{</span><span class="n">pitch</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, yaw=</span><span class="si">{</span><span class="n">yaw</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IMU acc: (</span><span class="si">{</span><span class="n">ax</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">ay</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">az</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">) m/s²&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>—</p>
+</section>
+</section>
+<section id="data-access">
+<h2><a class="toc-backref" href="#id23" role="doc-backlink">Data Access</a><a class="headerlink" href="#data-access" title="Link to this heading"></a></h2>
+<section id="official-downloads">
+<h3><a class="toc-backref" href="#id24" role="doc-backlink">Official Downloads</a><a class="headerlink" href="#official-downloads" title="Link to this heading"></a></h3>
+<p><strong>Primary Source:</strong> <a class="reference external" href="http://www.cvlibs.net/datasets/kitti/">http://www.cvlibs.net/datasets/kitti/</a></p>
+<p><strong>AWS S3 (Public Access):</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List available data</span>
+aws<span class="w"> </span>s3<span class="w"> </span>ls<span class="w"> </span>--no-sign-request<span class="w"> </span>s3://avg-kitti/
+
+<span class="c1"># Download specific sequences</span>
+aws<span class="w"> </span>s3<span class="w"> </span>sync<span class="w"> </span>--no-sign-request<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>s3://avg-kitti/data_odometry_poses/dataset/poses/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>./kitti/dataset/poses/
+</pre></div>
+</div>
+<p><strong>Registration Required:</strong> Yes (free, for academic use tracking)</p>
+</section>
+<section id="available-downloads">
+<h3><a class="toc-backref" href="#id25" role="doc-backlink">Available Downloads</a><a class="headerlink" href="#available-downloads" title="Link to this heading"></a></h3>
+<p>For sensor fusion applications, download:</p>
+<ol class="arabic simple">
+<li><p><strong>Odometry Ground Truth Poses</strong> (~1 MB)
+- Contains: 3×4 pose matrices for sequences 00-10</p></li>
+<li><p><strong>Odometry Sequences</strong> (~52 GB for all 22 sequences)
+- Contains: Camera images, calibration, timestamps</p></li>
+<li><p><strong>Raw Data</strong> (varies by sequence, ~4-10 GB each)
+- Contains: OXTS (GPS/IMU), Velodyne LiDAR, cameras
+- Download specific dates/drives as needed</p></li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Start with <strong>Sequence 00</strong> (~4 GB raw data) for initial development and testing. It provides a good balance of duration (7.5 min) and scenario complexity (residential area).</p>
+</div>
+<p>—</p>
+</section>
+</section>
+<section id="see-also">
+<h2><a class="toc-backref" href="#id26" role="doc-backlink">See Also</a><a class="headerlink" href="#see-also" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><span class="xref std std-doc">../quickstart/02_download_data</span> - Step-by-step download instructions</p></li>
+<li><p><span class="xref std std-doc">coordinate_systems</span> - Understanding KITTI coordinate frames</p></li>
+<li><p><span class="xref std std-doc">kitti_workflow</span> - Complete workflow for sensor fusion</p></li>
+</ul>
+<p><strong>External Resources:</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.cvlibs.net/datasets/kitti/setup.php">KITTI Official Documentation</a></p></li>
+<li><p><a class="reference external" href="https://github.com/utiasSTARS/pykitti">PyKITTI Library</a> - Python tools for KITTI</p></li>
+<li><p><a class="reference external" href="http://www.cvlibs.net/publications/Geiger2012CVPR.pdf">KITTI Odometry Benchmark Paper</a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="User Guides" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../cli/index.html" class="btn btn-neutral float-right" title="Command-Line Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, Martin Habedank.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
