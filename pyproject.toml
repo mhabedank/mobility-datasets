@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mobility-datasets"
-version = "0.1.0"
+version = "0.1.2"
 description = "Python library for downloading, loading, and working with autonomous driving and mobility datasets"
 authors = ["Martin Habedank, martin.habedank@gmail.com"]
 license = "MIT"
@@ -14,12 +14,10 @@ classifiers = [
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
@@ -58,7 +56,7 @@ mds = "mobility_datasets.cli.main:cli"
 
 [tool.black]
 line-length = 100
-target-version = ['py38', 'py39', 'py310', 'py311']
+target-version = ['py311', 'py312', 'py313', 'py314']
 include = '\.pyi?$'
 extend-exclude = '''
 /(
@@ -96,7 +94,7 @@ ignore = [
 "__init__.py" = ["F401"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
@@ -151,15 +149,18 @@ build-backend = "poetry.core.masonry.api"
 
 
 [tool.poe.tasks]
-docs = "sphinx-build -b html docs/source docs/build/html"
-docs-clean = "rm -rf docs/build/"
-
-test = "pytest"
-test-verbose = "pytest -v"
-test-cov = "pytest --cov=mobility_datasets --cov-report=term-missing"
-
-docs-serve.sequence = ["docs-clean", "docs", { cmd = "python -m http.server -d docs/build/html 8000" }]
+docs.shell = "sphinx-build -b html docs/source docs/build/html"
+docs.help = "Generating the docs via Sphinx"
+docs-clean.shell = "rm -rf docs/build/"
+docs-clean.help = "Cleaning the docs by removing the content of the build folder"
+docs-rebuild.sequence = ["docs-clean", "docs"]
+docs-rebuild.help = "Clean and build docs"
+docs-serve.sequence = ["docs-rebuild", { cmd = "python -m http.server -d docs/build/html 8000" }]
 docs-serve.help = "Clean, build and serve docs on localhost:8000"
 
-[tool.poe.tasks.docs-rebuild]
-sequence = ["docs-clean", "docs"]
+test.shell = "pytest"
+test.help = "Run pytest"
+test-verbose.shell = "pytest -v"
+test-verbose.help = "Run pytest verbosely"
+test-cov.shell = "pytest --cov=mobility_datasets --cov-report=term-missing"
+test-cov.help = "Run pytest with coverage and report"
