@@ -114,16 +114,6 @@ module = [
 ]
 ignore_missing_imports = true
 
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = "-ra -q --strict-markers --cov=mobility_datasets --cov-report=term-missing"
-testpaths = [
-    "tests",
-]
-pythonpath = [
-    "src"
-]
-
 [tool.coverage.run]
 source = ["src"]
 omit = [
@@ -164,3 +154,9 @@ test-verbose.shell = "pytest -v"
 test-verbose.help = "Run pytest verbosely"
 test-cov.shell = "pytest --cov=mobility_datasets --cov-report=term-missing"
 test-cov.help = "Run pytest with coverage and report"
+test-fast.shell = "pytest -m 'not integration and not slow'"
+test-fast.help = "Run only fast unit tests (skip integration and slow)"
+test-integration.shell = "pytest -m integration -v"
+test-integration.help = "Run integration tests"
+test-smoke.shell = "pytest -m 'integration and not slow' -v"
+test-smoke.help = "Run quick integration tests (smoke test)"
