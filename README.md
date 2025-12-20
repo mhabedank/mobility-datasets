@@ -59,9 +59,9 @@ downloader.download_all(keep_zip=False)
 
 | Dataset | Status | Components |
 |---------|--------|------------|
-| **KITTI** | ✅ Available | oxts, poses, calib, sequences |
-| **nuScenes** | 🚧 Planned | - |
-| **Waymo** | 🚧 Planned | - |
+| **KITTI** | Available | oxts, poses, calib, sequences |
+| **nuScenes** | Planned | - |
+| **Waymo** | Planned | - |
 
 ---
 
@@ -80,7 +80,7 @@ downloader.download_all(keep_zip=False)
 
 ## Documentation
 
-Full documentation available at: [Read the Docs](#) *(coming soon)*
+Full documentation available [here](https://mhabedank.github.io/mobility-datasets/)
 
 - **Quick Start**: Get running in 5 minutes
 - **CLI Reference**: Complete command-line guide
