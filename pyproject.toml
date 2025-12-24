@@ -160,3 +160,10 @@ test-integration.shell = "pytest -m integration -v"
 test-integration.help = "Run integration tests"
 test-smoke.shell = "pytest -m 'integration and not slow' -v"
 test-smoke.help = "Run quick integration tests (smoke test)"
+
+# ============================================================================
+# Developer Utilities
+# ============================================================================
+
+download-file.script = "mobility_datasets.scripts.download_and_verify:main"
+download-file.help = "Download file and get size + MD5. Usage: poe download-file <url> <output_dir>"

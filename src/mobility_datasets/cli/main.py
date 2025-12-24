@@ -42,11 +42,11 @@ def dataset():
 
 
 @dataset.command()
-@click.argument("name", type=click.Choice(["kitti"]))
+@click.argument("name", type=click.Choice(["kitti", "nuscenes"]))
 @click.option(
     "--components",
     "-c",
-    help="Components to download (comma-separated). Available: oxts, calib, poses, sequences",
+    help="Components to download (comma-separated). Available: oxts, calib, poses, sequences (KITTI) or metadata, lidar_keyframes, cam_front, etc. (nuScenes)",
 )
 @click.option(
     "--all", "download_all", is_flag=True, help="Download all available components for the dataset"
@@ -55,28 +55,39 @@ def dataset():
     "--data-dir", default="./data", help="Target directory for downloads (default: ./data)"
 )
 @click.option(
-    "--keep-zip", is_flag=True, help="Keep compressed archives after extraction (useful for backup)"
+    "--keep-archive",
+    is_flag=True,
+    help="Keep compressed archives after extraction (useful for backup)",
 )
-def download(name, components, download_all, data_dir, keep_zip):
+@click.option(
+    "--version",
+    default="mini",
+    type=click.Choice(["mini", "trainval", "test"]),
+    help="nuScenes version to download (default: mini). Ignored for KITTI.",
+)
+def download(name, components, download_all, data_dir, keep_archive, version):
     """
     Download dataset files from cloud storage.
 
-    This command downloads the specified components of a dataset from AWS S3
-    or other cloud providers. Files are automatically extracted unless --keep-zip
-    is specified.
+    This command downloads the specified components of a dataset from AWS S3,
+    CloudFront, or other cloud providers. Files are automatically extracted
+    unless --keep-archive is specified.
 
     Parameters
     ----------
     name : str
-        Dataset name. Currently supported: 'kitti'
+        Dataset name. Currently supported: 'kitti', 'nuscenes'
     components : str, optional
         Comma-separated list of components to download
     download_all : bool
         If True, downloads all available components
     data_dir : str
         Root directory for dataset storage
-    keep_zip : bool
+    keep_archive : bool
         If True, preserves compressed archives after extraction
+    version : str
+        nuScenes version to download: 'mini', 'trainval', or 'test'.
+        Only applies to nuScenes downloads. Ignored for KITTI.
 
     Raises
     ------
@@ -97,15 +108,28 @@ def download(name, components, download_all, data_dir, keep_zip):
 
         mdb dataset download kitti --components oxts,calib
 
+    Download nuScenes mini dataset:
+
+    .. code-block:: bash
+
+        mdb dataset download nuscenes --all
+
+    Download nuScenes trainval with specific components:
+
+    .. code-block:: bash
+
+        mdb dataset download nuscenes --version trainval --components metadata,lidar_keyframes
+
     Download to custom directory and keep archives:
 
     .. code-block:: bash
 
-        mdb dataset download kitti --all --data-dir /mnt/datasets --keep-zip
+        mdb dataset download kitti --all --data-dir /mnt/datasets --keep-archive
 
     Notes
     -----
     - KITTI dataset is approximately 165 GB when fully downloaded
+    - nuScenes mini is ~10 GB, trainval is ~350 GB, test is ~44 GB
     - Download speed depends on your internet connection
     - Extraction requires additional temporary disk space
 
@@ -120,11 +144,11 @@ def download(name, components, download_all, data_dir, keep_zip):
 
         if download_all:
             click.echo("Downloading all KITTI components...")
-            downloader.download_all(keep_zip=keep_zip)
+            downloader.download_all(keep_zip=keep_archive)
         elif components:
             component_list = [c.strip() for c in components.split(",")]
             click.echo(f"Downloading components: {', '.join(component_list)}")
-            downloader.download(component_list, keep_zip=keep_zip)
+            downloader.download(component_list, keep_zip=keep_archive)
         else:
             click.echo("Error: Specify --components or --all")
             raise click.Abort()

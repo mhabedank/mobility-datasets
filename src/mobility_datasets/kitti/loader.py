@@ -1,24 +1,45 @@
-"""Download KITTI tracking dataset from S3."""
+"""Download KITTI tracking dataset from S3 with resume capability."""
 
+import hashlib
 import zipfile
+from enum import IntEnum
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import requests
 from tqdm import tqdm
 
+from mobility_datasets.config.provider import ConfigProvider, Part
+
+
+class FileStatus(IntEnum):
+    """File validation status enumeration.
+
+    Attributes
+    ----------
+    VALID : int
+        File exists, has correct size, and MD5 checksum matches.
+    MISSING : int
+        File does not exist on disk.
+    PARTIAL : int
+        File exists but size is less than expected (incomplete download).
+    WRONG_MD5 : int
+        File exists with correct size but MD5 checksum does not match.
+    """
+
+    VALID = 1
+    MISSING = 2
+    PARTIAL = 3
+    WRONG_MD5 = 4
+
 
 class KITTIDownloader:
-    """
-    Download KITTI tracking dataset files from AWS S3.
+    """Download KITTI tracking dataset files from AWS S3.
 
     This class handles downloading and extracting KITTI tracking dataset
-    components from the official AWS S3 bucket. It supports selective
-    downloading of specific components (GPS/IMU, calibration, images, etc.)
-    and provides progress tracking for large downloads.
-
-    The downloader automatically creates the target directory if it doesn't
-    exist and can optionally keep or remove ZIP files after extraction.
+    components with support for resuming interrupted downloads. It validates
+    file integrity using MD5 checksums and automatically retries failed
+    downloads with configurable retry limits.
 
     Parameters
     ----------
@@ -29,328 +50,398 @@ class KITTIDownloader:
 
     Attributes
     ----------
-    BASE_URL : str
-        AWS S3 base URL for KITTI dataset files.
-    AVAILABLE_FILES : dict
-        Dictionary mapping component names to their ZIP filenames.
-        Available components: oxts, calib, label, image_left, image_right, velodyne.
     data_dir : pathlib.Path
         Path object pointing to the data directory.
+    config : DatasetConfig
+        Loaded KITTI dataset configuration from YAML.
 
     Examples
     --------
-    Download GPS/IMU and calibration data:
+    Download a specific session with default settings:
 
-    >>> from mobility_datasets.kitti.loader import KITTIDownloader
     >>> downloader = KITTIDownloader(data_dir="./data/kitti")
-    >>> downloader.download(["oxts", "calib"])
-    Downloading data_tracking_oxts.zip...
-    ✓ Downloaded data_tracking_oxts.zip
-    Extracting data_tracking_oxts.zip...
-    ✓ Extracted data_tracking_oxts.zip
-    ✓ Removed data_tracking_oxts.zip
+    >>> downloader.download("raw_data", sessions=["2011_09_26_drive_0001"])
 
-    Download all components and keep ZIP files:
+    Download multiple sessions and keep ZIP files:
 
-    >>> downloader.download_all(keep_zip=True)
-    Downloading 6 components...
+    >>> downloader.download(
+    ...     "raw_data",
+    ...     sessions=["2011_09_26_drive_0001", "2011_09_26_drive_0002"],
+    ...     keep_zip=True
+    ... )
 
-    Notes
-    -----
-    The KITTI tracking dataset contains the following components:
+    Download all sessions in all collections:
 
-    - **oxts** (8 MB): GPS/IMU data at 10-100 Hz
-    - **calib** (0.1 MB): Camera and sensor calibration files
-    - **label** (2.2 MB): Object detection labels
-    - **image_left** (15 GB): Left camera images
-    - **image_right** (14 GB): Right camera images
-    - **velodyne** (35 GB): LiDAR point clouds
-
-    Large components (images, velodyne) may take significant time to download
-    depending on your internet connection.
-
+    >>> downloader.download_all(keep_zip=False)
     """
 
-    BASE_URL = "https://s3.eu-central-1.amazonaws.com/avg-kitti/"
-
-    AVAILABLE_FILES = {
-        "oxts": "data_tracking_oxts.zip",
-        "calib": "data_tracking_calib.zip",
-        "label": "data_tracking_label_2.zip",
-        "image_left": "data_tracking_image_2.zip",
-        "image_right": "data_tracking_image_3.zip",
-        "velodyne": "data_tracking_velodyne.zip",
-    }
-
     def __init__(self, data_dir: str = "./data/kitti"):
-        self.data_dir = Path(data_dir)
-        self.data_dir.mkdir(parents=True, exist_ok=True)
-
-    def download(self, components: List[str], keep_zip: bool = False):
-        """
-        Download and extract specified dataset components.
-
-        Downloads the requested components from AWS S3, extracts them to
-        the data directory, and optionally removes the ZIP files after
-        extraction. Already existing files are skipped.
+        """Initialize the KITTI downloader.
 
         Parameters
         ----------
-        components : List[str]
-            List of component names to download. Valid options are:
-            'oxts', 'calib', 'label', 'image_left', 'image_right', 'velodyne'.
-            Invalid component names will be skipped with a warning message.
+        data_dir : str, optional
+            Target directory for downloads. Default is "./data/kitti".
+        """
+        self.data_dir = Path(data_dir)
+        self.data_dir.mkdir(parents=True, exist_ok=True)
+        self.config = ConfigProvider().get_from_datasource("kitti")
+
+    def download(
+        self,
+        collection_id: str = "raw_data",
+        sessions: Optional[List[str]] = None,
+        keep_zip: bool = False,
+        with_unsynced: bool = False,
+    ):
+        """Download dataset files for specified sessions in a collection.
+
+        Downloads selected sessions with their associated parts (synced, calib,
+        tracklets, and optionally unsynced). Extracts ZIP files and optionally
+        removes them after extraction.
+
+        Parameters
+        ----------
+        collection_id : str, optional
+            Collection ID to download from (e.g., "raw_data", "synced_data").
+            Default is "raw_data".
+        sessions : List[str], optional
+            List of session IDs to download. If None, defaults to
+            ["2011_09_26_drive_0001"]. Sessions that don't exist in the
+            collection are skipped with a warning.
         keep_zip : bool, optional
             If True, keep ZIP files after extraction. If False (default),
-            ZIP files are deleted after successful extraction to save disk space.
+            remove ZIP files to save disk space.
+        with_unsynced : bool, optional
+            If True, also download unsynced_rectified variant. If False
+            (default), only download synced_rectified, calib, and tracklets.
+
+        Returns
+        -------
+        None
+            Prints status messages to console.
 
         Raises
         ------
-        requests.exceptions.RequestException
-            If download fails due to network issues or invalid URL.
-        zipfile.BadZipFile
-            If downloaded file is corrupted or not a valid ZIP archive.
+        None
+            Non-existent collections or sessions are printed as warnings
+            and skipped gracefully.
 
         Examples
         --------
-        Download only GPS/IMU data:
+        Download raw_data collection with 3 sessions:
 
-        >>> downloader = KITTIDownloader()
-        >>> downloader.download(["oxts"])
+        >>> downloader.download(
+        ...     collection_id="raw_data",
+        ...     sessions=["2011_09_26_drive_0001", "2011_09_26_drive_0002"],
+        ...     keep_zip=False
+        ... )
 
-        Download multiple components and keep ZIP files:
+        Download with unsynced variants included:
 
-        >>> downloader.download(["oxts", "calib", "label"], keep_zip=True)
-
-        Invalid component names are handled gracefully:
-
-        >>> downloader.download(["oxts", "invalid_component"])
-        Unknown component: invalid_component
+        >>> downloader.download(
+        ...     "raw_data",
+        ...     sessions=["2011_09_26_drive_0001"],
+        ...     with_unsynced=True
+        ... )
 
         Notes
         -----
-        The method will skip downloading if the ZIP file already exists in
-        the target directory. To re-download, manually delete the existing
-        ZIP file first.
-        """
-        for component in components:
-            if component not in self.AVAILABLE_FILES:
-                print(f"Unknown component: {component}")
-                continue
+        For each session, downloads the following parts in order:
 
-            self._download_file(component)
-            self._unzip_file(component, keep_zip)
+        - unsynced_rectified (if with_unsynced=True)
+        - synced_rectified
+        - calib (calibration files)
+        - tracklets (annotation files)
 
-    def download_all(self, keep_zip: bool = False):
+        Each part is downloaded, validated, and extracted independently.
         """
-        Download and extract all available dataset components.
+        if sessions is None:
+            sessions = ["2011_09_26_drive_0001"]
+
+        collection = self.config.collection_by_id(collection_id)
+
+        if collection is None:
+            print(f"Collection '{collection_id}' not found in config.")
+            return
+
+        valid_sessions = []
+        for session_id in sessions:
+            session = collection.get_session_by_id(session_id)
+            if session is None:
+                print(
+                    f"Session '{session_id}' not found in collection "
+                    f"'{collection_id}'. Skipping."
+                )
+            else:
+                valid_sessions.append(session)
+
+        for session in valid_sessions:
+            print(f"Downloading session: {session.name}")
+
+            if with_unsynced:
+                unsynced = session.get_part_by_id("unsynced_rectified")
+                self._download_part(unsynced)
+                self._unzip_file(unsynced, keep_zip)
+
+            synced = session.get_part_by_id("synced_rectified")
+            calib = session.get_part_by_id("calib")
+            tracklets = session.get_part_by_id("tracklets")
+
+            for part in [synced, calib, tracklets]:
+                self._download_part(part)
+                self._unzip_file(part, keep_zip)
+
+    def download_all(self, keep_zip: bool = False, with_unsynced: bool = False):
+        """Download all sessions from all collections.
 
         Convenience method to download the complete KITTI tracking dataset.
-        This includes all sensor data: GPS/IMU, calibration, labels, stereo
-        images, and LiDAR point clouds.
+        Iterates through all available collections and downloads all sessions
+        within each collection.
 
         Parameters
         ----------
         keep_zip : bool, optional
             If True, keep ZIP files after extraction. If False (default),
-            ZIP files are deleted after successful extraction. Default is False.
+            remove ZIP files after successful extraction.
+        with_unsynced : bool, optional
+            If True, download unsynced_rectified variant for each session.
+            If False (default), only download synced_rectified, calib,
+            and tracklets.
+
+        Returns
+        -------
+        None
+            Prints status messages to console.
 
         Warnings
         --------
-        Downloading all components requires approximately 64 GB of disk space
-        for the ZIP files, plus additional space for extracted data. Ensure
-        sufficient disk space is available before starting the download.
+        Downloading all components requires significant disk space
+        (~170 GB for raw_data collection). Ensure sufficient disk space
+        is available before starting.
 
         Examples
         --------
-        Download complete dataset:
+        Download complete dataset with default settings:
 
-        >>> downloader = KITTIDownloader(data_dir="/mnt/storage/kitti")
+        >>> downloader = KITTIDownloader()
         >>> downloader.download_all()
-        Downloading 6 components...
 
-        Download and preserve ZIP files for backup:
+        Download all with unsynced variants and keep ZIPs:
 
-        >>> downloader.download_all(keep_zip=True)
+        >>> downloader.download_all(keep_zip=True, with_unsynced=True)
 
         Notes
         -----
-        This operation may take several hours depending on your internet
-        connection speed. The download can be safely interrupted and resumed
-        later, as already downloaded files will be skipped.
+        This operation may take several hours depending on internet
+        connection speed and disk I/O performance. The download can be
+        interrupted and resumed later - already downloaded files will
+        be skipped.
 
         See Also
         --------
-        download : Download specific components instead of all
+        download : Download specific sessions
         """
-        components = list(self.AVAILABLE_FILES.keys())
-        print(f"Downloading {len(components)} components...")
-        self.download(components, keep_zip)
 
-    def _download_file(self, component: str):
-        """
-        Download a single component file from S3.
+        for collection in self.config.collections:
 
-        Internal method that handles the HTTP request, progress tracking,
-        and file writing for a single dataset component.
+            session_ids = [session.id for session in collection.sessions]
+            self.download(
+                collection_id=collection.id,
+                sessions=session_ids,
+                keep_zip=keep_zip,
+                with_unsynced=with_unsynced,
+            )
 
-        Parameters
-        ----------
-        component : str
-            Component name (must be a key in AVAILABLE_FILES).
+    def _calculate_md5(self, file_path: Path, chunk_size: int = 8192) -> str:
+        hash_md5 = hashlib.md5()
+        with open(file_path, "rb") as f:
+            for chunk in iter(lambda: f.read(chunk_size), b""):
+                hash_md5.update(chunk)
+        return hash_md5.hexdigest()
 
-        Notes
-        -----
-        This is an internal method and should not be called directly.
-        Use the `download()` or `download_all()` methods instead.
-        """
-        filename = self.AVAILABLE_FILES[component]
-        url = self.BASE_URL + filename
-        output_path = self.data_dir / filename
+    def _validate_file(self, part: Part) -> FileStatus:
+        file_path = self.data_dir / part.download.filename
+
+        if not file_path.exists():
+            return FileStatus.MISSING
+
+        actual_size = file_path.stat().st_size
+        if actual_size != part.download.size_bytes:
+            return FileStatus.PARTIAL
+
+        existing_md5 = self._calculate_md5(file_path)
+        if existing_md5 != part.download.md5:
+            return FileStatus.WRONG_MD5
+
+        return FileStatus.VALID
+
+    def _download_from_start(self, part: Part):
+
+        output_path = self.data_dir / part.download.filename
+        expected_size = part.download.size_bytes
 
         if output_path.exists():
-            print(f"✓ {filename} already exists")
-            return
+            output_path.unlink()
 
-        print(f"Downloading {filename}...")
-
-        response = requests.get(url, stream=True)
+        response = requests.get(part.download.url, stream=True, timeout=10)
         response.raise_for_status()
 
-        total_size = int(response.headers.get("content-length", 0))
+        total_size = int(response.headers.get("content-length", expected_size))
 
         with open(output_path, "wb") as f:
-            with tqdm(total=total_size, unit="B", unit_scale=True, unit_divisor=1024) as pbar:
+            with tqdm(
+                total=total_size,
+                unit="B",
+                unit_scale=True,
+                unit_divisor=1024,
+                desc=part.download.filename,
+            ) as pbar:
                 for chunk in response.iter_content(chunk_size=8192):
                     if chunk:
                         f.write(chunk)
                         pbar.update(len(chunk))
 
-        print(f"✓ Downloaded {filename}")
+    def _download_resume(self, part: Part):
+        output_path = self.data_dir / part.download.filename
+        current_size = output_path.stat().st_size
+        expected_size = part.download.size_bytes
+        url = part.download.url
 
-    def _unzip_file(self, component: str, keep_zip: bool):
-        """
-        Extract a downloaded ZIP file.
-
-        Internal method that extracts the ZIP archive and optionally
-        removes it after successful extraction.
-
-        Parameters
-        ----------
-        component : str
-            Component name (must be a key in AVAILABLE_FILES).
-        keep_zip : bool
-            Whether to keep the ZIP file after extraction.
-
-        Notes
-        -----
-        This is an internal method and should not be called directly.
-        Use the `download()` or `download_all()` methods instead.
-        """
-        filename = self.AVAILABLE_FILES[component]
-        zip_path = self.data_dir / filename
-
-        if not zip_path.exists():
-            print(f"✗ {filename} not found, skipping extraction")
+        # Schritt 1: Prüfe ob Server Range-Requests unterstützt
+        try:
+            head_response = requests.head(url, timeout=10)
+            accepts_ranges = head_response.headers.get("accept-ranges", "").lower() == "bytes"
+        except requests.exceptions.RequestException:
+            print("⚠ Cannot check range support, re-downloading from start...")
+            self._download_from_start(part)
             return
 
-        print(f"Extracting {filename}...")
+        # Schritt 2: Fallback wenn keine Ranges unterstützt
+        if not accepts_ranges:
+            print("⚠ Server does not support partial downloads, re-downloading from start...")
+            self._download_from_start(part)
+            return
+
+        # Schritt 3: Resume-Request mit Range Header
+        headers = {"Range": f"bytes={current_size}-"}
+
+        try:
+            response = requests.get(url, headers=headers, stream=True, timeout=10)
+
+            # 206 = Partial Content (Resume OK)
+            # 200 = OK (Server ignorierte Range, ganze Datei)
+            if response.status_code not in (206, 200):
+                response.raise_for_status()
+
+            # Schritt 4: Fallback wenn Server Range ignorierte
+            if response.status_code == 200:
+                print("⚠ Server returned full file, re-downloading from start...")
+                self._download_from_start(part)
+                return
+
+            # Schritt 5: Fortsetzen (Append Mode!)
+            remaining_bytes = expected_size - current_size
+
+            with open(output_path, "ab") as f:  # Append, nicht overwrite!
+                with tqdm(
+                    total=remaining_bytes,
+                    unit="B",
+                    unit_scale=True,
+                    unit_divisor=1024,
+                    desc=f"{part.download.filename} (resume)",
+                ) as pbar:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        if chunk:
+                            f.write(chunk)
+                            pbar.update(len(chunk))
+
+            if self._validate_file(part) != FileStatus.VALID:
+                print("⚠ Downloaded file is still invalid after resume.")
+                print("⚠ Re-downloading from start...")
+                output_path.unlink()
+                self._download_from_start(part)
+
+        except requests.exceptions.RequestException as e:
+            print(f"⚠ Error during resume: {e}")
+            print("⚠ Re-downloading from start...")
+            self._download_from_start(part)
+
+    def _download_part(self, part: Part, retries: int = 3):
+
+        status = self._validate_file(part)
+
+        if status == FileStatus.VALID:
+            print(f"✓ {part.download.filename} already exists and is ", "valid, skipping download")
+            return
+
+        while status != FileStatus.VALID:
+            if retries <= 0:
+                print(f"✗ Failed to download {part.download.filename} after ", "multiple attempts.")
+                return
+
+            if status == FileStatus.PARTIAL:
+                print(f"✗ {part.download.filename} is partially downloaded, ", "re-downloading")
+                self._download_resume(part)
+
+            elif status == FileStatus.WRONG_MD5:
+                print(f"✗ {part.download.filename} has wrong MD5 checksum, " "re-downloading")
+                self._download_from_start(part)
+
+            elif status == FileStatus.MISSING:
+                print(f"Downloading {part.download.filename}...")
+                self._download_from_start(part)
+
+            status = self._validate_file(part)
+            retries -= 1
+
+    def _unzip_file(self, part: Part, keep_zip: bool):
+        zip_path = self.data_dir / part.download.filename
+
+        if not zip_path.exists():
+            print(f"✗ {part.download.filename} not found, skipping extraction")
+            return
+
+        print(f"Extracting {part.download.filename}...")
 
         with zipfile.ZipFile(zip_path, "r") as zip_ref:
             zip_ref.extractall(self.data_dir)
 
-        print(f"✓ Extracted {filename}")
+        print(f"✓ Extracted {part.download.filename}")
 
         if not keep_zip:
             zip_path.unlink()
-            print(f"✓ Removed {filename}")
+            print(f"✓ Removed {part.download.filename}")
 
     def health_check(self) -> Dict[str, bool]:
-        """
-        Check availability of all KITTI dataset files on S3.
 
-        Performs HTTP HEAD requests to verify that all dataset files are
-        accessible without downloading them. Useful for verifying download
-        URLs before attempting large downloads or in integration tests.
-
-        Returns
-        -------
-        Dict[str, bool]
-            Dictionary mapping component names to their availability status.
-            True if file exists and is accessible (HTTP 200), False otherwise.
-
-        Examples
-        --------
-        Check availability before downloading:
-
-        >>> from mobility_datasets.kitti.loader import KITTIDownloader
-        >>> downloader = KITTIDownloader()
-        >>> status = downloader.health_check()
-        Checking KITTI dataset availability on S3...
-        Base URL: https://s3.eu-central-1.amazonaws.com/avg-kitti/
-        ----------------------------------------
-        ✓ oxts            : data_tracking_oxts.zip (8.1 MB)
-        ✓ calib           : data_tracking_calib.zip (0.1 MB)
-        ✓ label           : data_tracking_label_2.zip (2.2 MB)
-        ✓ image_left      : data_tracking_image_2.zip (15000.0 MB)
-        ✓ image_right     : data_tracking_image_3.zip (14000.0 MB)
-        ✓ velodyne        : data_tracking_velodyne.zip (35000.0 MB)
-        ----------------------------------------
-        Summary: 6/6 files available
-
-        >>> print(status)
-        {'oxts': True, 'calib': True, 'label': True, ...}
-
-        >>> if all(status.values()):
-        ...     downloader.download(["oxts", "calib"])
-
-        Only download if files are available:
-
-        >>> status = downloader.health_check()
-        >>> available_components = [k for k, v in status.items() if v]
-        >>> downloader.download(available_components)
-
-        Notes
-        -----
-        This method only checks if files exist and are accessible via HTTP HEAD.
-        It does not verify file integrity or completeness.
-
-        Network errors or temporary unavailability will result in False status
-        for affected components.
-
-        The method has a 10-second timeout per file check.
-
-        See Also
-        --------
-        download : Download dataset components
-        download_all : Download all available components
-        """
         print("Checking KITTI dataset availability on S3...")
-        print(f"Base URL: {self.BASE_URL}")
         print("-" * 60)
 
         status = {}
 
-        for component, filename in self.AVAILABLE_FILES.items():
-            url = self.BASE_URL + filename
+        for collection in self.config.collections:
+            for session in collection.sessions:
+                for part in session.parts:
 
-            try:
-                response = requests.head(url, timeout=10)
+                    long_id = f"{collection.id}/{session.id}/{part.id}"
+                    try:
+                        response = requests.head(part.download.url, timeout=10)
 
-                if response.status_code == 200:
-                    # Extract file size from Content-Length header
-                    size_bytes = int(response.headers.get("content-length", 0))
-                    size_mb = size_bytes / (1024 * 1024)
+                        if response.status_code == 200:
+                            print(f"✓ {long_id}: {part.download.filename:40s} (Available)")
+                            status[long_id] = True
+                        else:
+                            print(
+                                f"✗ {long_id}: {part.download.filename:40s} (HTTP {response.status_code})"
+                            )
+                            status[long_id] = False
 
-                    print(f"✓ {component:15s}: {filename:40s} ({size_mb:.1f} MB)")
-                    status[component] = True
-                else:
-                    print(f"✗ {component:15s}: {filename:40s} (HTTP {response.status_code})")
-                    status[component] = False
-
-            except requests.exceptions.RequestException as e:
-                print(f"✗ {component:15s}: {filename:40s} (Error: {type(e).__name__})")
-                status[component] = False
+                    except requests.exceptions.RequestException as e:
+                        print(
+                            f"✗ {long_id}: {part.download.filename:40s} (Error: {type(e).__name__})"
+                        )
+                        status[long_id] = False
 
         print("-" * 60)
         available = sum(status.values())

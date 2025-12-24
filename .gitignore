@@ -213,3 +213,4 @@ data/
 docs/build/
 docs/source/_static/
 docs/source/_templates/
+.vscode/settings.json
