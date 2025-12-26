@@ -180,7 +180,7 @@ class KITTIDownloader:
             print(f"Downloading session: {session.name}")
 
             if with_unsynced:
-                unsynced = session.get_part_by_id("unsynced_rectified")
+                unsynced = session.get_part_by_id("unsynced_unrectified")
                 self._download_part(unsynced)
                 self._unzip_file(unsynced, keep_zip)
 
