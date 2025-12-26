@@ -1,159 +1,102 @@
 # src/mobility_datasets/cli/main.py
 """Command-line interface for mobility-datasets."""
 
+from pathlib import Path
+
 import click
 
 
 @click.group()
 def cli():
-    """
-    Mobility Datasets CLI - Download and manage autonomous driving datasets.
-
-    This CLI provides commands to download, manage, and inspect mobility datasets
-    like KITTI, nuScenes, and Waymo. Use the subcommands to interact with specific
-    datasets.
-
-    Examples
-    --------
-    Download all KITTI components:
-
-    .. code-block:: bash
-
-        mdb dataset download kitti --all
-
-    Download specific components:
-
-    .. code-block:: bash
-
-        mdb dataset download kitti --components oxts,calib
-    """
     pass
 
 
 @cli.group()
 def dataset():
-    """
-    Dataset management commands.
-
-    Commands for downloading, listing, and managing datasets. Each dataset
-    has its own set of downloadable components (e.g., GPS data, calibration files).
-    """
     pass
 
 
 @dataset.command()
-@click.argument("name", type=click.Choice(["kitti", "nuscenes"]))
+@click.argument("dataset", type=click.Choice(["kitti"]))
 @click.option(
-    "--components",
+    "--collection",
     "-c",
-    help="Components to download (comma-separated). Available: oxts, calib, poses, sequences (KITTI) or metadata, lidar_keyframes, cam_front, etc. (nuScenes)",
+    default="raw_data",
+    help="Collection to download (e.g., raw_data, synced_data). Default: raw_data",
 )
 @click.option(
-    "--all", "download_all", is_flag=True, help="Download all available components for the dataset"
+    "--sessions",
+    "-s",
+    help="Comma-separated session IDs. If not specified, downloads all sessions.",
 )
 @click.option(
-    "--data-dir", default="./data", help="Target directory for downloads (default: ./data)"
-)
-@click.option(
-    "--keep-archive",
+    "--with-unsynced",
     is_flag=True,
-    help="Keep compressed archives after extraction (useful for backup)",
+    help="Include unsynced_rectified variant (only with KITTI).",
 )
 @click.option(
-    "--version",
-    default="mini",
-    type=click.Choice(["mini", "trainval", "test"]),
-    help="nuScenes version to download (default: mini). Ignored for KITTI.",
+    "--keep-zip",
+    is_flag=True,
+    help="Keep ZIP files after extraction (useful for backup).",
 )
-def download(name, components, download_all, data_dir, keep_archive, version):
+@click.option(
+    "--data-dir",
+    default="./data",
+    help="Target directory for downloads. Default: ./data",
+)
+def download(dataset, collection, sessions, with_unsynced, keep_zip, data_dir):
+    """Download dataset files.
+
+    Examples:
+
+    \b
+    # Download single session from raw_data collection
+    mdb dataset download kitti --collection raw_data --sessions 2011_09_26_drive_0001
+
+    \b
+    # Download all sessions from raw_data
+    mdb dataset download kitti --collection raw_data
+
+    \b
+    # Download multiple specific sessions
+    mdb dataset download kitti -c raw_data -s 2011_09_26_drive_0001,2011_09_26_drive_0002
+
+    \b
+    # Download synced_data collection
+    mdb dataset download kitti --collection synced_data
+
+    \b
+    # Include unsynced variant
+    mdb dataset download kitti --with-unsynced
     """
-    Download dataset files from cloud storage.
-
-    This command downloads the specified components of a dataset from AWS S3,
-    CloudFront, or other cloud providers. Files are automatically extracted
-    unless --keep-archive is specified.
-
-    Parameters
-    ----------
-    name : str
-        Dataset name. Currently supported: 'kitti', 'nuscenes'
-    components : str, optional
-        Comma-separated list of components to download
-    download_all : bool
-        If True, downloads all available components
-    data_dir : str
-        Root directory for dataset storage
-    keep_archive : bool
-        If True, preserves compressed archives after extraction
-    version : str
-        nuScenes version to download: 'mini', 'trainval', or 'test'.
-        Only applies to nuScenes downloads. Ignored for KITTI.
-
-    Raises
-    ------
-    click.Abort
-        If neither --components nor --all is specified
-
-    Examples
-    --------
-    Download all KITTI data:
-
-    .. code-block:: bash
-
-        mdb dataset download kitti --all
-
-    Download only GPS/IMU data and calibration:
-
-    .. code-block:: bash
-
-        mdb dataset download kitti --components oxts,calib
-
-    Download nuScenes mini dataset:
-
-    .. code-block:: bash
-
-        mdb dataset download nuscenes --all
-
-    Download nuScenes trainval with specific components:
-
-    .. code-block:: bash
-
-        mdb dataset download nuscenes --version trainval --components metadata,lidar_keyframes
-
-    Download to custom directory and keep archives:
-
-    .. code-block:: bash
-
-        mdb dataset download kitti --all --data-dir /mnt/datasets --keep-archive
-
-    Notes
-    -----
-    - KITTI dataset is approximately 165 GB when fully downloaded
-    - nuScenes mini is ~10 GB, trainval is ~350 GB, test is ~44 GB
-    - Download speed depends on your internet connection
-    - Extraction requires additional temporary disk space
-
-    See Also
-    --------
-    mdb dataset list : Show available datasets and components
-    """
-    if name == "kitti":
+    if dataset == "kitti":
         from mobility_datasets.kitti.loader import KITTIDownloader
 
-        downloader = KITTIDownloader(data_dir=f"{data_dir}/{name}")
+        data_dir_path = Path(data_dir) / "kitti"
+        downloader = KITTIDownloader(data_dir=str(data_dir_path))
 
-        if download_all:
-            click.echo("Downloading all KITTI components...")
-            downloader.download_all(keep_zip=keep_archive)
-        elif components:
-            component_list = [c.strip() for c in components.split(",")]
-            click.echo(f"Downloading components: {', '.join(component_list)}")
-            downloader.download(component_list, keep_zip=keep_archive)
+        # Parse sessions
+        session_list = None
+        if sessions:
+            session_list = [s.strip() for s in sessions.split(",")]
+
+        click.echo(f"Downloading from collection: {collection}")
+        if session_list:
+            click.echo(f"Sessions: {', '.join(session_list)}")
         else:
-            click.echo("Error: Specify --components or --all")
-            raise click.Abort()
+            click.echo("Sessions: all")
 
-        click.echo("✓ Download complete!")
+        try:
+            downloader.download(
+                collection_id=collection,
+                sessions=session_list,
+                keep_zip=keep_zip,
+                with_unsynced=with_unsynced,
+            )
+            click.echo("✓ Download complete!")
+        except Exception as e:
+            click.echo(f"✗ Download failed: {e}", err=True)
+            raise click.Abort() from None
 
 
 if __name__ == "__main__":

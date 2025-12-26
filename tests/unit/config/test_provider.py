@@ -1,513 +1,910 @@
 """
-Unit tests for config.provider - Dataclasses and ConfigLoader.
+Unit Tests für ConfigProvider - überarbeitete Version.
 
-Location: tests/unit/config/test_provider.py
-
-Focus:
-- Dataclass instantiation and basic functionality
-- ConfigLoader static methods (dict conversion)
-- ConfigLoader YAML parsing
-- Error cases and validation
+Anpassungen:
+1. API-Methoden renamed: *_by_id() statt get_*_by_id()
+2. Neue *_ids() Methoden testen (List aller IDs)
+3. Konsistent mit neuem Pattern: _by_id(), has_*(), get_*_or_raise()
+4. ConfigProvider.list_available_collections() -> DatasetConfig.collection_ids()
+5. Bessere Test-Struktur nach Test Strategy Guideline
 """
+
+from pathlib import Path
 
 import pytest
 import yaml
-from mobility_datasets.config.provider import (
-    Citation,
-    Collection,
-    ConfigLoader,
-    DatasetConfig,
-    DownloadInfo,
-    License,
-    Metadata,
-    Part,
-    Session,
-)
-
-# ============================================================================
-# Dataclass Tests: License
-# ============================================================================
-
-
-class TestLicense:
-    """Test License dataclass."""
-
-    def test_license_creation_minimal(self):
-        """Create License with required fields only."""
-        license_obj = License(name="MIT")
-        assert license_obj.name == "MIT"
-        assert license_obj.url is None
-        assert license_obj.details is None
-
-    def test_license_creation_full(self):
-        """Create License with all fields."""
-        license_obj = License(
-            name="CC BY-NC-SA 3.0",
-            url="https://creativecommons.org/licenses/by-nc-sa/3.0/",
-            details="Non-commercial use only",
-        )
-        assert license_obj.name == "CC BY-NC-SA 3.0"
-        assert license_obj.url == "https://creativecommons.org/licenses/by-nc-sa/3.0/"
-        assert license_obj.details == "Non-commercial use only"
-
-
-# ============================================================================
-# Dataclass Tests: Citation
-# ============================================================================
-
-
-class TestCitation:
-    """Test Citation dataclass."""
-
-    def test_citation_creation_empty(self):
-        """Create Citation with no BibTeX."""
-        citation = Citation()
-        assert citation.bibtex is None
-
-    def test_citation_creation_with_bibtex(self):
-        """Create Citation with BibTeX."""
-        bibtex = "@article{Geiger2013IJRR,author={...}}"
-        citation = Citation(bibtex=bibtex)
-        assert citation.bibtex == bibtex
-
-
-# ============================================================================
-# Dataclass Tests: Metadata
-# ============================================================================
-
-
-class TestMetadata:
-    """Test Metadata dataclass."""
-
-    def test_metadata_creation_without_citation(self):
-        """Create Metadata without citation."""
-        license_obj = License(name="MIT")
-        metadata = Metadata(name="KITTI", description="A dataset", license=license_obj)
-        assert metadata.name == "KITTI"
-        assert metadata.citation is None
-
-    def test_metadata_creation_with_citation(self):
-        """Create Metadata with citation."""
-        license_obj = License(name="MIT")
-        citation = Citation(bibtex="@article{...}")
-        metadata = Metadata(
-            name="KITTI", description="A dataset", license=license_obj, citation=citation
-        )
-        assert metadata.citation.bibtex == "@article{...}"
-
-
-# ============================================================================
-# Dataclass Tests: DownloadInfo
-# ============================================================================
-
-
-class TestDownloadInfo:
-    """Test DownloadInfo dataclass."""
-
-    def test_download_info_creation(self):
-        """Create DownloadInfo with all fields."""
-        info = DownloadInfo(
-            url="https://example.com/file.zip",
-            filename="file.zip",
-            size_bytes=1000000,
-            md5="abc123",
-            format="zip",
-        )
-        assert info.url == "https://example.com/file.zip"
-        assert info.filename == "file.zip"
-        assert info.size_bytes == 1000000
-        assert info.md5 == "abc123"
-        assert info.format == "zip"
-
-
-# ============================================================================
-# Dataclass Tests: Part
-# ============================================================================
-
-
-class TestPart:
-    """Test Part dataclass."""
-
-    def test_part_creation(self):
-        """Create Part."""
-        download_info = DownloadInfo(
-            url="https://example.com/file.zip",
-            filename="file.zip",
-            size_bytes=1000000,
-            md5="abc123",
-            format="zip",
-        )
-        part = Part(id="synced_rectified", name="Synced + Rectified", download=download_info)
-        assert part.id == "synced_rectified"
-        assert part.name == "Synced + Rectified"
-        assert part.download.filename == "file.zip"
-
-
-# ============================================================================
-# Dataclass Tests: Session
-# ============================================================================
-
-
-class TestSession:
-    """Test Session dataclass and methods."""
-
-    def test_session_creation_empty_parts(self):
-        """Create Session with no parts."""
-        session = Session(
-            id="2011_09_26_drive_0001",
-            name="2011_09_26_drive_0001",
-            date="2011-09-26",
-            location_type="City",
-            parts=[],
-        )
-        assert session.id == "2011_09_26_drive_0001"
-        assert len(session.parts) == 0
-
-    def test_session_creation_with_parts(self):
-        """Create Session with multiple parts."""
-        download_info = DownloadInfo(
-            url="https://example.com/file.zip",
-            filename="file.zip",
-            size_bytes=1000,
-            md5="abc123",
-            format="zip",
-        )
-        part1 = Part(id="part1", name="Part 1", download=download_info)
-        part2 = Part(id="part2", name="Part 2", download=download_info)
-
-        session = Session(
-            id="session1",
-            name="Session 1",
-            date="2011-09-26",
-            location_type="City",
-            parts=[part1, part2],
-        )
-        assert len(session.parts) == 2
-
-    def test_get_part_by_id_found(self):
-        """Get part by ID when it exists."""
-        download_info = DownloadInfo(
-            url="https://example.com/file.zip",
-            filename="file.zip",
-            size_bytes=1000,
-            md5="abc123",
-            format="zip",
-        )
-        part = Part(id="synced", name="Synced", download=download_info)
-        session = Session(
-            id="session1", name="Session 1", date="2011-09-26", location_type="City", parts=[part]
-        )
-
-        found = session.get_part_by_id("synced")
-        assert found is not None
-        assert found.id == "synced"
-
-    def test_get_part_by_id_not_found(self):
-        """Get part by ID when it doesn't exist."""
-        session = Session(
-            id="session1", name="Session 1", date="2011-09-26", location_type="City", parts=[]
-        )
-
-        found = session.get_part_by_id("nonexistent")
-        assert found is None
-
-
-# ============================================================================
-# Dataclass Tests: Collection
-# ============================================================================
-
-
-class TestCollection:
-    """Test Collection dataclass and methods."""
-
-    def test_collection_creation_empty_sessions(self):
-        """Create Collection with no sessions."""
-        collection = Collection(
-            id="raw_data", name="Raw Data", description="Raw sensor data", sessions=[]
-        )
-        assert collection.id == "raw_data"
-        assert len(collection.sessions) == 0
-
-    def test_get_session_by_id_found(self):
-        """Get session by ID when it exists."""
-        session = Session(
-            id="2011_09_26_drive_0001",
-            name="2011_09_26_drive_0001",
-            date="2011-09-26",
-            location_type="City",
-            parts=[],
-        )
-        collection = Collection(
-            id="raw_data", name="Raw Data", description="Raw sensor data", sessions=[session]
-        )
-
-        found = collection.get_session_by_id("2011_09_26_drive_0001")
-        assert found is not None
-        assert found.id == "2011_09_26_drive_0001"
-
-    def test_get_session_by_id_not_found(self):
-        """Get session by ID when it doesn't exist."""
-        collection = Collection(
-            id="raw_data", name="Raw Data", description="Raw sensor data", sessions=[]
-        )
-
-        found = collection.get_session_by_id("nonexistent")
-        assert found is None
-
-
-# ============================================================================
-# Dataclass Tests: DatasetConfig
-# ============================================================================
-
-
-class TestDatasetConfig:
-    """Test DatasetConfig dataclass and methods."""
-
-    def test_dataset_config_creation(self):
-        """Create DatasetConfig."""
-        license_obj = License(name="MIT")
-        metadata = Metadata(name="KITTI", description="A dataset", license=license_obj)
-        config = DatasetConfig(metadata=metadata, collections=[])
-
-        assert config.metadata.name == "KITTI"
-        assert len(config.collections) == 0
-
-    def test_collection_by_id_found(self):
-        """Get collection by ID when it exists."""
-        license_obj = License(name="MIT")
-        metadata = Metadata(name="KITTI", description="A dataset", license=license_obj)
-        collection = Collection(
-            id="raw_data", name="Raw Data", description="Raw sensor data", sessions=[]
-        )
-        config = DatasetConfig(metadata=metadata, collections=[collection])
-
-        found = config.collection_by_id("raw_data")
-        assert found is not None
-        assert found.id == "raw_data"
-
-    def test_collection_by_id_not_found(self):
-        """Get collection by ID when it doesn't exist."""
-        license_obj = License(name="MIT")
-        metadata = Metadata(name="KITTI", description="A dataset", license=license_obj)
-        config = DatasetConfig(metadata=metadata, collections=[])
-
-        found = config.collection_by_id("nonexistent")
-        assert found is None
-
-    def test_id_in_collections_exists(self):
-        """Check if collection ID exists."""
-        license_obj = License(name="MIT")
-        metadata = Metadata(name="KITTI", description="A dataset", license=license_obj)
-        collection = Collection(
-            id="raw_data", name="Raw Data", description="Raw sensor data", sessions=[]
-        )
-        config = DatasetConfig(metadata=metadata, collections=[collection])
-
-        assert config.id_in_collections("raw_data") is True
-
-    def test_id_in_collections_not_exists(self):
-        """Check if collection ID doesn't exist."""
-        license_obj = License(name="MIT")
-        metadata = Metadata(name="KITTI", description="A dataset", license=license_obj)
-        config = DatasetConfig(metadata=metadata, collections=[])
-
-        assert config.id_in_collections("nonexistent") is False
-
-
-# ============================================================================
-# ConfigLoader Tests: Dict Conversion
-# ============================================================================
-
-
-class TestConfigLoaderDictConversion:
-    """Test ConfigLoader static methods for dict → dataclass conversion."""
-
-    def test_dict_to_download_info_minimal(self):
-        """Convert minimal dict to DownloadInfo."""
-        data = {"url": "https://example.com/file.zip", "filename": "file.zip"}
-        info = ConfigLoader._dict_to_download_info(data)
-
-        assert info.url == "https://example.com/file.zip"
-        assert info.filename == "file.zip"
-        assert info.size_bytes == 0
-        assert info.md5 == "unknown"
-        assert info.format == "zip"
-
-    def test_dict_to_download_info_full(self):
-        """Convert full dict to DownloadInfo."""
-        data = {
-            "url": "https://example.com/file.zip",
-            "filename": "file.zip",
-            "size_bytes": 1000000,
-            "md5": "abc123def456",
-            "format": "zip",
-        }
-        info = ConfigLoader._dict_to_download_info(data)
-
-        assert info.size_bytes == 1000000
-        assert info.md5 == "abc123def456"
-
-    def test_dict_to_license(self):
-        """Convert dict to License."""
-        data = {
-            "name": "CC BY-NC-SA 3.0",
-            "url": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
-        }
-        license_obj = ConfigLoader._dict_to_license(data)
-
-        assert license_obj.name == "CC BY-NC-SA 3.0"
-        assert license_obj.url == "https://creativecommons.org/licenses/by-nc-sa/3.0/"
-
-    def test_dict_to_citation(self):
-        """Convert dict to Citation."""
-        data = {"bibtex": "@article{...}"}
-        citation = ConfigLoader._dict_to_citation(data)
-
-        assert citation.bibtex == "@article{...}"
-
-    def test_dict_to_metadata(self):
-        """Convert dict to Metadata."""
-        data = {
-            "name": "KITTI",
-            "description": "A dataset",
-            "license": {
-                "name": "CC BY-NC-SA 3.0",
-                "url": "https://creativecommons.org/licenses/by-nc-sa/3.0/",
+from mobility_datasets.config.provider import ConfigProvider, DatasetConfig
+
+# =============================================================================
+# UNIT TESTS: ConfigProvider Initialization
+# =============================================================================
+
+
+class TestConfigProviderInitUnit:
+    """Test: ConfigProvider Initialisierung."""
+
+    def test_init_accepts_custom_config_dir(self, tmp_path):
+        """
+        Test: __init__ akzeptiert custom config_dir Parameter.
+
+        Purpose: ConfigProvider kann auf custom Directories zeigen.
+        """
+        # Setup: Echtes temp directory
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+
+        # Verifizierung
+        assert provider.config_dir == config_dir
+
+    def test_init_uses_default_config_dir(self):
+        """
+        Test: Falls kein config_dir gegeben, wird default verwendet.
+
+        Purpose: Default Directory existiert und ist korrekt.
+        If fails: Default config directory is misconfigured.
+        """
+        # Execution (ohne Parameter)
+        provider = ConfigProvider()
+
+        # Verifizierung: Default sollte auf src/mobility_datasets/config zeigen
+        assert provider.config_dir.exists()
+        assert provider.config_dir.name == "config"
+
+    def test_init_rejects_nonexistent_directory(self, tmp_path):
+        """
+        Test: __init__ schlägt fehl wenn config_dir nicht existiert.
+
+        Purpose: Früher Error wenn Konfiguration fehlerhaft ist.
+        If fails: ConfigProvider doesn't validate directory existence.
+        """
+        # Setup: Verzeichnis existiert nicht
+        nonexistent_dir = tmp_path / "nonexistent" / "path"
+
+        # Execution & Verifizierung
+        with pytest.raises(ValueError, match="Config directory does not exist"):
+            ConfigProvider(config_dir=nonexistent_dir)
+
+    def test_init_converts_string_to_path(self, tmp_path):
+        """
+        Test: __init__ konvertiert string zu Path.
+
+        Purpose: Benutzer kann strings oder Paths übergeben.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+        config_dir_str = str(config_dir)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir_str)
+
+        # Verifizierung: sollte Path sein
+        assert isinstance(provider.config_dir, Path)
+        assert provider.config_dir == config_dir
+
+
+# =============================================================================
+# UNIT TESTS: list_datasources
+# =============================================================================
+
+
+class TestListDatasourcesUnit:
+    """Test: list_datasources() Methode."""
+
+    def test_list_datasources_finds_yaml_files(self, tmp_path):
+        """
+        Test: Findet alle *.yaml Dateien im config_dir.
+
+        Purpose: Automatische Erkennung neuer Datasources.
+        If fails: YAML discovery is broken.
+        """
+        # Setup: Erstelle fake YAML Dateien
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+        (config_dir / "kitti.yaml").touch()
+        (config_dir / "nuscenes.yaml").touch()
+        (config_dir / "waymo.yaml").touch()
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        result = provider.list_datasources()
+
+        # Verifizierung
+        assert set(result) == {"kitti", "nuscenes", "waymo"}
+
+    def test_list_datasources_ignores_non_yaml_files(self, tmp_path):
+        """
+        Test: Ignoriert Dateien die nicht *.yaml sind.
+
+        Purpose: Keine Fehler wenn andere Dateien im config_dir sind.
+        """
+        # Setup: Mix aus YAML und anderen Dateien
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+        (config_dir / "kitti.yaml").touch()
+        (config_dir / "README.md").touch()
+        (config_dir / "nuscenes.yaml").touch()
+        (config_dir / ".gitkeep").touch()
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        result = provider.list_datasources()
+
+        # Verifizierung
+        assert set(result) == {"kitti", "nuscenes"}
+        assert "README" not in result
+
+    def test_list_datasources_empty_if_none(self, tmp_path):
+        """
+        Test: Gibt leere List zurück wenn keine YAML Dateien.
+
+        Purpose: Keine Exception, sondern sauberes Handling.
+        """
+        # Setup: Leeres Verzeichnis
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        result = provider.list_datasources()
+
+        # Verifizierung
+        assert result == []
+
+    @pytest.mark.parametrize("datasource_count", [1, 5, 10])
+    def test_list_datasources_scales(self, tmp_path, datasource_count):
+        """
+        Test: Funktioniert auch mit vielen Datasources.
+
+        Purpose: Keine Performance-Probleme später.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+        for i in range(datasource_count):
+            (config_dir / f"dataset_{i:02d}.yaml").touch()
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        result = provider.list_datasources()
+
+        # Verifizierung
+        assert len(result) == datasource_count
+
+
+# =============================================================================
+# UNIT TESTS: get_from_datasource
+# =============================================================================
+
+
+class TestGetFromDatasourceUnit:
+    """Test: get_from_datasource() Methode."""
+
+    def test_get_loads_yaml_file(self, tmp_path):
+        """
+        Test: Lädt und parst YAML Datei korrekt.
+
+        Purpose: ConfigProvider kann echte YAML lesen.
+        If fails: YAML loading is broken.
+        """
+        # Setup: Echte YAML Datei
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_yaml = {
+            "metadata": {
+                "name": "Test Dataset",
+                "description": "Test",
+                "license": {"name": "MIT"},
             },
-            "citation": {"bibtex": "@article{Geiger2013IJRR,...}"},
+            "collections": [],
         }
-        metadata = ConfigLoader._dict_to_metadata(data)
 
-        assert metadata.name == "KITTI"
-        assert metadata.license.name == "CC BY-NC-SA 3.0"
-        assert metadata.citation.bibtex == "@article{Geiger2013IJRR,...}"
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_yaml, f)
 
-    def test_dict_to_part(self):
-        """Convert dict to Part."""
-        data = {
-            "id": "synced_rectified",
-            "name": "Synced + Rectified",
-            "download": {
-                "url": "https://example.com/file.zip",
-                "filename": "file.zip",
-                "size_bytes": 1000000,
-                "md5": "abc123",
-                "format": "zip",
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+
+        # Verifizierung
+        assert isinstance(config, DatasetConfig)
+        assert config.metadata.name == "Test Dataset"
+
+    def test_get_raises_if_datasource_not_found(self, tmp_path):
+        """
+        Test: Fehler wenn Datasource nicht existiert.
+
+        Purpose: Klare Error Messages für User.
+        If fails: Missing datasources don't raise proper error.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        # Execution & Verifizierung
+        provider = ConfigProvider(config_dir=config_dir)
+        with pytest.raises(FileNotFoundError, match="unknown"):
+            provider.get_from_datasource("unknown")
+
+    def test_get_handles_malformed_yaml(self, tmp_path):
+        """
+        Test: Fehler bei ungültiger YAML Syntax.
+
+        Purpose: Aussagekräftige Error Messages.
+        """
+        # Setup: Ungültige YAML
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        with open(config_dir / "bad.yaml", "w") as f:
+            f.write("invalid: [yaml: {syntax")
+
+        # Execution & Verifizierung
+        provider = ConfigProvider(config_dir=config_dir)
+        with pytest.raises((yaml.YAMLError, ValueError)):
+            provider.get_from_datasource("bad")
+
+    def test_get_validates_config_structure(self, tmp_path):
+        """
+        Test: Validiert dass YAML die richtige Struktur hat.
+
+        Purpose: Ungültige Configs werden erkannt.
+        If fails: Invalid configs are not caught.
+        """
+        # Setup: YAML mit falscher Struktur (fehlt description und license)
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        bad_structure = {"metadata": {"name": "test"}, "collections": []}
+
+        with open(config_dir / "bad_structure.yaml", "w") as f:
+            yaml.dump(bad_structure, f)
+
+        # Execution & Verifizierung
+        provider = ConfigProvider(config_dir=config_dir)
+        with pytest.raises(ValueError, match="Invalid config structure"):
+            provider.get_from_datasource("bad_structure")
+
+
+# =============================================================================
+# UNIT TESTS: DatasetConfig.collection_ids()
+# =============================================================================
+
+
+class TestDatasetConfigCollectionIdsUnit:
+    """Test: DatasetConfig.collection_ids() Methode."""
+
+    def test_collection_ids_returns_all_ids(self, tmp_path):
+        """
+        Test: Gibt alle Collection IDs für ein Dataset.
+
+        Purpose: Use Case 1 - User entdeckt verfügbare Collections.
+        If fails: Collection discovery is broken.
+        """
+        # Setup: YAML mit Collections
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
             },
-        }
-        part = ConfigLoader._dict_to_part(data)
-
-        assert part.id == "synced_rectified"
-        assert part.download.filename == "file.zip"
-
-    def test_dict_to_session(self):
-        """Convert dict to Session."""
-        data = {
-            "id": "2011_09_26_drive_0001",
-            "name": "2011_09_26_drive_0001",
-            "date": "2011-09-26",
-            "location_type": "City",
-            "parts": [
-                {
-                    "id": "synced",
-                    "name": "Synced",
-                    "download": {
-                        "url": "https://example.com/file.zip",
-                        "filename": "file.zip",
-                        "size_bytes": 1000,
-                        "md5": "abc123",
-                        "format": "zip",
-                    },
-                }
-            ],
-        }
-        session = ConfigLoader._dict_to_session(data)
-
-        assert session.id == "2011_09_26_drive_0001"
-        assert len(session.parts) == 1
-        assert session.parts[0].id == "synced"
-
-    def test_dict_to_collection(self):
-        """Convert dict to Collection."""
-        data = {
-            "id": "raw_data",
-            "name": "Raw Data",
-            "description": "Raw sensor data",
-            "sessions": [
-                {
-                    "id": "2011_09_26_drive_0001",
-                    "name": "2011_09_26_drive_0001",
-                    "date": "2011-09-26",
-                    "location_type": "City",
-                    "parts": [],
-                }
-            ],
-        }
-        collection = ConfigLoader._dict_to_collection(data)
-
-        assert collection.id == "raw_data"
-        assert len(collection.sessions) == 1
-
-    def test_dict_to_config(self):
-        """Convert dict to DatasetConfig."""
-        data = {
-            "metadata": {"name": "KITTI", "description": "A dataset", "license": {"name": "MIT"}},
             "collections": [
                 {
                     "id": "raw_data",
-                    "name": "Raw Data",
-                    "description": "Raw sensor data",
+                    "name": "Raw",
+                    "description": "Raw",
                     "sessions": [],
+                },
+                {
+                    "id": "synced",
+                    "name": "Synced",
+                    "description": "Synced",
+                    "sessions": [],
+                },
+                {
+                    "id": "tracking",
+                    "name": "Tracking",
+                    "description": "Tracking",
+                    "sessions": [],
+                },
+            ],
+        }
+
+        with open(config_dir / "kitti.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("kitti")
+        result = config.collection_ids()
+
+        # Verifizierung
+        assert result == ["raw_data", "synced", "tracking"]
+
+    def test_collection_ids_empty_if_none(self, tmp_path):
+        """
+        Test: Gibt leere List wenn keine Collections.
+
+        Purpose: Graceful Handling.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Empty",
+                "description": "Empty",
+                "license": {"name": "MIT"},
+            },
+            "collections": [],
+        }
+
+        with open(config_dir / "empty.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("empty")
+        result = config.collection_ids()
+
+        # Verifizierung
+        assert result == []
+
+    @pytest.mark.parametrize("collection_count", [1, 5, 10])
+    def test_collection_ids_scales(self, tmp_path, collection_count):
+        """
+        Test: Funktioniert auch mit vielen Collections.
+
+        Purpose: Keine Performance-Probleme später.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        collections = [
+            {
+                "id": f"collection_{i:02d}",
+                "name": f"Collection {i}",
+                "description": f"Desc {i}",
+                "sessions": [],
+            }
+            for i in range(collection_count)
+        ]
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": collections,
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        result = config.collection_ids()
+
+        # Verifizierung
+        assert len(result) == collection_count
+
+
+# =============================================================================
+# UNIT TESTS: DatasetConfig.collection_by_id()
+# =============================================================================
+
+
+class TestDatasetConfigCollectionByIdUnit:
+    """Test: DatasetConfig.collection_by_id() Methode."""
+
+    def test_collection_by_id_finds_collection(self, tmp_path):
+        """
+        Test: Findet Collection nach ID.
+
+        Purpose: Validierung von User Input.
+        If fails: Collection lookup fails.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [],
+                },
+                {
+                    "id": "synced",
+                    "name": "Synced",
+                    "description": "Synced",
+                    "sessions": [],
+                },
+            ],
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        collection = config.get_collection_by_id("raw_data")
+
+        # Verifizierung
+        assert collection is not None
+        assert collection.id == "raw_data"
+
+    def test_collection_by_id_returns_none_if_not_found(self, tmp_path):
+        """
+        Test: Gibt None zurück wenn Collection nicht existiert.
+
+        Purpose: Graceful Error Handling.
+        If fails: Missing collections don't return None.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [],
+                },
+            ],
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        result = config.get_collection_by_id("unknown")
+
+        # Verifizierung
+        assert result is None
+
+
+# =============================================================================
+# UNIT TESTS: DatasetConfig.has_collection()
+# =============================================================================
+
+
+class TestDatasetConfigHasCollectionUnit:
+    """Test: DatasetConfig.has_collection() Methode."""
+
+    def test_has_collection_returns_true_if_exists(self, tmp_path):
+        """
+        Test: Gibt True zurück wenn Collection existiert.
+
+        Purpose: Validation before operations.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [],
+                },
+            ],
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        result = config.has_collection("raw_data")
+
+        # Verifizierung
+        assert result is True
+
+    def test_has_collection_returns_false_if_not_exists(self, tmp_path):
+        """
+        Test: Gibt False zurück wenn Collection nicht existiert.
+
+        Purpose: Graceful validation.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [],
+                },
+            ],
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        result = config.has_collection("unknown")
+
+        # Verifizierung
+        assert result is False
+
+
+# =============================================================================
+# UNIT TESTS: DatasetConfig.get_collection_or_raise()
+# =============================================================================
+
+
+class TestDatasetConfigGetCollectionOrRaiseUnit:
+    """Test: DatasetConfig.get_collection_or_raise() Methode."""
+
+    def test_get_collection_or_raise_returns_collection(self, tmp_path):
+        """
+        Test: Gibt Collection zurück wenn existiert.
+
+        Purpose: Fail-fast for user input.
+        If fails: Collection retrieval broken.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [],
+                },
+            ],
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        collection = config.get_collection_or_raise("raw_data")
+
+        # Verifizierung
+        assert collection.id == "raw_data"
+
+    def test_get_collection_or_raise_raises_if_not_found(self, tmp_path):
+        """
+        Test: Raises ValueError wenn Collection nicht existiert.
+
+        Purpose: Clear error messages for user input.
+        If fails: Missing collections don't raise.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [],
+                },
+            ],
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution & Verifizierung
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        with pytest.raises(ValueError, match="Collection with ID 'unknown' not found"):
+            config.get_collection_or_raise("unknown")
+
+
+# =============================================================================
+# UNIT TESTS: Collection.session_ids()
+# =============================================================================
+
+
+class TestCollectionSessionIdsUnit:
+    """Test: Collection.session_ids() Methode."""
+
+    def test_session_ids_returns_all_ids(self, tmp_path):
+        """
+        Test: Gibt alle Session IDs für eine Collection.
+
+        Purpose: User entdeckt verfügbare Sessions.
+        If fails: Session discovery is broken.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [
+                        {
+                            "id": "session_001",
+                            "name": "Session 1",
+                            "date": "2011-09-26",
+                            "location_type": "urban",
+                            "parts": [],
+                        },
+                        {
+                            "id": "session_002",
+                            "name": "Session 2",
+                            "date": "2011-09-26",
+                            "location_type": "highway",
+                            "parts": [],
+                        },
+                    ],
                 }
             ],
         }
-        config = ConfigLoader.dict_to_config(data)
 
-        assert config.metadata.name == "KITTI"
-        assert len(config.collections) == 1
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
 
-    def test_dict_to_config_not_dict(self):
-        """dict_to_config raises ValueError for non-dict input."""
-        with pytest.raises(ValueError, match="Expected dict"):
-            ConfigLoader.dict_to_config("not a dict")
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        collection = config.get_collection_by_id("raw_data")
+        result = collection.session_ids()
 
-
-# ============================================================================
-# ConfigLoader Tests: YAML Loading
-# ============================================================================
+        # Verifizierung
+        assert result == ["session_001", "session_002"]
 
 
-class TestConfigLoaderYaml:
-    """Test ConfigLoader.load_yaml() method."""
+# =============================================================================
+# UNIT TESTS: Collection.session_by_id()
+# =============================================================================
 
-    def test_load_yaml_success(self, tmp_path):
-        """Load valid YAML file successfully."""
-        yaml_file = tmp_path / "test.yaml"
-        yaml_file.write_text("key: value\nnested:\n  item: 123")
 
-        result = ConfigLoader.load_yaml(yaml_file)
+class TestCollectionSessionByIdUnit:
+    """Test: Collection.session_by_id() Methode."""
 
-        assert result["key"] == "value"
-        assert result["nested"]["item"] == 123
+    def test_session_by_id_finds_session(self, tmp_path):
+        """
+        Test: Findet Session nach ID in Collection.
 
-    def test_load_yaml_file_not_found(self, tmp_path):
-        """load_yaml raises FileNotFoundError for missing file."""
-        with pytest.raises(FileNotFoundError, match="Config file not found"):
-            ConfigLoader.load_yaml(tmp_path / "nonexistent.yaml")
+        Purpose: Validierung von Session IDs.
+        If fails: Session lookup fails.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
 
-    def test_load_yaml_invalid_yaml(self, tmp_path):
-        """load_yaml raises YAMLError for invalid YAML syntax."""
-        yaml_file = tmp_path / "bad.yaml"
-        yaml_file.write_text("invalid: : yaml: : syntax:")
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [
+                        {
+                            "id": "session_001",
+                            "name": "Session 1",
+                            "date": "2011-09-26",
+                            "location_type": "urban",
+                            "parts": [],
+                        },
+                        {
+                            "id": "session_002",
+                            "name": "Session 2",
+                            "date": "2011-09-26",
+                            "location_type": "highway",
+                            "parts": [],
+                        },
+                    ],
+                }
+            ],
+        }
 
-        with pytest.raises(yaml.YAMLError, match="Invalid YAML"):
-            ConfigLoader.load_yaml(yaml_file)
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
 
-    def test_load_yaml_empty_file(self, tmp_path):
-        """load_yaml returns empty dict for empty YAML file."""
-        yaml_file = tmp_path / "empty.yaml"
-        yaml_file.write_text("")
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        collection = config.get_collection_by_id("raw_data")
+        session = collection.get_session_by_id("session_001")
 
-        result = ConfigLoader.load_yaml(yaml_file)
+        # Verifizierung
+        assert session is not None
+        assert session.id == "session_001"
 
-        assert result == {}
+    def test_session_by_id_returns_none_if_not_found(self, tmp_path):
+        """
+        Test: Gibt None zurück wenn Session nicht existiert.
+
+        Purpose: Graceful Error Handling.
+        If fails: Missing sessions don't return None.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [
+                        {
+                            "id": "session_001",
+                            "name": "Session 1",
+                            "date": "2011-09-26",
+                            "location_type": "urban",
+                            "parts": [],
+                        },
+                    ],
+                }
+            ],
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        collection = config.get_collection_by_id("raw_data")
+        result = collection.get_session_by_id("unknown_session")
+
+        # Verifizierung
+        assert result is None
+
+
+# =============================================================================
+# UNIT TESTS: Session.part_ids()
+# =============================================================================
+
+
+class TestSessionPartIdsUnit:
+    """Test: Session.part_ids() Methode."""
+
+    def test_part_ids_returns_all_ids(self, tmp_path):
+        """
+        Test: Gibt alle Part IDs für eine Session.
+
+        Purpose: User entdeckt verfügbare Parts.
+        If fails: Part discovery is broken.
+        """
+        # Setup
+        config_dir = tmp_path / "config"
+        config_dir.mkdir()
+
+        fake_config = {
+            "metadata": {
+                "name": "Test",
+                "description": "Test",
+                "license": {"name": "MIT"},
+            },
+            "collections": [
+                {
+                    "id": "raw_data",
+                    "name": "Raw",
+                    "description": "Raw",
+                    "sessions": [
+                        {
+                            "id": "session_001",
+                            "name": "Session 1",
+                            "date": "2011-09-26",
+                            "location_type": "urban",
+                            "parts": [
+                                {
+                                    "id": "oxts",
+                                    "name": "OXTS",
+                                    "download": {
+                                        "url": "http://example.com/oxts.zip",
+                                        "filename": "oxts.zip",
+                                        "size_bytes": 100000,
+                                        "md5": "abc123",
+                                    },
+                                },
+                                {
+                                    "id": "calib",
+                                    "name": "Calibration",
+                                    "download": {
+                                        "url": "http://example.com/calib.zip",
+                                        "filename": "calib.zip",
+                                        "size_bytes": 50000,
+                                        "md5": "def456",
+                                    },
+                                },
+                            ],
+                        },
+                    ],
+                }
+            ],
+        }
+
+        with open(config_dir / "test.yaml", "w") as f:
+            yaml.dump(fake_config, f)
+
+        # Execution
+        provider = ConfigProvider(config_dir=config_dir)
+        config = provider.get_from_datasource("test")
+        collection = config.get_collection_by_id("raw_data")
+        session = collection.get_session_by_id("session_001")
+        result = session.part_ids()
+
+        # Verifizierung
+        assert result == ["oxts", "calib"]

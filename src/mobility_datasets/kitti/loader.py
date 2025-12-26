@@ -159,7 +159,7 @@ class KITTIDownloader:
         if sessions is None:
             sessions = ["2011_09_26_drive_0001"]
 
-        collection = self.config.collection_by_id(collection_id)
+        collection = self.config.get_collection_by_id(collection_id)
 
         if collection is None:
             print(f"Collection '{collection_id}' not found in config.")

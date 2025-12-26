@@ -5,15 +5,14 @@ Module: src/mobility_datasets/config/provider.py
 Purpose: Load YAML configs and return typed dataclass objects
 """
 
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import List, Optional, Union
 
 import yaml
+from pydantic import BaseModel, Field
 
 
-@dataclass
-class License:
+class License(BaseModel):
     """License information."""
 
     name: str
@@ -21,15 +20,13 @@ class License:
     details: Optional[str] = None
 
 
-@dataclass
-class Citation:
+class Citation(BaseModel):
     """Citation information."""
 
     bibtex: Optional[str] = None
 
 
-@dataclass
-class Metadata:
+class Metadata(BaseModel):
     """Dataset metadata."""
 
     name: str
@@ -38,212 +35,238 @@ class Metadata:
     citation: Optional[Citation] = None
 
 
-@dataclass
-class DownloadInfo:
-    """Download information for a variant."""
+class DownloadInfo(BaseModel):
+    """Download information for a part."""
 
     url: str
     filename: str
-    size_bytes: int
-    md5: str
-    format: str
+    size_bytes: int = 0
+    md5: str = "unknown"
+    format: str = "zip"
 
 
-@dataclass
-class Part:
-    """Dataset variant (e.g., synced/unsynced)."""
+class Part(BaseModel):
+    """Dataset part (e.g., synced_rectified, calib)."""
 
     id: str
     name: str
     download: DownloadInfo
 
 
-@dataclass
-class Session:
+class Session(BaseModel):
     """Recording session."""
 
     id: str
     name: str
     date: str
     location_type: str
-    parts: List[Part]
+    parts: List[Part] = Field(default_factory=list)
+
+    def part_ids(self) -> List[str]:
+        """Get list of part IDs.
+
+        Returns
+        -------
+        List[str]
+            Part IDs
+        """
+        return [p.id for p in self.parts]
+
+    def has_part(self, part_id: str) -> bool:
+        """Check if part with given ID exists.
+
+        Parameters
+        ----------
+        part_id : str
+            Part ID to check
+
+        Returns
+        -------
+        bool
+            True if part exists, False otherwise
+        """
+        return any(p.id == part_id for p in self.parts)
 
     def get_part_by_id(self, part_id: str) -> Optional[Part]:
-        """Get part by ID."""
+        """Get part by ID.
+
+        Parameters
+        ----------
+        part_id : str
+            Part ID to search for
+
+        Returns
+        -------
+        Optional[Part]
+            Part if found, None otherwise
+        """
         for p in self.parts:
             if p.id == part_id:
                 return p
         return None
 
+    def get_part_or_raise(self, part_id: str) -> Part:
+        """Get part by ID or raise error if not found.
 
-@dataclass
-class Collection:
+        Parameters
+        ----------
+        part_id : str
+            Part ID to search for
+        Returns
+        -------
+        Part
+            Part if found
+        Raises
+        ------
+        ValueError
+            If part with given ID is not found
+        """
+        part = self.get_part_by_id(part_id)
+        if part is None:
+            raise ValueError(f"Part with ID '{part_id}' not found in session '{self.id}'")
+        return part
+
+
+class Collection(BaseModel):
     """Collection of sessions."""
 
     id: str
     name: str
     description: str
-    sessions: List[Session]
+    sessions: List[Session] = Field(default_factory=list)
+
+    def session_ids(self) -> List[str]:
+        """Get list of session IDs.
+
+        Returns
+        -------
+        List[str]
+            Session IDs
+        """
+        return [s.id for s in self.sessions]
+
+    def has_session(self, session_id: str) -> bool:
+        """Check if session with given ID exists.
+
+        Parameters
+        ----------
+        session_id : str
+            Session ID to check
+        Returns
+        -------
+        bool
+            True if session exists, False otherwise
+        """
+        return any(s.id == session_id for s in self.sessions)
 
     def get_session_by_id(self, session_id: str) -> Optional[Session]:
-        """Get session by ID."""
+        """Get session by ID.
+
+        Parameters
+        ----------
+        session_id : str
+            Session ID to search for
+
+        Returns
+        -------
+        Optional[Session]
+            Session if found, None otherwise
+        """
         for s in self.sessions:
             if s.id == session_id:
                 return s
         return None
 
+    def get_session_or_raise(self, session_id: str) -> Session:
+        """Get session by ID or raise error if not found.
 
-@dataclass
-class DatasetConfig:
+        Parameters
+        ----------
+        session_id : str
+            Session ID to search for
+        Returns
+        -------
+        Session
+            Session if found
+        Raises
+        ------
+        ValueError
+            If session with given ID is not found
+        """
+        session = self.get_session_by_id(session_id)
+        if session is None:
+            raise ValueError(f"Session with ID '{session_id}' not found in collection '{self.id}'")
+        return session
+
+
+class DatasetConfig(BaseModel):
     """Complete dataset configuration."""
 
     metadata: Metadata
-    collections: List[Collection]
+    collections: List[Collection] = Field(default_factory=list)
 
-    def id_in_collections(self, collection_id: str) -> bool:
-        """Check if collection ID exists."""
+    def collection_ids(self) -> List[str]:
+        """Get list of collection IDs.
+
+        Returns
+        -------
+        List[str]
+            Collection IDs
+        """
+        return [c.id for c in self.collections]
+
+    def has_collection(self, collection_id: str) -> bool:
+        """Check if collection with given ID exists.
+
+        Parameters
+        ----------
+        collection_id : str
+            Collection ID to check
+        Returns
+        -------
+        bool
+            True if collection exists, False otherwise
+        """
         return any(c.id == collection_id for c in self.collections)
 
-    def collection_by_id(self, collection_id: str) -> Optional[Collection]:
-        """Get collection by ID."""
+    def get_collection_by_id(self, collection_id: str) -> Optional[Collection]:
+        """Get collection by ID.
+
+        Parameters
+        ----------
+        collection_id : str
+            Collection ID to search for
+
+        Returns
+        -------
+        Optional[Collection]
+            Collection if found, None otherwise
+        """
         for c in self.collections:
             if c.id == collection_id:
                 return c
         return None
 
-
-class ConfigLoader:
-    """Load YAML config files and return typed objects."""
-
-    @staticmethod
-    def load_yaml(file_path: Path) -> Dict[str, Any]:
-        """
-        Load YAML file.
+    def get_collection_or_raise(self, collection_id: str) -> Collection:
+        """Get collection by ID or raise error if not found.
 
         Parameters
         ----------
-        file_path : Path
-            Path to YAML file
-
+        collection_id : str
+            Collection ID to search for
         Returns
         -------
-        dict
-            Parsed YAML content
-
+        Collection
+            Collection if found
         Raises
         ------
-        FileNotFoundError
-            If file does not exist
-        yaml.YAMLError
-            If YAML is invalid
-        """
-        if not file_path.exists():
-            raise FileNotFoundError(f"Config file not found: {file_path}")
-
-        try:
-            with open(file_path, encoding="utf-8") as f:
-                return yaml.safe_load(f) or {}
-        except yaml.YAMLError as e:
-            raise yaml.YAMLError(f"Invalid YAML in {file_path}: {e}") from e
-
-    @staticmethod
-    def _dict_to_download_info(data: Dict[str, Any]) -> DownloadInfo:
-        """Convert dict to DownloadInfo."""
-        return DownloadInfo(
-            url=data["url"],
-            filename=data["filename"],
-            size_bytes=data.get("size_bytes", 0),
-            md5=data.get("md5", "unknown"),
-            format=data.get("format", "zip"),
-        )
-
-    @staticmethod
-    def _dict_to_part(data: Dict[str, Any]) -> Part:
-        """Convert dict to Part."""
-        return Part(
-            id=data["id"],
-            name=data["name"],
-            download=ConfigLoader._dict_to_download_info(data["download"]),
-        )
-
-    @staticmethod
-    def _dict_to_session(data: Dict[str, Any]) -> Session:
-        """Convert dict to Session."""
-        return Session(
-            id=data["id"],
-            name=data["name"],
-            date=data["date"],
-            location_type=data["location_type"],
-            parts=[ConfigLoader._dict_to_part(v) for v in data.get("parts", [])],
-        )
-
-    @staticmethod
-    def _dict_to_collection(data: Dict[str, Any]) -> Collection:
-        """Convert dict to Collection."""
-        return Collection(
-            id=data["id"],
-            name=data["name"],
-            description=data["description"],
-            sessions=[ConfigLoader._dict_to_session(s) for s in data.get("sessions", [])],
-        )
-
-    @staticmethod
-    def _dict_to_license(data: Dict[str, Any]) -> License:
-        """Convert dict to License."""
-        return License(
-            name=data["name"],
-            url=data.get("url"),
-            details=data.get("details"),
-        )
-
-    @staticmethod
-    def _dict_to_citation(data: Dict[str, Any]) -> Citation:
-        """Convert dict to Citation."""
-        return Citation(
-            bibtex=data.get("bibtex"),
-        )
-
-    @staticmethod
-    def _dict_to_metadata(data: Dict[str, Any]) -> Metadata:
-        """Convert dict to Metadata."""
-        return Metadata(
-            name=data["name"],
-            description=data["description"],
-            license=ConfigLoader._dict_to_license(data["license"]),
-            citation=(
-                ConfigLoader._dict_to_citation(data["citation"]) if "citation" in data else None
-            ),
-        )
-
-    @staticmethod
-    def dict_to_config(data: Dict[str, Any]) -> DatasetConfig:
-        """
-        Convert dict to DatasetConfig.
-
-        Parameters
-        ----------
-        data : dict
-            Configuration dictionary
-
-        Returns
-        -------
-        DatasetConfig
-            Typed configuration object
-
-        Raises
-        ------
-        KeyError
-            If required fields are missing
         ValueError
-            If data is invalid
+            If collection with given ID is not found
         """
-        if not isinstance(data, dict):
-            raise ValueError(f"Expected dict, got {type(data)}")
-
-        return DatasetConfig(
-            metadata=ConfigLoader._dict_to_metadata(data["metadata"]),
-            collections=[ConfigLoader._dict_to_collection(c) for c in data.get("collections", [])],
-        )
+        collection = self.get_collection_by_id(collection_id)
+        if collection is None:
+            raise ValueError(f"Collection with ID '{collection_id}' not found")
+        return collection
 
 
 class ConfigProvider:
@@ -252,33 +275,47 @@ class ConfigProvider:
 
     This class loads YAML config files and returns typed DatasetConfig objects.
 
-    Example
-    -------
+    Parameters
+    ----------
+    config_dir : Path, optional
+        Directory containing config files.
+        Default: src/mobility_datasets/config
+
+    Attributes
+    ----------
+    config_dir : Path
+        Path to configuration directory
+
+    Examples
+    --------
+    Load KITTI config:
+
     >>> provider = ConfigProvider()
     >>> kitti_config = provider.get_from_datasource("kitti")
     >>> print(kitti_config.metadata.name)
     The KITTI Vision Benchmark Suite
     """
 
-    def __init__(self, config_dir: Optional[Path] = None):
+    def __init__(self, config_dir: Optional[Union[Path, str]] = None):
         """
         Initialize config provider.
 
         Parameters
         ----------
-        config_dir : Path, optional
+        config_dir : Path or str, optional
             Directory containing config files.
             Default: src/mobility_datasets/config
         """
         if config_dir is None:
             # Default to config directory relative to this module
             config_dir = Path(__file__).parent
+        else:
+            config_dir = Path(config_dir)
 
         if not config_dir.exists():
             raise ValueError(f"Config directory does not exist: {config_dir}")
 
         self.config_dir = config_dir
-        self._cache: Dict[str, DatasetConfig] = {}
 
     def get_from_datasource(self, datasource_name: str) -> DatasetConfig:
         """
@@ -300,80 +337,45 @@ class ConfigProvider:
             If config file does not exist
         yaml.YAMLError
             If YAML is invalid
-        KeyError
-            If required fields are missing
+        ValueError
+            If config structure is invalid (Pydantic validation error)
 
-        Example
-        -------
+        Examples
+        --------
+        >>> provider = ConfigProvider()
         >>> kitti_config = provider.get_from_datasource("kitti")
         >>> print(kitti_config.metadata.name)
         The KITTI Vision Benchmark Suite
         """
-        # Return from cache if available
-        if datasource_name in self._cache:
-            return self._cache[datasource_name]
-
-        # Load from file
         config_file = self.config_dir / f"{datasource_name}.yaml"
 
         try:
-            raw_config = ConfigLoader.load_yaml(config_file)
+            with open(config_file, encoding="utf-8") as f:
+                raw_config = yaml.safe_load(f)
         except FileNotFoundError:
             raise FileNotFoundError(
                 f"Config not found for '{datasource_name}'. " f"Expected: {config_file}"
             ) from None
 
-        # Parse into typed object
         try:
-            dataset_config = ConfigLoader.dict_to_config(raw_config)
-        except KeyError as e:
-            raise KeyError(f"Invalid config structure for '{datasource_name}': {e}") from e
+            return DatasetConfig(**raw_config)
+        except Exception as e:
+            raise ValueError(f"Invalid config structure for " f"'{datasource_name}': {e}") from e
 
-        # Cache and return
-        self._cache[datasource_name] = dataset_config
-        return dataset_config
-
-    def list_available_datasources(self) -> List[str]:
+    def list_datasources(self) -> List[str]:
         """
         List available datasource configs.
 
         Returns
         -------
-        list of str
+        List[str]
             Names of available datasources (without .yaml extension)
 
-        Example
-        -------
+        Examples
+        --------
         >>> provider = ConfigProvider()
-        >>> provider.list_available_datasources()
+        >>> provider.list_datasources()
         ['kitti', 'nuscenes', 'waymo']
         """
         yaml_files = self.config_dir.glob("*.yaml")
         return sorted([f.stem for f in yaml_files])
-
-    def list_available_collections(self, datasource_name: str) -> List[str]:
-        """
-        List available collections for a given datasource.
-
-        Parameters
-        ----------
-        datasource_name : str
-            Name of datasource (e.g., "kitti", "nuscenes")
-
-        Returns
-        -------
-        list of str
-            Names of available collections
-
-        Example
-        -------
-        >>> provider = ConfigProvider()
-        >>> provider.list_available_collections("kitti")
-        ['raw_data', 'object_tracking']
-        """
-        config = self.get_from_datasource(datasource_name)
-        return [collection.id for collection in config.collections]
-
-    def clear_cache(self) -> None:
-        """Clear the config cache."""
-        self._cache.clear()
