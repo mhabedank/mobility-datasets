@@ -52,7 +52,7 @@ sphinx-click = "^6.2.0"
 sphinx-autodoc-typehints = "^3.6.0"
 
 [tool.poetry.scripts]
-mds = "mobility_datasets.cli.main:cli"
+mdb = "mobility_datasets.cli.main:cli"
 
 [tool.black]
 line-length = 100
