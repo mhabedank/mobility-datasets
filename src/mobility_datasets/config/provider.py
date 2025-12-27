@@ -51,6 +51,7 @@ class Part(BaseModel):
     id: str
     name: str
     download: DownloadInfo
+    optional: bool = False
 
 
 class Session(BaseModel):

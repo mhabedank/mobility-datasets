@@ -253,9 +253,9 @@ def kitti_downloader(tmp_path):
     ...     kitti_downloader.download(["calib"])
     ...     # Test code here
     """
-    from mobility_datasets.kitti.loader import KITTIDownloader
+    from mobility_datasets.core.downloader import DatasetDownloader
 
-    return KITTIDownloader(data_dir=str(tmp_path / "kitti_data"))
+    return DatasetDownloader(data_dir=str(tmp_path / "kitti_data"))
 
 
 @pytest.fixture
@@ -283,9 +283,9 @@ def kitti_downloader_no_cleanup(tmp_path):
     ...     def test_second_operation(self, kitti_downloader_no_cleanup):
     ...         # Operation 2 (state from op 1 is available)
     """
-    from mobility_datasets.kitti.loader import KITTIDownloader
+    from mobility_datasets.core.downloader import DatasetDownloader
 
-    return KITTIDownloader(data_dir=str(tmp_path / "kitti_persistent"))
+    return DatasetDownloader(data_dir=str(tmp_path / "kitti_persistent"))
 
 
 # ============================================================================

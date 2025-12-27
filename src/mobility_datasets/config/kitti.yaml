@@ -31,6 +31,7 @@ collections:
               size_bytes: 696833348
               md5: "f7caaeb27b06cb06b5f59a5203db35b5"
               format: "zip"
+            optional: True
           - id: "synced_rectified"
             name: "Synced + Rectified"
             download:

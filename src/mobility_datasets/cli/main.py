@@ -70,10 +70,10 @@ def download(dataset, collection, sessions, with_unsynced, keep_zip, data_dir):
     mdb dataset download kitti --with-unsynced
     """
     if dataset == "kitti":
-        from mobility_datasets.kitti.loader import KITTIDownloader
+        from mobility_datasets.core.downloader import DatasetDownloader
 
         data_dir_path = Path(data_dir) / "kitti"
-        downloader = KITTIDownloader(data_dir=str(data_dir_path))
+        downloader = DatasetDownloader(data_dir=str(data_dir_path))
 
         # Parse sessions
         session_list = None
@@ -91,7 +91,7 @@ def download(dataset, collection, sessions, with_unsynced, keep_zip, data_dir):
                 collection_id=collection,
                 sessions=session_list,
                 keep_zip=keep_zip,
-                with_unsynced=with_unsynced,
+                with_optional=with_unsynced,
             )
             click.echo("✓ Download complete!")
         except Exception as e:
