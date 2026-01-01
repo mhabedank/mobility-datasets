@@ -7,6 +7,7 @@ from enum import IntEnum
 from pathlib import Path
 from typing import Dict, List
 
+import humanize
 import requests
 from tqdm import tqdm
 
@@ -593,3 +594,86 @@ class DatasetDownloader:
         print(f"Summary: {available}/{total} files available")
 
         return status
+
+    def get_download_size(
+        self,
+        collection_id: str,
+        sessions: List[str],
+        with_optional: bool = False,
+    ) -> Dict[str, int | str | dict]:
+        """Calculate total download size for selected sessions.
+
+        Parameters
+        ----------
+        collection_id : str
+            Collection to estimate.
+        sessions : List[str], optional
+            Sessions to include. If None, all sessions.
+        with_optional : bool, optional
+            Include optional parts. Default False.
+
+        Returns
+        -------
+        Dict
+            Size breakdown:
+            {
+                "total_bytes": 1234567890,
+                "total_readable": "1.2 GB",
+                "parts": {
+                    "part_id": 1000000,
+                    ...
+                },
+                "sessions_count": 5,
+                "parts_count": 15,
+            }
+
+        Examples
+        --------
+        >>> downloader = DatasetDownloader("kitti")
+        >>> size = downloader.get_download_size(
+        ...     "raw_data",
+        ...     sessions=["2011_09_26_drive_0001"]
+        ... )
+        >>> print(size["total_readable"])
+        1.2 GB
+        >>> print(size["total_bytes"])
+        1234567890
+        """
+
+        collection = self.config.get_collection_or_raise(collection_id)
+
+        # Validate sessions
+        valid_sessions = []
+        if sessions is None:
+            valid_sessions = collection.sessions
+        else:
+            for session_id in sessions:
+                session = collection.get_session_by_id(session_id)
+                if session is None:
+                    print(f"⚠ Session '{session_id}' not found")
+                else:
+                    valid_sessions.append(session)
+
+        # Calculate sizes
+        total_bytes = 0
+        parts_breakdown = {}
+
+        for session in valid_sessions:
+            for part in session.parts:
+                if part.optional and not with_optional:
+                    continue
+
+                size_bytes = part.download.size_bytes
+                total_bytes += size_bytes
+
+                if part.id not in parts_breakdown:
+                    parts_breakdown[part.id] = 0
+                parts_breakdown[part.id] += size_bytes
+
+        return {
+            "total_bytes": total_bytes,
+            "total_readable": humanize.naturalsize(total_bytes),
+            "parts": parts_breakdown,
+            "sessions_count": len(valid_sessions),
+            "parts_count": sum(len(s.parts) for s in valid_sessions),
+        }
