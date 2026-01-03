@@ -1,0 +1,348 @@
+metadata:
+  name: Waymo Open Dataset
+  description: Large-scale autonomous driving dataset with multimodal sensor data from Google's Waymo
+  license:
+    name: Waymo Dataset License Agreement for Non-Commercial Use
+    url: https://waymo.com/open/terms/
+    details: "Non-commercial use only (research, teaching, publication). Registration required at https://waymo.com/open"
+  citation:
+    bibtex: |
+      @misc{waymo_open_dataset,
+        title = {Waymo Open Dataset: An autonomous driving dataset},
+        website = {\url{https://www.waymo.com/open}},
+        year = {2019-2025}
+      }
+
+collections:
+
+  # Motion Dataset v1.3.1
+  - id: motion_v1.3.1
+    name: Motion Dataset v1.3.1
+    description: Motion forecasting with 103,354 segments, trajectory data, HD maps, and camera embeddings. Latest version with SDC paths (Oct 2025).
+    sessions:
+
+      - id: train
+        name: Training Split (70,000+ segments)
+        date: "2021_03"
+        parts:
+          - id: tfrecords
+            name: TFRecords (Processed Tensors)
+            download:
+              url: gs://waymo_open_dataset_motion_v_1_3_1/motion_dataset_v1.3.1_training.tar
+              filename: motion_v1.3.1_training.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: scenario_protos
+            name: Scenario Protos (Alternative Format)
+            download:
+              url: gs://waymo_open_dataset_motion_v_1_3_1/scenario_database_training.tar
+              filename: scenario_database_training.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+          - id: camera_embeddings
+            name: Camera Embeddings (8 Cameras, 360°)
+            download:
+              url: gs://waymo_open_dataset_motion_v_1_3_1/camera_embeddings_training.tar
+              filename: camera_embeddings_training.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+      - id: validation
+        name: Validation Split (15,000+ segments)
+        date: "2021_03"
+        parts:
+          - id: tfrecords
+            name: TFRecords (Processed Tensors)
+            download:
+              url: gs://waymo_open_dataset_motion_v_1_3_1/motion_dataset_v1.3.1_validation.tar
+              filename: motion_v1.3.1_validation.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: scenario_protos
+            name: Scenario Protos (Alternative Format)
+            download:
+              url: gs://waymo_open_dataset_motion_v_1_3_1/scenario_database_validation.tar
+              filename: scenario_database_validation.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+          - id: camera_embeddings
+            name: Camera Embeddings (8 Cameras, 360°)
+            download:
+              url: gs://waymo_open_dataset_motion_v_1_3_1/camera_embeddings_validation.tar
+              filename: camera_embeddings_validation.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+      - id: test
+        name: Test Split (15,000+ segments)
+        date: "2021_03"
+        parts:
+          - id: tfrecords
+            name: TFRecords (Processed Tensors)
+            download:
+              url: gs://waymo_open_dataset_motion_v_1_3_1/motion_dataset_v1.3.1_test.tar
+              filename: motion_v1.3.1_test.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+  # Perception Dataset v1.4.3 (with maps)
+  - id: perception_v1.4.3
+    name: Perception Dataset v1.4.3
+    description: 3D object detection and tracking with high-resolution camera/LiDAR sensor data and HD maps. 2,030 segments (Mar 2024).
+    sessions:
+
+      - id: train
+        name: Training Split
+        date: "2024_03"
+        parts:
+          - id: tfrecords
+            name: Training TFRecords
+            download:
+              url: gs://waymo_open_dataset_v_1_4_3/training_data.tar
+              filename: perception_v1.4.3_training.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: maps
+            name: HD Maps (Separated Download)
+            download:
+              url: gs://waymo_open_dataset_v_1_4_3/maps.tar
+              filename: perception_v1.4.3_maps.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+      - id: validation
+        name: Validation Split
+        date: "2024_03"
+        parts:
+          - id: tfrecords
+            name: Validation TFRecords
+            download:
+              url: gs://waymo_open_dataset_v_1_4_3/validation_data.tar
+              filename: perception_v1.4.3_validation.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+      - id: test
+        name: Test Split
+        date: "2024_03"
+        parts:
+          - id: tfrecords
+            name: Test TFRecords
+            download:
+              url: gs://waymo_open_dataset_v_1_4_3/test_data.tar
+              filename: perception_v1.4.3_test.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+  # Perception Dataset v2.0.1 (Modular)
+  - id: perception_v2.0.1
+    name: Perception Dataset v2.0.1 Modular
+    description: Modular perception data - download only what you need. Supports selective download of camera, LiDAR, labels, and segmentation (Mar 2024).
+    sessions:
+
+      - id: train
+        name: Training Split
+        date: "2024_03"
+        parts:
+          - id: labels
+            name: 3D Object Labels (Required for Training)
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/training_object_labels.tar
+              filename: perception_v2.0.1_training_labels.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: camera
+            name: Camera Images (Modular)
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/training_camera_data.tar
+              filename: perception_v2.0.1_training_camera.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+          - id: lidar
+            name: LiDAR Point Clouds (Modular)
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/training_lidar_data.tar
+              filename: perception_v2.0.1_training_lidar.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+          - id: segmentation
+            name: 2D/3D Panoptic Segmentation
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/training_segmentation.tar
+              filename: perception_v2.0.1_training_segmentation.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+      - id: validation
+        name: Validation Split
+        date: "2024_03"
+        parts:
+          - id: labels
+            name: 3D Object Labels
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/validation_object_labels.tar
+              filename: perception_v2.0.1_validation_labels.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: camera
+            name: Camera Images (Modular)
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/validation_camera_data.tar
+              filename: perception_v2.0.1_validation_camera.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+          - id: lidar
+            name: LiDAR Point Clouds (Modular)
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/validation_lidar_data.tar
+              filename: perception_v2.0.1_validation_lidar.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+      - id: test
+        name: Test Split
+        date: "2024_03"
+        parts:
+          - id: camera
+            name: Camera Images (No Labels Available)
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/test_camera_data.tar
+              filename: perception_v2.0.1_test_camera.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: lidar
+            name: LiDAR Point Clouds (Modular)
+            download:
+              url: gs://waymo_open_dataset_v_2_0_1/test_lidar_data.tar
+              filename: perception_v2.0.1_test_lidar.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+  # End-to-End Driving Dataset v1.0.0
+  - id: e2e_v1.0.0
+    name: End-to-End Driving Dataset v1.0.0
+    description: Vision-based end-to-end driving with 360° camera coverage and control labels. 4,021 total runs with training (2,037), validation (479), and test (1,505) splits (Mar 2025, updated Apr 2025).
+    sessions:
+
+      - id: train
+        name: Training Split (2,037 runs as of Apr 2025)
+        date: "2025_04"
+        parts:
+          - id: camera
+            name: Camera Images (360° Coverage)
+            download:
+              url: gs://waymo_open_dataset_end_to_end_camera_v_1_0_0/training_camera_data.tar
+              filename: e2e_v1.0.0_training_camera.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: control_labels
+            name: Control Labels (Steering, Acceleration)
+            download:
+              url: gs://waymo_open_dataset_end_to_end_camera_v_1_0_0/training_control_labels.tar
+              filename: e2e_v1.0.0_training_labels.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+      - id: validation
+        name: Validation Split (479 runs with rater feedback)
+        date: "2025_04"
+        parts:
+          - id: camera
+            name: Camera Images (360° Coverage)
+            download:
+              url: gs://waymo_open_dataset_end_to_end_camera_v_1_0_0/validation_camera_data.tar
+              filename: e2e_v1.0.0_validation_camera.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: control_labels
+            name: Control Labels (Steering, Acceleration)
+            download:
+              url: gs://waymo_open_dataset_end_to_end_camera_v_1_0_0/validation_control_labels.tar
+              filename: e2e_v1.0.0_validation_labels.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
+
+          - id: rater_feedback
+            name: Rater Feedback Labels (Added Apr 2025)
+            download:
+              url: gs://waymo_open_dataset_end_to_end_camera_v_1_0_0/validation_rater_feedback.tar
+              filename: e2e_v1.0.0_validation_feedback.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: true
+
+      - id: test
+        name: Test Split (1,505 runs)
+        date: "2025_04"
+        parts:
+          - id: camera
+            name: Camera Images (360° Coverage, No Labels Available)
+            download:
+              url: gs://waymo_open_dataset_end_to_end_camera_v_1_0_0/test_camera_data.tar
+              filename: e2e_v1.0.0_test_camera.tar
+              size_bytes: 0
+              format: tar
+              md5: unknown
+            optional: false
