@@ -1,12 +1,18 @@
 """Command-line interface for mobility-datasets.
 
 Provides commands to download and manage autonomous driving datasets.
+
+Command Structure:
+  mds download <dataset>          # Download data
+  mds info <dataset>              # Show available data (collections, sizes, status)
+  mds list [<dataset>]            # List local downloads (future feature)
 """
 
 from pathlib import Path
 from typing import Optional
 
 import click
+import humanize
 
 from mobility_datasets.config.provider import ConfigProvider
 from mobility_datasets.core.downloader import DatasetDownloader
@@ -30,13 +36,12 @@ def cli():
     pass
 
 
-@cli.group()
-def dataset():
-    """Dataset management commands."""
-    pass
+# =============================================================================
+# DOWNLOAD COMMANDS
+# =============================================================================
 
 
-@dataset.command()
+@cli.command()
 @click.argument(
     "dataset_name",
     type=click.Choice(get_available_datasets(), case_sensitive=False),
@@ -64,7 +69,11 @@ def dataset():
     is_flag=True,
     help="Keep archive files after extraction (useful for backup).",
 )
-@click.option("--estimate-only", is_flag=True, help="Estimate size without downloading")
+@click.option(
+    "--estimate-only",
+    is_flag=True,
+    help="Show download size without downloading.",
+)
 @click.option(
     "--data-dir",
     default="./data",
@@ -81,28 +90,28 @@ def download(
     estimate_only: bool,
     data_dir: Path,
 ):
-    """Download dataset files.
+    """Download dataset files from a specific dataset.
 
-    Download specific sessions from a dataset, or all sessions if not specified.
+    Download specific sessions, collections, or the entire dataset.
     Supports resume on interrupted downloads and validates files with MD5 checksums.
 
     \b
     Examples:
 
-    # Download single session from KITTI raw_data
-    mdb dataset download kitti --collection raw_data --sessions 2011_09_26_drive_0001
+    # Download single session from KITTI
+    mds download kitti --collection raw_data --sessions 2011_09_26_drive_0001
 
     # Download multiple sessions
-    mdb dataset download kitti -c raw_data -s 2011_09_26_drive_0001,2011_09_26_drive_0002
+    mds download kitti -c raw_data -s 2011_09_26_drive_0001,2011_09_26_drive_0002
 
-    # Download all sessions from nuScenes trainval
-    mdb dataset download nuscenes --collection v1.0-trainval
+    # Download all nuScenes trainval
+    mds download nuscenes --collection v1.0-trainval
 
-    # Download with optional parts
-    mdb dataset download waymo --with-optional
+    # See download size first (dry-run)
+    mds download kitti --estimate-only
 
     # Download to custom directory
-    mdb dataset download kitti --data-dir /mnt/datasets
+    mds download kitti --data-dir /mnt/datasets
     """
     try:
         # Initialize downloader
@@ -128,8 +137,11 @@ def download(
 
         # Parse session list
         session_list = None
+        click.echo(f"SESSIONS: {sessions}")
         if sessions:
+            click.echo("SESSION NONE")
             session_list = [s.strip() for s in sessions.split(",")]
+            click.echo(session_list)
 
         # ESTIMATE MODE
         if estimate_only:
@@ -140,7 +152,7 @@ def download(
             for coll_id in collections_to_download:
                 size_info = downloader.get_download_size(
                     collection_id=coll_id,
-                    sessions=session_list or [],
+                    sessions=session_list or None,
                     with_optional=with_optional,
                 )
 
@@ -154,9 +166,6 @@ def download(
 
                 click.echo("\nParts breakdown:")
                 for part_id, size_bytes in size_info["parts"].items():
-                    # Get readable format from humanize via the dict
-                    import humanize
-
                     click.echo(f"  - {part_id}: {humanize.naturalsize(size_bytes)}")
 
             click.echo(f"\n{'='*60}")
@@ -195,97 +204,145 @@ def download(
         raise click.Abort() from None
 
 
-@dataset.command()
+# =============================================================================
+# INFORMATION COMMANDS (About available datasets/data online)
+# =============================================================================
+
+
+@cli.command()
 @click.argument(
     "dataset_name",
     type=click.Choice(get_available_datasets(), case_sensitive=False),
 )
 @click.option(
+    "--collection",
+    "-c",
+    default=None,
+    help="Show info for specific collection. If not specified, shows all.",
+)
+@click.option(
+    "--verify",
+    is_flag=True,
+    help="Verify file availability on remote servers (may take a few minutes).",
+)
+@click.option(
     "--timeout",
     default=10,
     type=int,
-    help="Timeout for HEAD requests in seconds. Default: 10",
+    help="Timeout for verification requests in seconds. Default: 10",
 )
-def health_check(dataset_name: str, timeout: int):
-    """Check if all dataset files are available on remote servers.
+def info(
+    dataset_name: str,
+    collection: Optional[str],
+    verify: bool,
+    timeout: int,
+):
+    """Show information about available dataset collections and sizes.
 
-    Performs HEAD requests to verify file availability without downloading.
-    Useful for checking before starting large downloads.
+    Displays:
+    - Available collections and their sessions
+    - Download size per collection
+    - File availability status (optional)
+
+    This helps you understand what data is available before downloading.
 
     \b
     Examples:
 
-    # Check KITTI availability
-    mdb dataset health-check kitti
+    # Show all KITTI collections
+    mds info kitti
+
+    # Show specific collection
+    mds info kitti --collection raw_data
+
+    # Verify files are actually available on servers
+    mds info kitti --verify
 
     # Check nuScenes with custom timeout
-    mdb dataset health-check nuscenes --timeout 30
+    mds info nuscenes --verify --timeout 30
     """
     try:
+        # Initialize downloader
         downloader = DatasetDownloader(dataset=dataset_name.lower())
 
-        click.echo(f"Checking {dataset_name} dataset availability...")
-        click.echo("(This may take a few minutes)\n")
-
-        status = downloader.health_check()
-
-        # Summary
-        available = sum(status.values())
-        total = len(status)
-        unavailable_count = total - available
-
         click.echo(f"\n{'='*60}")
-        click.echo(f"Summary: {available}/{total} files available")
+        click.echo(f"Dataset: {dataset_name.upper()}")
+        click.echo("=" * 60)
 
-        if unavailable_count > 0:
-            click.echo(f"⚠ {unavailable_count} files are NOT available")
-            unavailable_ids = [k for k, v in status.items() if not v]
-            for file_id in unavailable_ids[:5]:  # Show first 5
-                click.echo(f"  - {file_id}")
-            if len(unavailable_ids) > 5:
-                click.echo(f"  ... and {len(unavailable_ids) - 5} more")
+        # Metadata
+        config = downloader.config
+        click.echo(f"\nName: {config.metadata.name}")
+        click.echo(f"Description: {config.metadata.description}")
+        click.echo(f"License: {config.metadata.license.name}")
+
+        # Collections
+        available_collections = [c.id for c in config.collections]
+
+        if collection is None:
+            collections_to_show = available_collections
         else:
-            click.echo("✓ All files available!")
+            if collection not in available_collections:
+                click.echo(
+                    f"\n✗ Collection '{collection}' not found. "
+                    f"Available: {', '.join(available_collections)}",
+                    err=True,
+                )
+                raise click.Abort()
+            collections_to_show = [collection]
+
+        # Show each collection
+        click.echo(f"\n{'─'*60}")
+        click.echo("Collections:")
+        click.echo("─" * 60)
+
+        for coll_id in collections_to_show:
+            coll = downloader.config.get_collection_by_id(coll_id)
+            click.echo(f"\n  {coll_id}")
+            click.echo(f"    Sessions: {len(coll.sessions)}")
+
+            # Size info
+            size_info = downloader.get_download_size(
+                collection_id=coll_id,
+                sessions=None,
+                with_optional=True,
+            )
+            click.echo(f"    Total size: {size_info['total_readable']}")
+
+            # Show first few sessions
+            for _, session in enumerate(coll.sessions[:3]):
+                click.echo(f"      - {session.id}")
+            if len(coll.sessions) > 3:
+                click.echo(f"      ... and {len(coll.sessions) - 3} more")
+
+        # Verification (check if files are available)
+        if verify:
+            click.echo(f"\n{'─'*60}")
+            click.echo("Checking file availability...")
+            click.echo("─" * 60)
+
+            status = downloader.health_check()
+
+            available = sum(status.values())
+            total = len(status)
+            unavailable_count = total - available
+
+            if unavailable_count > 0:
+                click.echo(f"\n⚠ {available}/{total} files available")
+                unavailable_ids = [k for k, v in status.items() if not v]
+                for file_id in unavailable_ids[:5]:
+                    click.echo(f"  - {file_id}")
+                if len(unavailable_ids) > 5:
+                    click.echo(f"  ... and {len(unavailable_ids) - 5} more")
+            else:
+                click.echo(f"\n✓ All {total} files available!")
+
+        click.echo(f"\n{'='*60}\n")
 
     except FileNotFoundError as e:
         click.echo(f"✗ Dataset configuration not found: {e}", err=True)
         raise click.Abort() from None
     except Exception as e:
-        click.echo(f"✗ Health check failed: {e}", err=True)
-        raise click.Abort() from None
-
-
-@dataset.command()
-def list_datasets():
-    """List all available datasets.
-
-    Shows dataset names and their configurations.
-
-    \b
-    Examples:
-
-    mdb dataset list-datasets
-    """
-    try:
-        provider = ConfigProvider()
-        datasets = provider.list_datasources()
-
-        if not datasets:
-            click.echo("No datasets configured.")
-            return
-
-        click.echo("Available datasets:\n")
-        for ds_name in datasets:
-            config = provider.get_from_datasource(ds_name)
-            click.echo(f"  {ds_name.upper()}")
-            click.echo(f"    Name: {config.metadata.name}")
-            click.echo(f"    Description: {config.metadata.description}")
-            click.echo(f"    License: {config.metadata.license.name}")
-            click.echo(f"    Collections: {len(config.collections)}")
-            click.echo()
-
-    except Exception as e:
-        click.echo(f"✗ Failed to list datasets: {e}", err=True)
+        click.echo(f"✗ Failed to get info: {e}", err=True)
         raise click.Abort() from None
 
 

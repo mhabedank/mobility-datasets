@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mobility-datasets"
-version = "0.1.2"
+version = "0.2.0"
 description = "Python library for downloading, loading, and working with autonomous driving and mobility datasets"
 authors = ["Martin Habedank, martin.habedank@gmail.com"]
 license = "MIT"
@@ -54,7 +54,7 @@ sphinx-click = "^6.2.0"
 sphinx-autodoc-typehints = "^3.6.0"
 
 [tool.poetry.scripts]
-mdb = "mobility_datasets.cli.main:cli"
+mds = "mobility_datasets.cli.main:cli"
 
 [tool.black]
 line-length = 100

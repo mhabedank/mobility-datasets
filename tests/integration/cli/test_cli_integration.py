@@ -9,7 +9,7 @@ Tests cover:
 - Configuration loading and validation
 - Collection/session selection from real configs
 - Size estimation with real config data
-- Health check with mocked network
+- Info command with file availability verification
 - Error handling with real file structures
 """
 
@@ -171,7 +171,7 @@ class TestDownloadCommandIntegration:
             mock_downloader.data_dir = tmp_path / "kitti"
 
             runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "download", "kitti"])
+            result = runner.invoke(cli, ["download", "kitti"])
 
             assert result.exit_code == 0
             assert "complete" in result.output.lower()
@@ -215,7 +215,6 @@ class TestDownloadCommandIntegration:
             result = runner.invoke(
                 cli,
                 [
-                    "dataset",
                     "download",
                     "kitti",
                     "--collection",
@@ -267,7 +266,6 @@ class TestDownloadCommandIntegration:
             result = runner.invoke(
                 cli,
                 [
-                    "dataset",
                     "download",
                     "kitti",
                     "--sessions",
@@ -320,7 +318,6 @@ class TestDownloadCommandIntegration:
             result = runner.invoke(
                 cli,
                 [
-                    "dataset",
                     "download",
                     "kitti",
                     "--estimate-only",
@@ -371,7 +368,6 @@ class TestDownloadCommandIntegration:
             result = runner.invoke(
                 cli,
                 [
-                    "dataset",
                     "download",
                     "kitti",
                     "--collection",
@@ -396,14 +392,14 @@ class TestDownloadCommandIntegration:
             assert download_args["keep_zip"] is True
 
 
-class TestHealthCheckIntegration:
-    """Integration tests for health-check command."""
+class TestInfoCommandIntegration:
+    """Integration tests for info command with real configs."""
 
-    def test_health_check_with_real_config(self, mini_kitti_config):
+    def test_info_with_real_kitti_config(self, mini_kitti_config):
         """
-        Test: Health check works with real config.
+        Test: Info command works with real KITTI configuration.
 
-        Purpose: Verify health check integration with actual configuration.
+        Purpose: Verify info displays dataset information correctly.
         """
         config_file, config = mini_kitti_config
 
@@ -411,50 +407,157 @@ class TestHealthCheckIntegration:
             mock_downloader = Mock()
             mock_downloader_cls.return_value = mock_downloader
 
-            # Mock health check with realistic results
-            mock_downloader.health_check.return_value = {
-                "oxts_0001": True,
-                "calib_0001": True,
-                "images_0001": False,  # One unavailable
+            from mobility_datasets.config.provider import Collection, DownloadInfo, Part, Session
+
+            collections = []
+            for coll_data in config["collections"]:
+                sessions = []
+                for sess_data in coll_data.get("sessions", []):
+                    parts = []
+                    for part_data in sess_data.get("parts", []):
+                        download = DownloadInfo(**part_data["download"])
+                        part = Part(**{**part_data, "download": download})
+                        parts.append(part)
+                    session = Session(**{**sess_data, "parts": parts})
+                    sessions.append(session)
+                collection = Collection(**{**coll_data, "sessions": sessions})
+                collections.append(collection)
+
+            mock_config = Mock()
+            mock_config.metadata.name = config["metadata"]["name"]
+            mock_config.metadata.description = config["metadata"]["description"]
+            mock_config.metadata.license.name = config["metadata"]["license"]["name"]
+            mock_config.collections = collections
+
+            # Mock get_collection_by_id to return collections
+            def get_coll_by_id(coll_id):
+                for c in collections:
+                    if c.id == coll_id:
+                        return c
+                return None
+
+            mock_config.get_collection_by_id = Mock(side_effect=get_coll_by_id)
+            mock_downloader.config = mock_config
+            mock_downloader.get_download_size.return_value = {
+                "total_readable": "100 MB",
             }
 
             runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "health-check", "kitti"])
+            result = runner.invoke(cli, ["info", "kitti"])
 
             assert result.exit_code == 0
-            assert "2/3" in result.output
-            assert "images_0001" in result.output
+            assert "KITTI Dataset" in result.output
+            assert "Vision meets Robotics" in result.output
 
-    def test_health_check_with_timeout_option(self, mini_kitti_config):
+    def test_info_filters_by_collection(self, mini_kitti_config):
         """
-        Test: Health check accepts timeout option.
+        Test: Info shows only selected collection.
 
-        Purpose: Users can customize timeout for slow connections.
+        Purpose: Users can get detailed info about specific collections.
         """
         config_file, config = mini_kitti_config
 
         with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
             mock_downloader = Mock()
             mock_downloader_cls.return_value = mock_downloader
-            mock_downloader.health_check.return_value = {}
+
+            from mobility_datasets.config.provider import Collection, DownloadInfo, Part, Session
+
+            collections = []
+            for coll_data in config["collections"]:
+                sessions = []
+                for sess_data in coll_data.get("sessions", []):
+                    parts = []
+                    for part_data in sess_data.get("parts", []):
+                        download = DownloadInfo(**part_data["download"])
+                        part = Part(**{**part_data, "download": download})
+                        parts.append(part)
+                    session = Session(**{**sess_data, "parts": parts})
+                    sessions.append(session)
+                collection = Collection(**{**coll_data, "sessions": sessions})
+                collections.append(collection)
+
+            mock_config = Mock()
+            mock_config.metadata.name = "KITTI"
+            mock_config.metadata.description = "Dataset"
+            mock_config.metadata.license.name = "License"
+            mock_config.collections = collections
+
+            def get_coll_by_id(coll_id):
+                for c in collections:
+                    if c.id == coll_id:
+                        return c
+                return None
+
+            mock_config.get_collection_by_id = Mock(side_effect=get_coll_by_id)
+            mock_downloader.config = mock_config
+            mock_downloader.get_download_size.return_value = {"total_readable": "50 GB"}
 
             runner = CliRunner()
-            result = runner.invoke(
-                cli,
-                [
-                    "dataset",
-                    "health-check",
-                    "kitti",
-                    "--timeout",
-                    "30",
-                ],
-            )
+            result = runner.invoke(cli, ["info", "kitti", "--collection", "raw_data"])
 
             assert result.exit_code == 0
+            assert "raw_data" in result.output
 
-    def test_health_check_all_available(self, mini_kitti_config):
+    def test_info_verify_files_with_real_config(self, mini_kitti_config):
         """
-        Test: Health check shows success when all files available.
+        Test: Info with --verify checks file availability.
+
+        Purpose: Users can verify all files are actually available.
+        """
+        config_file, config = mini_kitti_config
+
+        with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
+            mock_downloader = Mock()
+            mock_downloader_cls.return_value = mock_downloader
+
+            from mobility_datasets.config.provider import Collection, DownloadInfo, Part, Session
+
+            collections = []
+            for coll_data in config["collections"]:
+                sessions = []
+                for sess_data in coll_data.get("sessions", []):
+                    parts = []
+                    for part_data in sess_data.get("parts", []):
+                        download = DownloadInfo(**part_data["download"])
+                        part = Part(**{**part_data, "download": download})
+                        parts.append(part)
+                    session = Session(**{**sess_data, "parts": parts})
+                    sessions.append(session)
+                collection = Collection(**{**coll_data, "sessions": sessions})
+                collections.append(collection)
+
+            mock_config = Mock()
+            mock_config.metadata.name = "KITTI"
+            mock_config.metadata.description = "Dataset"
+            mock_config.metadata.license.name = "License"
+            mock_config.collections = collections
+
+            def get_coll_by_id(coll_id):
+                for c in collections:
+                    if c.id == coll_id:
+                        return c
+                return None
+
+            mock_config.get_collection_by_id = Mock(side_effect=get_coll_by_id)
+            mock_downloader.config = mock_config
+            mock_downloader.get_download_size.return_value = {"total_readable": "100 MB"}
+            mock_downloader.health_check.return_value = {
+                "oxts_0001": True,
+                "calib_0001": True,
+                "images_0001": False,
+            }
+
+            runner = CliRunner()
+            result = runner.invoke(cli, ["info", "kitti", "--verify"])
+
+            assert result.exit_code == 0
+            assert "2/3" in result.output
+            mock_downloader.health_check.assert_called_once()
+
+    def test_info_verify_all_available(self, mini_kitti_config):
+        """
+        Test: Info verify shows success when all files available.
 
         Purpose: Users see positive feedback for healthy dataset.
         """
@@ -463,6 +566,38 @@ class TestHealthCheckIntegration:
         with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
             mock_downloader = Mock()
             mock_downloader_cls.return_value = mock_downloader
+
+            from mobility_datasets.config.provider import Collection, DownloadInfo, Part, Session
+
+            collections = []
+            for coll_data in config["collections"]:
+                sessions = []
+                for sess_data in coll_data.get("sessions", []):
+                    parts = []
+                    for part_data in sess_data.get("parts", []):
+                        download = DownloadInfo(**part_data["download"])
+                        part = Part(**{**part_data, "download": download})
+                        parts.append(part)
+                    session = Session(**{**sess_data, "parts": parts})
+                    sessions.append(session)
+                collection = Collection(**{**coll_data, "sessions": sessions})
+                collections.append(collection)
+
+            mock_config = Mock()
+            mock_config.metadata.name = "KITTI"
+            mock_config.metadata.description = "Dataset"
+            mock_config.metadata.license.name = "License"
+            mock_config.collections = collections
+
+            def get_coll_by_id(coll_id):
+                for c in collections:
+                    if c.id == coll_id:
+                        return c
+                return None
+
+            mock_config.get_collection_by_id = Mock(side_effect=get_coll_by_id)
+            mock_downloader.config = mock_config
+            mock_downloader.get_download_size.return_value = {"total_readable": "100 MB"}
             mock_downloader.health_check.return_value = {
                 "file1": True,
                 "file2": True,
@@ -470,64 +605,10 @@ class TestHealthCheckIntegration:
             }
 
             runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "health-check", "kitti"])
+            result = runner.invoke(cli, ["info", "kitti", "--verify"])
 
             assert result.exit_code == 0
-            assert "3/3" in result.output
-            assert "All files available" in result.output
-
-
-class TestListDatasetsIntegration:
-    """Integration tests for list-datasets command."""
-
-    def test_list_datasets_shows_all_configs(self, mini_kitti_config, mini_nuscenes_config):
-        """
-        Test: List-datasets shows all configured datasets.
-
-        Purpose: Users see all available datasets with metadata.
-        """
-        with patch("mobility_datasets.cli.main.ConfigProvider") as mock_provider_cls:
-            mock_provider = Mock()
-            mock_provider_cls.return_value = mock_provider
-            mock_provider.list_datasources.return_value = ["kitti", "nuscenes"]
-
-            # Create realistic config mocks
-            from mobility_datasets.config.provider import (
-                DatasetConfig,
-            )
-
-            kitti_config = {
-                "metadata": {
-                    "name": "KITTI Dataset",
-                    "description": "Vision meets Robotics",
-                    "license": {"name": "CC BY-NC-SA 3.0"},
-                },
-                "collections": [],
-            }
-
-            nuscenes_config = {
-                "metadata": {
-                    "name": "nuScenes",
-                    "description": "Large-scale 3D object detection",
-                    "license": {"name": "CC BY-NC-SA 4.0"},
-                },
-                "collections": [],
-            }
-
-            kitti_obj = DatasetConfig(**kitti_config)
-            nuscenes_obj = DatasetConfig(**nuscenes_config)
-
-            mock_provider.get_from_datasource.side_effect = lambda ds: (
-                kitti_obj if ds == "kitti" else nuscenes_obj
-            )
-
-            runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "list-datasets"])
-
-            assert result.exit_code == 0
-            assert "KITTI" in result.output
-            assert "nuScenes" in result.output
-            assert "CC BY-NC-SA" in result.output
+            assert "All 3 files available" in result.output
 
 
 class TestCliErrorHandling:
@@ -569,7 +650,6 @@ class TestCliErrorHandling:
             result = runner.invoke(
                 cli,
                 [
-                    "dataset",
                     "download",
                     "kitti",
                     "--collection",
@@ -590,7 +670,49 @@ class TestCliErrorHandling:
             mock_downloader_cls.side_effect = FileNotFoundError("Config file not found: kitti.yaml")
 
             runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "download", "kitti"])
+            result = runner.invoke(cli, ["download", "kitti"])
 
             assert result.exit_code != 0
             assert "not found" in result.output.lower()
+
+    def test_info_with_invalid_collection(self, mini_kitti_config):
+        """
+        Test: Info rejects invalid collection.
+
+        Purpose: Clear error when collection doesn't exist.
+        """
+        config_file, config = mini_kitti_config
+
+        with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
+            mock_downloader = Mock()
+            mock_downloader_cls.return_value = mock_downloader
+
+            from mobility_datasets.config.provider import Collection, DownloadInfo, Part, Session
+
+            collections = []
+            for coll_data in config["collections"]:
+                sessions = []
+                for sess_data in coll_data.get("sessions", []):
+                    parts = []
+                    for part_data in sess_data.get("parts", []):
+                        download = DownloadInfo(**part_data["download"])
+                        part = Part(**{**part_data, "download": download})
+                        parts.append(part)
+                    session = Session(**{**sess_data, "parts": parts})
+                    sessions.append(session)
+                collection = Collection(**{**coll_data, "sessions": sessions})
+                collections.append(collection)
+
+            mock_config = Mock()
+            mock_config.collections = collections
+            mock_config.get_collection_by_id = Mock(return_value=None)
+            mock_downloader.config = mock_config
+
+            runner = CliRunner()
+            result = runner.invoke(
+                cli,
+                ["info", "kitti", "--collection", "nonexistent"],
+            )
+
+            assert result.exit_code != 0
+            assert "not found" in result.output

@@ -5,7 +5,7 @@ import tarfile
 import zipfile
 from enum import IntEnum
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import humanize
 import requests
@@ -598,7 +598,7 @@ class DatasetDownloader:
     def get_download_size(
         self,
         collection_id: str,
-        sessions: List[str],
+        sessions: Optional[List[str]] = None,
         with_optional: bool = False,
     ) -> Dict[str, int | str | dict]:
         """Calculate total download size for selected sessions.
@@ -646,6 +646,7 @@ class DatasetDownloader:
         valid_sessions = []
         if sessions is None:
             valid_sessions = collection.sessions
+
         else:
             for session_id in sessions:
                 session = collection.get_session_by_id(session_id)
@@ -657,7 +658,6 @@ class DatasetDownloader:
         # Calculate sizes
         total_bytes = 0
         parts_breakdown = {}
-
         for session in valid_sessions:
             for part in session.parts:
                 if part.optional and not with_optional:
@@ -665,7 +665,6 @@ class DatasetDownloader:
 
                 size_bytes = part.download.size_bytes
                 total_bytes += size_bytes
-
                 if part.id not in parts_breakdown:
                     parts_breakdown[part.id] = 0
                 parts_breakdown[part.id] += size_bytes

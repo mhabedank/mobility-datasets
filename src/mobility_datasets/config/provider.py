@@ -60,7 +60,6 @@ class Session(BaseModel):
     id: str
     name: str
     date: str
-    location_type: str
     parts: List[Part] = Field(default_factory=list)
 
     def part_ids(self) -> List[str]:

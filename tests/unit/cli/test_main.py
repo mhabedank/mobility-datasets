@@ -97,28 +97,12 @@ class TestCliRootCommand:
         result = runner.invoke(cli, ["--help"])
 
         assert result.exit_code == 0
-        assert "dataset" in result.output
-
-
-class TestDatasetGroup:
-    """Test suite for 'dataset' command group."""
-
-    def test_dataset_group_displays_help(self):
-        """
-        Test: Dataset group shows available subcommands.
-
-        Purpose: Users can discover dataset management commands.
-        """
-        runner = CliRunner()
-        result = runner.invoke(cli, ["dataset", "--help"])
-
-        assert result.exit_code == 0
-        assert "download" in result.output or "Download" in result.output
-        assert "health-check" in result.output or "health_check" in result.output
+        assert "download" in result.output
+        assert "info" in result.output
 
 
 class TestDownloadCommand:
-    """Test suite for 'dataset download' command."""
+    """Test suite for 'download' command."""
 
     def test_download_requires_dataset_name(self):
         """
@@ -127,7 +111,7 @@ class TestDownloadCommand:
         Purpose: Clear error if user forgets dataset name.
         """
         runner = CliRunner()
-        result = runner.invoke(cli, ["dataset", "download"])
+        result = runner.invoke(cli, ["download"])
 
         assert result.exit_code != 0
         assert "Missing argument" in result.output or "DATASET_NAME" in result.output
@@ -142,7 +126,7 @@ class TestDownloadCommand:
             mock_get.return_value = ["kitti", "nuscenes"]
 
             runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "download", "invalid_dataset"])
+            result = runner.invoke(cli, ["download", "invalid_dataset"])
 
             assert result.exit_code != 0
             assert "Invalid value" in result.output or "choice" in result.output
@@ -167,9 +151,10 @@ class TestDownloadCommand:
 
                 # Mock download method
                 mock_downloader.download = Mock()
+                mock_downloader.data_dir = Path("/data/kitti")
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "download", "kitti"])
+                result = runner.invoke(cli, ["download", "kitti"])
 
                 assert result.exit_code == 0
 
@@ -189,9 +174,10 @@ class TestDownloadCommand:
                 mock_config.collections = [Mock(id="raw_data")]
                 mock_downloader.config = mock_config
                 mock_downloader.download = Mock()
+                mock_downloader.data_dir = Path("/data/kitti")
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "download", "KITTI"])
+                result = runner.invoke(cli, ["download", "KITTI"])
 
                 # Should be converted to lowercase and work
                 assert result.exit_code == 0
@@ -217,12 +203,12 @@ class TestDownloadCommand:
                 ]
                 mock_downloader.config = mock_config
                 mock_downloader.download = Mock()
+                mock_downloader.data_dir = Path("/data/kitti")
 
                 runner = CliRunner()
                 result = runner.invoke(
                     cli,
                     [
-                        "dataset",
                         "download",
                         "kitti",
                         "--collection",
@@ -256,7 +242,6 @@ class TestDownloadCommand:
                 result = runner.invoke(
                     cli,
                     [
-                        "dataset",
                         "download",
                         "kitti",
                         "--collection",
@@ -283,12 +268,12 @@ class TestDownloadCommand:
                 mock_config.collections = [Mock(id="raw_data")]
                 mock_downloader.config = mock_config
                 mock_downloader.download = Mock()
+                mock_downloader.data_dir = Path("/data/kitti")
 
                 runner = CliRunner()
                 result = runner.invoke(
                     cli,
                     [
-                        "dataset",
                         "download",
                         "kitti",
                         "--sessions",
@@ -316,12 +301,12 @@ class TestDownloadCommand:
                 mock_config.collections = [Mock(id="raw_data")]
                 mock_downloader.config = mock_config
                 mock_downloader.download = Mock()
+                mock_downloader.data_dir = Path("/data/kitti")
 
                 runner = CliRunner()
                 result = runner.invoke(
                     cli,
                     [
-                        "dataset",
                         "download",
                         "kitti",
                         "--keep-zip",
@@ -348,13 +333,13 @@ class TestDownloadCommand:
                 mock_config.collections = [Mock(id="raw_data")]
                 mock_downloader.config = mock_config
                 mock_downloader.download = Mock()
+                mock_downloader.data_dir = Path("/custom/path/data/kitti")
 
                 runner = CliRunner()
                 custom_dir = "/custom/path/data"
                 result = runner.invoke(
                     cli,
                     [
-                        "dataset",
                         "download",
                         "kitti",
                         "--data-dir",
@@ -394,7 +379,6 @@ class TestDownloadCommand:
                 result = runner.invoke(
                     cli,
                     [
-                        "dataset",
                         "download",
                         "kitti",
                         "--estimate-only",
@@ -419,7 +403,7 @@ class TestDownloadCommand:
                 mock_downloader_cls.side_effect = FileNotFoundError("Config not found")
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "download", "kitti"])
+                result = runner.invoke(cli, ["download", "kitti"])
 
                 assert result.exit_code != 0
                 assert "not found" in result.output.lower()
@@ -437,7 +421,7 @@ class TestDownloadCommand:
                 mock_downloader_cls.side_effect = ValueError("Invalid config")
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "download", "kitti"])
+                result = runner.invoke(cli, ["download", "kitti"])
 
                 assert result.exit_code != 0
                 assert "Invalid" in result.output
@@ -455,7 +439,7 @@ class TestDownloadCommand:
                 mock_downloader_cls.side_effect = RuntimeError("Unexpected error")
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "download", "kitti"])
+                result = runner.invoke(cli, ["download", "kitti"])
 
                 assert result.exit_code != 0
                 assert "Download failed" in result.output or "error" in result.output.lower()
@@ -479,27 +463,27 @@ class TestDownloadCommand:
                 mock_downloader.data_dir = Path("/data/kitti")
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "download", "kitti"])
+                result = runner.invoke(cli, ["download", "kitti"])
 
                 assert result.exit_code == 0
                 assert "complete" in result.output.lower()
 
 
-class TestHealthCheckCommand:
-    """Test suite for 'dataset health-check' command."""
+class TestInfoCommand:
+    """Test suite for 'info' command."""
 
-    def test_health_check_requires_dataset(self):
+    def test_info_requires_dataset_name(self):
         """
-        Test: Health check requires dataset name.
+        Test: Info command requires dataset name argument.
 
         Purpose: Clear error if dataset is missing.
         """
         runner = CliRunner()
-        result = runner.invoke(cli, ["dataset", "health-check"])
+        result = runner.invoke(cli, ["info"])
 
         assert result.exit_code != 0
 
-    def test_health_check_validates_dataset_choice(self):
+    def test_info_validates_dataset_choice(self):
         """
         Test: Invalid dataset is rejected.
 
@@ -509,15 +493,15 @@ class TestHealthCheckCommand:
             mock_get.return_value = ["kitti"]
 
             runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "health-check", "invalid"])
+            result = runner.invoke(cli, ["info", "invalid"])
 
             assert result.exit_code != 0
 
-    def test_health_check_accepts_valid_dataset(self):
+    def test_info_accepts_valid_dataset(self):
         """
         Test: Valid dataset is accepted.
 
-        Purpose: Health check runs for valid datasets.
+        Purpose: Info command runs for valid datasets.
         """
         with patch("mobility_datasets.cli.main.get_available_datasets") as mock_get:
             mock_get.return_value = ["kitti"]
@@ -525,18 +509,32 @@ class TestHealthCheckCommand:
             with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
                 mock_downloader = Mock()
                 mock_downloader_cls.return_value = mock_downloader
-                mock_downloader.health_check.return_value = {"file1": True, "file2": True}
+
+                # Mock config
+                mock_collection = Mock(id="raw_data", sessions=[])
+                mock_config = Mock()
+                mock_config.metadata.name = "KITTI"
+                mock_config.metadata.description = "Vision meets Robotics"
+                mock_config.metadata.license.name = "CC BY-NC-SA 3.0"
+                mock_config.collections = [mock_collection]
+                mock_config.get_collection_by_id = Mock(return_value=mock_collection)
+                mock_downloader.config = mock_config
+
+                # Mock get_download_size
+                mock_downloader.get_download_size.return_value = {
+                    "total_readable": "50 GB",
+                }
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "health-check", "kitti"])
+                result = runner.invoke(cli, ["info", "kitti"])
 
                 assert result.exit_code == 0
 
-    def test_health_check_shows_summary(self):
+    def test_info_shows_dataset_metadata(self):
         """
-        Test: Health check displays summary of results.
+        Test: Info displays dataset name and description.
 
-        Purpose: Users see how many files are available.
+        Purpose: Users see basic dataset information.
         """
         with patch("mobility_datasets.cli.main.get_available_datasets") as mock_get:
             mock_get.return_value = ["kitti"]
@@ -544,6 +542,182 @@ class TestHealthCheckCommand:
             with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
                 mock_downloader = Mock()
                 mock_downloader_cls.return_value = mock_downloader
+
+                mock_collection = Mock(id="raw_data", sessions=[])
+                mock_config = Mock()
+                mock_config.metadata.name = "KITTI Vision Benchmark"
+                mock_config.metadata.description = "Vision meets Robotics"
+                mock_config.metadata.license.name = "CC BY-NC-SA 3.0"
+                mock_config.collections = [mock_collection]
+                mock_config.get_collection_by_id = Mock(return_value=mock_collection)
+                mock_downloader.config = mock_config
+                mock_downloader.get_download_size.return_value = {"total_readable": "50 GB"}
+
+                runner = CliRunner()
+                result = runner.invoke(cli, ["info", "kitti"])
+
+                assert result.exit_code == 0
+                assert "KITTI Vision Benchmark" in result.output
+                assert "Vision meets Robotics" in result.output
+
+    def test_info_shows_collections(self):
+        """
+        Test: Info lists available collections.
+
+        Purpose: Users see what collections are available.
+        """
+        with patch("mobility_datasets.cli.main.get_available_datasets") as mock_get:
+            mock_get.return_value = ["kitti"]
+
+            with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
+                mock_downloader = Mock()
+                mock_downloader_cls.return_value = mock_downloader
+
+                mock_raw_data = Mock()
+                mock_raw_data.id = "raw_data"
+                mock_raw_data.sessions = [Mock(id="2011_09_26_drive_0001")]
+
+                mock_synced = Mock()
+                mock_synced.id = "synced_data"
+                mock_synced.sessions = []
+
+                mock_config = Mock()
+                mock_config.metadata.name = "KITTI"
+                mock_config.metadata.description = "Dataset"
+                mock_config.metadata.license.name = "License"
+                mock_config.collections = [mock_raw_data, mock_synced]
+
+                def get_coll_by_id(coll_id):
+                    for c in [mock_raw_data, mock_synced]:
+                        if c.id == coll_id:
+                            return c
+                    return None
+
+                mock_config.get_collection_by_id = Mock(side_effect=get_coll_by_id)
+                mock_downloader.config = mock_config
+                mock_downloader.get_download_size.return_value = {"total_readable": "50 GB"}
+
+                runner = CliRunner()
+                result = runner.invoke(cli, ["info", "kitti"])
+
+                assert result.exit_code == 0
+                assert "raw_data" in result.output
+                assert "synced_data" in result.output
+
+    def test_info_with_collection_option(self):
+        """
+        Test: Collection option filters which collection to show.
+
+        Purpose: Users can get info about specific collections.
+        """
+        with patch("mobility_datasets.cli.main.get_available_datasets") as mock_get:
+            mock_get.return_value = ["kitti"]
+
+            with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
+                mock_downloader = Mock()
+                mock_downloader_cls.return_value = mock_downloader
+
+                mock_raw_data = Mock()
+                mock_raw_data.id = "raw_data"
+                mock_raw_data.sessions = []
+
+                mock_config = Mock()
+                mock_config.metadata.name = "KITTI"
+                mock_config.metadata.description = "Dataset"
+                mock_config.metadata.license.name = "License"
+                mock_config.collections = [mock_raw_data]
+                mock_config.get_collection_by_id = Mock(return_value=mock_raw_data)
+                mock_downloader.config = mock_config
+                mock_downloader.get_download_size.return_value = {"total_readable": "50 GB"}
+
+                runner = CliRunner()
+                result = runner.invoke(cli, ["info", "kitti", "--collection", "raw_data"])
+
+                assert result.exit_code == 0
+                assert "raw_data" in result.output
+
+    def test_info_with_invalid_collection(self):
+        """
+        Test: Invalid collection name is rejected.
+
+        Purpose: Clear error for non-existent collections.
+        """
+        with patch("mobility_datasets.cli.main.get_available_datasets") as mock_get:
+            mock_get.return_value = ["kitti"]
+
+            with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
+                mock_downloader = Mock()
+                mock_downloader_cls.return_value = mock_downloader
+
+                mock_config = Mock()
+                mock_config.metadata.name = "KITTI"
+                mock_config.metadata.description = "Dataset"
+                mock_config.metadata.license.name = "License"
+                mock_config.collections = [Mock(id="raw_data")]
+                mock_config.collection_by_id = Mock(return_value=None)
+                mock_downloader.config = mock_config
+
+                runner = CliRunner()
+                result = runner.invoke(cli, ["info", "kitti", "--collection", "nonexistent"])
+
+                assert result.exit_code != 0
+                assert "not found" in result.output
+
+    def test_info_with_verify_flag(self):
+        """
+        Test: Verify flag checks file availability.
+
+        Purpose: Users can verify files are actually available.
+        """
+        with patch("mobility_datasets.cli.main.get_available_datasets") as mock_get:
+            mock_get.return_value = ["kitti"]
+
+            with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
+                mock_downloader = Mock()
+                mock_downloader_cls.return_value = mock_downloader
+
+                mock_collection = Mock(id="raw_data", sessions=[])
+                mock_config = Mock()
+                mock_config.metadata.name = "KITTI"
+                mock_config.metadata.description = "Dataset"
+                mock_config.metadata.license.name = "License"
+                mock_config.collections = [mock_collection]
+                mock_config.get_collection_by_id = Mock(return_value=mock_collection)
+                mock_downloader.config = mock_config
+                mock_downloader.get_download_size.return_value = {"total_readable": "50 GB"}
+                mock_downloader.health_check.return_value = {
+                    "file1": True,
+                    "file2": True,
+                }
+
+                runner = CliRunner()
+                result = runner.invoke(cli, ["info", "kitti", "--verify"])
+
+                assert result.exit_code == 0
+                mock_downloader.health_check.assert_called_once()
+
+    def test_info_verify_shows_availability_summary(self):
+        """
+        Test: Verify shows how many files are available.
+
+        Purpose: Users see availability status.
+        """
+        with patch("mobility_datasets.cli.main.get_available_datasets") as mock_get:
+            mock_get.return_value = ["kitti"]
+
+            with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
+                mock_downloader = Mock()
+                mock_downloader_cls.return_value = mock_downloader
+
+                mock_collection = Mock(id="raw_data", sessions=[])
+                mock_config = Mock()
+                mock_config.metadata.name = "KITTI"
+                mock_config.metadata.description = "Dataset"
+                mock_config.metadata.license.name = "License"
+                mock_config.collections = [mock_collection]
+                mock_config.get_collection_by_id = Mock(return_value=mock_collection)
+                mock_downloader.config = mock_config
+                mock_downloader.get_download_size.return_value = {"total_readable": "50 GB"}
                 mock_downloader.health_check.return_value = {
                     "file1": True,
                     "file2": True,
@@ -551,35 +725,12 @@ class TestHealthCheckCommand:
                 }
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "health-check", "kitti"])
+                result = runner.invoke(cli, ["info", "kitti", "--verify"])
 
                 assert result.exit_code == 0
                 assert "2/3" in result.output
 
-    def test_health_check_shows_unavailable_files(self):
-        """
-        Test: Unavailable files are listed.
-
-        Purpose: Users see which files are not accessible.
-        """
-        with patch("mobility_datasets.cli.main.get_available_datasets") as mock_get:
-            mock_get.return_value = ["kitti"]
-
-            with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
-                mock_downloader = Mock()
-                mock_downloader_cls.return_value = mock_downloader
-                mock_downloader.health_check.return_value = {
-                    "file1": True,
-                    "file2": False,
-                }
-
-                runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "health-check", "kitti"])
-
-                assert result.exit_code == 0
-                assert "file2" in result.output
-
-    def test_health_check_handles_exception(self):
+    def test_info_handles_exception(self):
         """
         Test: Exceptions are caught and reported.
 
@@ -589,81 +740,10 @@ class TestHealthCheckCommand:
             mock_get.return_value = ["kitti"]
 
             with patch("mobility_datasets.cli.main.DatasetDownloader") as mock_downloader_cls:
-                mock_downloader_cls.side_effect = Exception("Check failed")
+                mock_downloader_cls.side_effect = Exception("Info failed")
 
                 runner = CliRunner()
-                result = runner.invoke(cli, ["dataset", "health-check", "kitti"])
+                result = runner.invoke(cli, ["info", "kitti"])
 
                 assert result.exit_code != 0
                 assert "failed" in result.output.lower()
-
-
-class TestListDatasetsCommand:
-    """Test suite for 'dataset list-datasets' command."""
-
-    def test_list_datasets_shows_available(self):
-        """
-        Test: List command shows all available datasets.
-
-        Purpose: Users can discover available datasets.
-        """
-        with patch("mobility_datasets.cli.main.ConfigProvider") as mock_provider_cls:
-            mock_provider = Mock()
-            mock_provider_cls.return_value = mock_provider
-            mock_provider.list_datasources.return_value = ["kitti", "nuscenes"]
-
-            # Mock dataset configs
-            mock_kitti_config = Mock()
-            mock_kitti_config.metadata.name = "KITTI Dataset"
-            mock_kitti_config.metadata.description = "Vision meets Robotics"
-            mock_kitti_config.metadata.license.name = "CC BY-NC-SA 3.0"
-            mock_kitti_config.collections = []
-
-            mock_nuscenes_config = Mock()
-            mock_nuscenes_config.metadata.name = "nuScenes"
-            mock_nuscenes_config.metadata.description = "Large-scale 3D"
-            mock_nuscenes_config.metadata.license.name = "CC BY-NC-SA 4.0"
-            mock_nuscenes_config.collections = []
-
-            mock_provider.get_from_datasource.side_effect = lambda ds: (
-                mock_kitti_config if ds == "kitti" else mock_nuscenes_config
-            )
-
-            runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "list-datasets"])
-
-            assert result.exit_code == 0
-            assert "KITTI" in result.output
-            assert "nuScenes" in result.output
-
-    def test_list_datasets_handles_empty_list(self):
-        """
-        Test: Handles case when no datasets are configured.
-
-        Purpose: Graceful message instead of error.
-        """
-        with patch("mobility_datasets.cli.main.ConfigProvider") as mock_provider_cls:
-            mock_provider = Mock()
-            mock_provider_cls.return_value = mock_provider
-            mock_provider.list_datasources.return_value = []
-
-            runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "list-datasets"])
-
-            assert result.exit_code == 0
-            assert "No datasets" in result.output
-
-    def test_list_datasets_handles_exception(self):
-        """
-        Test: Exceptions are caught and reported.
-
-        Purpose: No crashes.
-        """
-        with patch("mobility_datasets.cli.main.ConfigProvider") as mock_provider_cls:
-            mock_provider_cls.side_effect = Exception("Provider error")
-
-            runner = CliRunner()
-            result = runner.invoke(cli, ["dataset", "list-datasets"])
-
-            assert result.exit_code != 0
-            assert "Failed" in result.output or "failed" in result.output
