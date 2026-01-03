@@ -22,6 +22,7 @@ release = "0.1.0"
 
 extensions = [
     "sphinx.ext.autodoc",  # Auto-generate API docs
+    "sphinx.ext.autosummary",  # Generate summary tables
     "sphinx.ext.napoleon",  # NumPy/Google docstring support
     "sphinx.ext.viewcode",  # Link to source code
     "sphinx.ext.intersphinx",  # Link to other docs
@@ -38,6 +39,9 @@ napoleon_use_rtype = True
 # Autodoc settings
 autodoc_member_order = "bysource"
 autodoc_typehints = "description"
+
+# Autosummary settings
+autosummary_generate = True
 
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
