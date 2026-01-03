@@ -1,0 +1,5047 @@
+metadata:
+  name: The KITTI Vision Benchmark Suite
+  description: A project of Karlsruhe Institute of Technology and Toyota Technological
+    Institute at Chicago
+  license:
+    name: CC BY-NC-SA 3.0
+    url: https://creativecommons.org/licenses/by-nc-sa/3.0/
+  citation:
+    bibtex: "@article{Geiger2013IJRR,\n  author = {Andreas Geiger and Philip Lenz\
+      \ and Christoph Stiller and Raquel Urtasun},\n  title = {Vision meets Robotics:\
+      \ The KITTI Dataset},\n  journal = {International Journal of Robotics Research\
+      \ (IJRR)},\n  year = {2013}\n}"
+collections:
+- id: city
+  name: City
+  description: Raw sensor data from KITTI city benchmark sequences
+  sessions:
+  - id: 2011_09_26_drive_0001
+    name: 2011_09_26_drive_0001
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0001/2011_09_26_drive_0001_extract.zip
+        filename: 2011_09_26_drive_0001_extract.zip
+        size_bytes: 696833348
+        md5: f7caaeb27b06cb06b5f59a5203db35b5
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0001/2011_09_26_drive_0001_sync.zip
+        filename: 2011_09_26_drive_0001_sync.zip
+        size_bytes: 458643963
+        md5: 9ef3045154ddeb0f80c1983bc6e10149
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0001/2011_09_26_drive_0001_tracklets.zip
+        filename: 2011_09_26_drive_0001_tracklets.zip
+        size_bytes: 280497
+        md5: 5997da6e6b37d9120d357ade463c173d
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0002
+    name: 2011_09_26_drive_0002
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0002/2011_09_26_drive_0002_extract.zip
+        filename: 2011_09_26_drive_0002_extract.zip
+        size_bytes: 495052715
+        md5: 54ad70ddb3544613444a2c633d2f6d11
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0002/2011_09_26_drive_0002_sync.zip
+        filename: 2011_09_26_drive_0002_sync.zip
+        size_bytes: 319776816
+        md5: d1b37eef02ad3369ad872705e2dcbdc2
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0002/2011_09_26_drive_0002_tracklets.zip
+        filename: 2011_09_26_drive_0002_tracklets.zip
+        size_bytes: 28812
+        md5: 4b40d0528cb3646a5ef997abf960dd78
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0005
+    name: 2011_09_26_drive_0005
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0005/2011_09_26_drive_0005_extract.zip
+        filename: 2011_09_26_drive_0005_extract.zip
+        size_bytes: 978290876
+        md5: de48c2a4d6d1e3abf5d19d7e8d4eb312
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0005/2011_09_26_drive_0005_sync.zip
+        filename: 2011_09_26_drive_0005_sync.zip
+        size_bytes: 645940900
+        md5: 320fd5f05862be735c9bfecff70ba6cc
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0005/2011_09_26_drive_0005_tracklets.zip
+        filename: 2011_09_26_drive_0005_tracklets.zip
+        size_bytes: 354450
+        md5: b5e2ca1af1e9de892ea5cdaaa5be3dd8
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0009
+    name: 2011_09_26_drive_0009
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0009/2011_09_26_drive_0009_extract.zip
+        filename: 2011_09_26_drive_0009_extract.zip
+        size_bytes: 2664742329
+        md5: fff5599338f5754fdac739980843ec1a
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0009/2011_09_26_drive_0009_sync.zip
+        filename: 2011_09_26_drive_0009_sync.zip
+        size_bytes: 1791264044
+        md5: 337be8431b438ece5c64539ba3ec41f8
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0009/2011_09_26_drive_0009_tracklets.zip
+        filename: 2011_09_26_drive_0009_tracklets.zip
+        size_bytes: 1578746
+        md5: 9c3a430d903473479019be9360edd077
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0011
+    name: 2011_09_26_drive_0011
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0011/2011_09_26_drive_0011_extract.zip
+        filename: 2011_09_26_drive_0011_extract.zip
+        size_bytes: 1401505416
+        md5: 79ea5937a0a581a04f5a5d0c1e143755
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0011/2011_09_26_drive_0011_sync.zip
+        filename: 2011_09_26_drive_0011_sync.zip
+        size_bytes: 939815328
+        md5: aed4a680947065d6c3ee698f207e4e6c
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0011/2011_09_26_drive_0011_tracklets.zip
+        filename: 2011_09_26_drive_0011_tracklets.zip
+        size_bytes: 739211
+        md5: 8075e2a64f9d9dbbe793f4dcc3402f47
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0013
+    name: 2011_09_26_drive_0013
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0013/2011_09_26_drive_0013_extract.zip
+        filename: 2011_09_26_drive_0013_extract.zip
+        size_bytes: 939308309
+        md5: b9babd6ae290f463cd4f76327112bad2
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0013/2011_09_26_drive_0013_sync.zip
+        filename: 2011_09_26_drive_0013_sync.zip
+        size_bytes: 630044598
+        md5: f41767ce0a066f20096b7668e2b5c0a1
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0013/2011_09_26_drive_0013_tracklets.zip
+        filename: 2011_09_26_drive_0013_tracklets.zip
+        size_bytes: 195248
+        md5: 6ac0ac17f84692dfb612ac0cd07cdac4
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0014
+    name: 2011_09_26_drive_0014
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0014/2011_09_26_drive_0014_extract.zip
+        filename: 2011_09_26_drive_0014_extract.zip
+        size_bytes: 1879451387
+        md5: a0212d74b23903cbff854e6d4caf4800
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0014/2011_09_26_drive_0014_sync.zip
+        filename: 2011_09_26_drive_0014_sync.zip
+        size_bytes: 1261710548
+        md5: a422e0b058f46703d1cceb9bce49e41f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0014/2011_09_26_drive_0014_tracklets.zip
+        filename: 2011_09_26_drive_0014_tracklets.zip
+        size_bytes: 566602
+        md5: 9123f8110a8241c525cc62dfc4e52343
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0017
+    name: 2011_09_26_drive_0017
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0017/2011_09_26_drive_0017_extract.zip
+        filename: 2011_09_26_drive_0017_extract.zip
+        size_bytes: 722441076
+        md5: 6bf4c530b2ef6207b619f70b7c9a1d1c
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0017/2011_09_26_drive_0017_sync.zip
+        filename: 2011_09_26_drive_0017_sync.zip
+        size_bytes: 469598656
+        md5: ed7ea3885148c39dd1ab2a690cdf983b
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0017/2011_09_26_drive_0017_tracklets.zip
+        filename: 2011_09_26_drive_0017_tracklets.zip
+        size_bytes: 42419
+        md5: ef35f5fbbd94a5239b6e4e1d8dc029dc
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0018
+    name: 2011_09_26_drive_0018
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0018/2011_09_26_drive_0018_extract.zip
+        filename: 2011_09_26_drive_0018_extract.zip
+        size_bytes: 1678546870
+        md5: 297a0cb819a21edf1e05bdac9acdcae9
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0018/2011_09_26_drive_0018_sync.zip
+        filename: 2011_09_26_drive_0018_sync.zip
+        size_bytes: 1115646800
+        md5: 2b3c659c983d562c2b09ec1cfa322c8b
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0018/2011_09_26_drive_0018_tracklets.zip
+        filename: 2011_09_26_drive_0018_tracklets.zip
+        size_bytes: 378539
+        md5: 9eee3986a933540cf52f1b3f69d4fb1b
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0048
+    name: 2011_09_26_drive_0048
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0048/2011_09_26_drive_0048_extract.zip
+        filename: 2011_09_26_drive_0048_extract.zip
+        size_bytes: 148805656
+        md5: a00ff5ff7dfa90ee53947b15b579ff57
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0048/2011_09_26_drive_0048_sync.zip
+        filename: 2011_09_26_drive_0048_sync.zip
+        size_bytes: 83650171
+        md5: 6a7c75b43cc48b607ee11446d90a4d9d
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0048/2011_09_26_drive_0048_tracklets.zip
+        filename: 2011_09_26_drive_0048_tracklets.zip
+        size_bytes: 64188
+        md5: 6e072a3a9d56302c4deb92e6fdc5b6e8
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0051
+    name: 2011_09_26_drive_0051
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0051/2011_09_26_drive_0051_extract.zip
+        filename: 2011_09_26_drive_0051_extract.zip
+        size_bytes: 2543336958
+        md5: 91db4e2d27ce58c9dbc15757f23c3a61
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0051/2011_09_26_drive_0051_sync.zip
+        filename: 2011_09_26_drive_0051_sync.zip
+        size_bytes: 1702327445
+        md5: 977fcc103557744a2f69d38b7bb7a012
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0051/2011_09_26_drive_0051_tracklets.zip
+        filename: 2011_09_26_drive_0051_tracklets.zip
+        size_bytes: 1070782
+        md5: 643dd96dae11add4a0dc72d0e052bac6
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0056
+    name: 2011_09_26_drive_0056
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0056/2011_09_26_drive_0056_extract.zip
+        filename: 2011_09_26_drive_0056_extract.zip
+        size_bytes: 1809584409
+        md5: 428a295997d74f794e231b535409f980
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0056/2011_09_26_drive_0056_sync.zip
+        filename: 2011_09_26_drive_0056_sync.zip
+        size_bytes: 1214030003
+        md5: 0f93c65f9473fe6095fcc26ae5c17e4d
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0056/2011_09_26_drive_0056_tracklets.zip
+        filename: 2011_09_26_drive_0056_tracklets.zip
+        size_bytes: 467079
+        md5: b449011682bd63d878485b9d9cc76af5
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0057
+    name: 2011_09_26_drive_0057
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0057/2011_09_26_drive_0057_extract.zip
+        filename: 2011_09_26_drive_0057_extract.zip
+        size_bytes: 1990516392
+        md5: b90e6cab868785d5f230241ba3ff9331
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0057/2011_09_26_drive_0057_sync.zip
+        filename: 2011_09_26_drive_0057_sync.zip
+        size_bytes: 1321890349
+        md5: 10eed940384c8470c3b86fab640af9c7
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0057/2011_09_26_drive_0057_tracklets.zip
+        filename: 2011_09_26_drive_0057_tracklets.zip
+        size_bytes: 1102922
+        md5: 8fba33be61e37ee9cdd2472e7cbe35bd
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0059
+    name: 2011_09_26_drive_0059
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0059/2011_09_26_drive_0059_extract.zip
+        filename: 2011_09_26_drive_0059_extract.zip
+        size_bytes: 2244206526
+        md5: d82f9d66a5431523b802864330d12351
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0059/2011_09_26_drive_0059_sync.zip
+        filename: 2011_09_26_drive_0059_sync.zip
+        size_bytes: 1517489971
+        md5: 03827bbe1fee826ada8c889b42544707
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0059/2011_09_26_drive_0059_tracklets.zip
+        filename: 2011_09_26_drive_0059_tracklets.zip
+        size_bytes: 1986755
+        md5: 339bb12850200e28f2b766425c8ff2ec
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0060
+    name: 2011_09_26_drive_0060
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0060/2011_09_26_drive_0060_extract.zip
+        filename: 2011_09_26_drive_0060_extract.zip
+        size_bytes: 467633561
+        md5: b9fc9a5cc6ea534f6c5d3691c5118a3d
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0060/2011_09_26_drive_0060_sync.zip
+        filename: 2011_09_26_drive_0060_sync.zip
+        size_bytes: 298725765
+        md5: 9039dd91100c8c822b2d2212af1e3df2
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+  - id: 2011_09_26_drive_0084
+    name: 2011_09_26_drive_0084
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0084/2011_09_26_drive_0084_extract.zip
+        filename: 2011_09_26_drive_0084_extract.zip
+        size_bytes: 2334952221
+        md5: 834e650c2e9eced0aa5955231d464b14
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0084/2011_09_26_drive_0084_sync.zip
+        filename: 2011_09_26_drive_0084_sync.zip
+        size_bytes: 1574584300
+        md5: 04e25ef6741f2dea19b57d83abc2f012
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0084/2011_09_26_drive_0084_tracklets.zip
+        filename: 2011_09_26_drive_0084_tracklets.zip
+        size_bytes: 1445454
+        md5: 3e33c27ac6983d55a843d3a2c3ad03a5
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0091
+    name: 2011_09_26_drive_0091
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0091/2011_09_26_drive_0091_extract.zip
+        filename: 2011_09_26_drive_0091_extract.zip
+        size_bytes: 2095107301
+        md5: 4c3727d577ea529d3f1571361146771f
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0091/2011_09_26_drive_0091_sync.zip
+        filename: 2011_09_26_drive_0091_sync.zip
+        size_bytes: 1419552280
+        md5: 97e0c9fd9a14cd541afd0f5b466ebe50
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0091/2011_09_26_drive_0091_tracklets.zip
+        filename: 2011_09_26_drive_0091_tracklets.zip
+        size_bytes: 770474
+        md5: 6bc2715cca274d7610e15b00f178d73a
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0093
+    name: 2011_09_26_drive_0093
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0093/2011_09_26_drive_0093_extract.zip
+        filename: 2011_09_26_drive_0093_extract.zip
+        size_bytes: 2536183136
+        md5: 478df797a3f37d6b1cb55a95248c9982
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0093/2011_09_26_drive_0093_sync.zip
+        filename: 2011_09_26_drive_0093_sync.zip
+        size_bytes: 1720308957
+        md5: 2c13ef06b643eb9254748b92baad84a6
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0093/2011_09_26_drive_0093_tracklets.zip
+        filename: 2011_09_26_drive_0093_tracklets.zip
+        size_bytes: 162773
+        md5: 727806f3deaa80bcfed0f393caa0f246
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0095
+    name: 2011_09_26_drive_0095
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0095/2011_09_26_drive_0095_extract.zip
+        filename: 2011_09_26_drive_0095_extract.zip
+        size_bytes: 1629372044
+        md5: 772db943ce1e5859914c214df28a7c95
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0095/2011_09_26_drive_0095_sync.zip
+        filename: 2011_09_26_drive_0095_sync.zip
+        size_bytes: 1097371915
+        md5: 21675d529bdce088f776d0eb8a28c747
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+  - id: 2011_09_26_drive_0096
+    name: 2011_09_26_drive_0096
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0096/2011_09_26_drive_0096_extract.zip
+        filename: 2011_09_26_drive_0096_extract.zip
+        size_bytes: 2969045378
+        md5: 539366713b1addba4072908bffaf5a9c
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0096/2011_09_26_drive_0096_sync.zip
+        filename: 2011_09_26_drive_0096_sync.zip
+        size_bytes: 2016323567
+        md5: 5d37494197f5195152866157ffee7e26
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+  - id: 2011_09_26_drive_0104
+    name: 2011_09_26_drive_0104
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0104/2011_09_26_drive_0104_extract.zip
+        filename: 2011_09_26_drive_0104_extract.zip
+        size_bytes: 1929340360
+        md5: 6547f69995734c068f84eabcb9eb47a4
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0104/2011_09_26_drive_0104_sync.zip
+        filename: 2011_09_26_drive_0104_sync.zip
+        size_bytes: 1310103586
+        md5: d47c2fdb004e92838085d17f66d7b7d2
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+  - id: 2011_09_26_drive_0106
+    name: 2011_09_26_drive_0106
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0106/2011_09_26_drive_0106_extract.zip
+        filename: 2011_09_26_drive_0106_extract.zip
+        size_bytes: 1381481810
+        md5: 09338026033a9843935c8084c8990062
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0106/2011_09_26_drive_0106_sync.zip
+        filename: 2011_09_26_drive_0106_sync.zip
+        size_bytes: 936875950
+        md5: e4b15565b1d9c14f0586c9e80d3198b4
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+  - id: 2011_09_26_drive_0113
+    name: 2011_09_26_drive_0113
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0113/2011_09_26_drive_0113_extract.zip
+        filename: 2011_09_26_drive_0113_extract.zip
+        size_bytes: 568976119
+        md5: 8fc3c0a46cdd62e26d529521c9e5fb52
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0113/2011_09_26_drive_0113_sync.zip
+        filename: 2011_09_26_drive_0113_sync.zip
+        size_bytes: 372444404
+        md5: 086758551065cfd2c8da44a97b733e5b
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+  - id: 2011_09_26_drive_0117
+    name: 2011_09_26_drive_0117
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0117/2011_09_26_drive_0117_extract.zip
+        filename: 2011_09_26_drive_0117_extract.zip
+        size_bytes: 4071328318
+        md5: 7c98e11ea09600b185635d9162c2abb5
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0117/2011_09_26_drive_0117_sync.zip
+        filename: 2011_09_26_drive_0117_sync.zip
+        size_bytes: 2786458483
+        md5: 5eec982fb3e19c9d1fe3bf59670bfd1b
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0001
+    name: 2011_09_28_drive_0001
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0001/2011_09_28_drive_0001_extract.zip
+        filename: 2011_09_28_drive_0001_extract.zip
+        size_bytes: 655825189
+        md5: fdc92227c42e8185dbfc3a542fe167ce
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0001/2011_09_28_drive_0001_sync.zip
+        filename: 2011_09_28_drive_0001_sync.zip
+        size_bytes: 424412944
+        md5: 2a7b1358a2fcb119e4c4393b2ee1d319
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0002
+    name: 2011_09_28_drive_0002
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0002/2011_09_28_drive_0002_extract.zip
+        filename: 2011_09_28_drive_0002_extract.zip
+        size_bytes: 2210374645
+        md5: b9a25f765727b02cd5687f89b026477b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0002/2011_09_28_drive_0002_sync.zip
+        filename: 2011_09_28_drive_0002_sync.zip
+        size_bytes: 1458258535
+        md5: 9c45d29987af0b73e5d59dd42c13590c
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_29_drive_0026
+    name: 2011_09_29_drive_0026
+    date: '2011_09_29'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_drive_0026/2011_09_29_drive_0026_extract.zip
+        filename: 2011_09_29_drive_0026_extract.zip
+        size_bytes: 902799126
+        md5: a165b724739df0c5b6d51eef846b9ad8
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_drive_0026/2011_09_29_drive_0026_sync.zip
+        filename: 2011_09_29_drive_0026_sync.zip
+        size_bytes: 590851286
+        md5: 0d94fba44fb36c495505244fa5089ca3
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_calib.zip
+        filename: 2011_09_29_calib.zip
+        size_bytes: 4071
+        md5: bf7f7a150191338c7d0ce9790f3bc6d0
+        format: zip
+      optional: false
+  - id: 2011_09_29_drive_0071
+    name: 2011_09_29_drive_0071
+    date: '2011_09_29'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_drive_0071/2011_09_29_drive_0071_extract.zip
+        filename: 2011_09_29_drive_0071_extract.zip
+        size_bytes: 6349845004
+        md5: 97eec7c3be77992cd4ab6f203e822f2c
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_drive_0071/2011_09_29_drive_0071_sync.zip
+        filename: 2011_09_29_drive_0071_sync.zip
+        size_bytes: 4337332333
+        md5: 30d235fc326ee1cbb9a7346263744285
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_calib.zip
+        filename: 2011_09_29_calib.zip
+        size_bytes: 4071
+        md5: bf7f7a150191338c7d0ce9790f3bc6d0
+        format: zip
+      optional: false
+- id: residential
+  name: Residential
+  description: Raw sensor data from KITTI residential benchmark sequences
+  sessions:
+  - id: 2011_09_26_drive_0019
+    name: 2011_09_26_drive_0019
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0019/2011_09_26_drive_0019_extract.zip
+        filename: 2011_09_26_drive_0019_extract.zip
+        size_bytes: 3099426419
+        md5: 2f9ce0a96b6a63efb49f9dbc9288b3b7
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0019/2011_09_26_drive_0019_sync.zip
+        filename: 2011_09_26_drive_0019_sync.zip
+        size_bytes: 2097547106
+        md5: 0c42c61596f6dcbda9319568e9d4c0e9
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0019/2011_09_26_drive_0019_tracklets.zip
+        filename: 2011_09_26_drive_0019_tracklets.zip
+        size_bytes: 628409
+        md5: 8870250533e77a5d9083c77d6e2b9fd3
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0020
+    name: 2011_09_26_drive_0020
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0020/2011_09_26_drive_0020_extract.zip
+        filename: 2011_09_26_drive_0020_extract.zip
+        size_bytes: 554381161
+        md5: 62968d3f5ccab5d6dd2bfd0af6f3844e
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0020/2011_09_26_drive_0020_sync.zip
+        filename: 2011_09_26_drive_0020_sync.zip
+        size_bytes: 367093728
+        md5: f77f55a248c420dd7296e3489aa9ef8a
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0020/2011_09_26_drive_0020_tracklets.zip
+        filename: 2011_09_26_drive_0020_tracklets.zip
+        size_bytes: 237117
+        md5: ce06449f5ab0e3f5836408f11b73ed5c
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0022
+    name: 2011_09_26_drive_0022
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0022/2011_09_26_drive_0022_extract.zip
+        filename: 2011_09_26_drive_0022_extract.zip
+        size_bytes: 4991067527
+        md5: ea4bb0e7cb94b70ab661282b5118427e
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0022/2011_09_26_drive_0022_sync.zip
+        filename: 2011_09_26_drive_0022_sync.zip
+        size_bytes: 3409516068
+        md5: a17b3bf589a6fda6a0088ba1ff65a680
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0022/2011_09_26_drive_0022_tracklets.zip
+        filename: 2011_09_26_drive_0022_tracklets.zip
+        size_bytes: 1347124
+        md5: 7e99d86e2bad3dd24f789720a2901589
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0023
+    name: 2011_09_26_drive_0023
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0023/2011_09_26_drive_0023_extract.zip
+        filename: 2011_09_26_drive_0023_extract.zip
+        size_bytes: 2922156427
+        md5: 94d60e1158045e68999b9bef6ffec554
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0023/2011_09_26_drive_0023_sync.zip
+        filename: 2011_09_26_drive_0023_sync.zip
+        size_bytes: 1999129806
+        md5: 8980233212a6cb0dceea042b5e1807c1
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0023/2011_09_26_drive_0023_tracklets.zip
+        filename: 2011_09_26_drive_0023_tracklets.zip
+        size_bytes: 2277359
+        md5: 66d866cfc0aa6b5fa8723944858c5384
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0035
+    name: 2011_09_26_drive_0035
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0035/2011_09_26_drive_0035_extract.zip
+        filename: 2011_09_26_drive_0035_extract.zip
+        size_bytes: 778042794
+        md5: 6c64bf28e47139041fc309ac340fcf22
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0035/2011_09_26_drive_0035_sync.zip
+        filename: 2011_09_26_drive_0035_sync.zip
+        size_bytes: 512019684
+        md5: d47d613f66f40e471d243dcc46c0e94a
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0035/2011_09_26_drive_0035_tracklets.zip
+        filename: 2011_09_26_drive_0035_tracklets.zip
+        size_bytes: 942150
+        md5: 481e539067370c4c39677faa2f840e06
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0036
+    name: 2011_09_26_drive_0036
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0036/2011_09_26_drive_0036_extract.zip
+        filename: 2011_09_26_drive_0036_extract.zip
+        size_bytes: 4815758456
+        md5: 1f2202d06be935b165d20d37ea65db81
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0036/2011_09_26_drive_0036_sync.zip
+        filename: 2011_09_26_drive_0036_sync.zip
+        size_bytes: 3257339348
+        md5: 67c839098cf6366838955960d7e7fcf3
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0036/2011_09_26_drive_0036_tracklets.zip
+        filename: 2011_09_26_drive_0036_tracklets.zip
+        size_bytes: 2021465
+        md5: 1330e96aeea23c2ea04932d9389fe734
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0039
+    name: 2011_09_26_drive_0039
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0039/2011_09_26_drive_0039_extract.zip
+        filename: 2011_09_26_drive_0039_extract.zip
+        size_bytes: 2281771022
+        md5: e7f363c872479621bb8e05c42ed4c726
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0039/2011_09_26_drive_0039_sync.zip
+        filename: 2011_09_26_drive_0039_sync.zip
+        size_bytes: 1538110914
+        md5: 06d46c2d77feab5219707e67dcd62014
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0039/2011_09_26_drive_0039_tracklets.zip
+        filename: 2011_09_26_drive_0039_tracklets.zip
+        size_bytes: 928712
+        md5: 02f4127e6dfbd9580a57b9a5af176c5a
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0046
+    name: 2011_09_26_drive_0046
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0046/2011_09_26_drive_0046_extract.zip
+        filename: 2011_09_26_drive_0046_extract.zip
+        size_bytes: 741858101
+        md5: 4a33f1f8c3e1468e83b2d5f294371a41
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0046/2011_09_26_drive_0046_sync.zip
+        filename: 2011_09_26_drive_0046_sync.zip
+        size_bytes: 486623395
+        md5: dab20aa2ff34ad6ae0a50987378a3af5
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0046/2011_09_26_drive_0046_tracklets.zip
+        filename: 2011_09_26_drive_0046_tracklets.zip
+        size_bytes: 92716
+        md5: bda61fbe6ca168e85c08e94b76aacf01
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0061
+    name: 2011_09_26_drive_0061
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0061/2011_09_26_drive_0061_extract.zip
+        filename: 2011_09_26_drive_0061_extract.zip
+        size_bytes: 4423114040
+        md5: 2926da8306247cac6a4fae72b200af90
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0061/2011_09_26_drive_0061_sync.zip
+        filename: 2011_09_26_drive_0061_sync.zip
+        size_bytes: 3049963820
+        md5: 354c6fb62d72ea305f721850bf400567
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0061/2011_09_26_drive_0061_tracklets.zip
+        filename: 2011_09_26_drive_0061_tracklets.zip
+        size_bytes: 1001123
+        md5: 0056b5f20aa883f623085c2e349fe69e
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0064
+    name: 2011_09_26_drive_0064
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0064/2011_09_26_drive_0064_extract.zip
+        filename: 2011_09_26_drive_0064_extract.zip
+        size_bytes: 3504202851
+        md5: acf1cc65139f9d1582c3a10bd9cdbc49
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0064/2011_09_26_drive_0064_sync.zip
+        filename: 2011_09_26_drive_0064_sync.zip
+        size_bytes: 2376539657
+        md5: 34cd4139ea33f29e8be0c1dc7c2412d9
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0064/2011_09_26_drive_0064_tracklets.zip
+        filename: 2011_09_26_drive_0064_tracklets.zip
+        size_bytes: 1164637
+        md5: 628d35deada4bc76ebb152073deb9ad2
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0079
+    name: 2011_09_26_drive_0079
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0079/2011_09_26_drive_0079_extract.zip
+        filename: 2011_09_26_drive_0079_extract.zip
+        size_bytes: 669307062
+        md5: 03976ac3dbfe47f0134aaff08e983be3
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0079/2011_09_26_drive_0079_sync.zip
+        filename: 2011_09_26_drive_0079_sync.zip
+        size_bytes: 439133579
+        md5: 80f040f9919b8fbb049da82420577897
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0079/2011_09_26_drive_0079_tracklets.zip
+        filename: 2011_09_26_drive_0079_tracklets.zip
+        size_bytes: 35619
+        md5: df9aaee6e968b98f96c863502af25c42
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0086
+    name: 2011_09_26_drive_0086
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0086/2011_09_26_drive_0086_extract.zip
+        filename: 2011_09_26_drive_0086_extract.zip
+        size_bytes: 4445928638
+        md5: 8819a607d488e85e7e5317cc356ea355
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0086/2011_09_26_drive_0086_sync.zip
+        filename: 2011_09_26_drive_0086_sync.zip
+        size_bytes: 3055393176
+        md5: d0d3dcd1816ef4c5a9323cdb47430eed
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0086/2011_09_26_drive_0086_tracklets.zip
+        filename: 2011_09_26_drive_0086_tracklets.zip
+        size_bytes: 195562
+        md5: 5f3bcc8ea31ee213659d5b3ede79587e
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0087
+    name: 2011_09_26_drive_0087
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0087/2011_09_26_drive_0087_extract.zip
+        filename: 2011_09_26_drive_0087_extract.zip
+        size_bytes: 4561268095
+        md5: a2442b8beaef6f2228b05776045813bd
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0087/2011_09_26_drive_0087_sync.zip
+        filename: 2011_09_26_drive_0087_sync.zip
+        size_bytes: 3138789859
+        md5: f34f5a2312b0a38a27f42859a504ab95
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0087/2011_09_26_drive_0087_tracklets.zip
+        filename: 2011_09_26_drive_0087_tracklets.zip
+        size_bytes: 285205
+        md5: dd9927734071a7168ff54e9810e00f6f
+        format: zip
+      optional: true
+  - id: 2011_09_30_drive_0018
+    name: 2011_09_30_drive_0018
+    date: '2011_09_30'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0018/2011_09_30_drive_0018_extract.zip
+        filename: 2011_09_30_drive_0018_extract.zip
+        size_bytes: 16801678065
+        md5: 4e95d885858e6cb4b566558882f5900f
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0018/2011_09_30_drive_0018_sync.zip
+        filename: 2011_09_30_drive_0018_sync.zip
+        size_bytes: 11320688364
+        md5: b454b0fc82711bdef4149463f3ffd876
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_calib.zip
+        filename: 2011_09_30_calib.zip
+        size_bytes: 4073
+        md5: a5c96ed5b604a33bf0c392116999713f
+        format: zip
+      optional: false
+  - id: 2011_09_30_drive_0020
+    name: 2011_09_30_drive_0020
+    date: '2011_09_30'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0020/2011_09_30_drive_0020_extract.zip
+        filename: 2011_09_30_drive_0020_extract.zip
+        size_bytes: 6733195229
+        md5: e084f61245aaaddaf6c5fb8269952c42
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0020/2011_09_30_drive_0020_sync.zip
+        filename: 2011_09_30_drive_0020_sync.zip
+        size_bytes: 4474549463
+        md5: 3ecf550d898c405ad60273bfdf32325f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_calib.zip
+        filename: 2011_09_30_calib.zip
+        size_bytes: 4073
+        md5: a5c96ed5b604a33bf0c392116999713f
+        format: zip
+      optional: false
+  - id: 2011_09_30_drive_0027
+    name: 2011_09_30_drive_0027
+    date: '2011_09_30'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0027/2011_09_30_drive_0027_extract.zip
+        filename: 2011_09_30_drive_0027_extract.zip
+        size_bytes: 6555163055
+        md5: f39035285d3cdf5ac94c7acff2f85541
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0027/2011_09_30_drive_0027_sync.zip
+        filename: 2011_09_30_drive_0027_sync.zip
+        size_bytes: 4424930450
+        md5: 0893b190dbc5fff99c10dfaaeab10164
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_calib.zip
+        filename: 2011_09_30_calib.zip
+        size_bytes: 4073
+        md5: a5c96ed5b604a33bf0c392116999713f
+        format: zip
+      optional: false
+  - id: 2011_09_30_drive_0028
+    name: 2011_09_30_drive_0028
+    date: '2011_09_30'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0028/2011_09_30_drive_0028_extract.zip
+        filename: 2011_09_30_drive_0028_extract.zip
+        size_bytes: 31283475058
+        md5: 6b241a79f94e679e4c28f87277bd0b4b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0028/2011_09_30_drive_0028_sync.zip
+        filename: 2011_09_30_drive_0028_sync.zip
+        size_bytes: 21198755156
+        md5: 4a427dd82f619cd518b127df5e71c0c7
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_calib.zip
+        filename: 2011_09_30_calib.zip
+        size_bytes: 4073
+        md5: a5c96ed5b604a33bf0c392116999713f
+        format: zip
+      optional: false
+  - id: 2011_09_30_drive_0033
+    name: 2011_09_30_drive_0033
+    date: '2011_09_30'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0033/2011_09_30_drive_0033_extract.zip
+        filename: 2011_09_30_drive_0033_extract.zip
+        size_bytes: 9740948745
+        md5: cfe3f589d93ee4b3cbe2d9b0cfa8fe29
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0033/2011_09_30_drive_0033_sync.zip
+        filename: 2011_09_30_drive_0033_sync.zip
+        size_bytes: 6555121798
+        md5: 6194259aa692f18f0dca0e50fb3d152d
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_calib.zip
+        filename: 2011_09_30_calib.zip
+        size_bytes: 4073
+        md5: a5c96ed5b604a33bf0c392116999713f
+        format: zip
+      optional: false
+  - id: 2011_09_30_drive_0034
+    name: 2011_09_30_drive_0034
+    date: '2011_09_30'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0034/2011_09_30_drive_0034_extract.zip
+        filename: 2011_09_30_drive_0034_extract.zip
+        size_bytes: 7535336975
+        md5: 41e73b4731aaa81f951c47021599924b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0034/2011_09_30_drive_0034_sync.zip
+        filename: 2011_09_30_drive_0034_sync.zip
+        size_bytes: 5079656140
+        md5: e7ed65f678fbdfb2d6332fa41d67480f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_calib.zip
+        filename: 2011_09_30_calib.zip
+        size_bytes: 4073
+        md5: a5c96ed5b604a33bf0c392116999713f
+        format: zip
+      optional: false
+  - id: 2011_10_03_drive_0027
+    name: 2011_10_03_drive_0027
+    date: '2011_10_03'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_drive_0027/2011_10_03_drive_0027_extract.zip
+        filename: 2011_10_03_drive_0027_extract.zip
+        size_bytes: 26840921149
+        md5: 4ff73104a804ede56e16ed2af2ad7a28
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_drive_0027/2011_10_03_drive_0027_sync.zip
+        filename: 2011_10_03_drive_0027_sync.zip
+        size_bytes: 18349607637
+        md5: 7478be410542667c9515bcbca2fdcbfd
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_calib.zip
+        filename: 2011_10_03_calib.zip
+        size_bytes: 4075
+        md5: 20e722a129e0906a650481b5042e7f5c
+        format: zip
+      optional: false
+  - id: 2011_10_03_drive_0034
+    name: 2011_10_03_drive_0034
+    date: '2011_10_03'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_drive_0034/2011_10_03_drive_0034_extract.zip
+        filename: 2011_10_03_drive_0034_extract.zip
+        size_bytes: 28870171750
+        md5: 6c2f9021778a9168d287cc59eb0ba37d
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_drive_0034/2011_10_03_drive_0034_sync.zip
+        filename: 2011_10_03_drive_0034_sync.zip
+        size_bytes: 19782483045
+        md5: 650bede8f6a710a434b467f722644f08
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_calib.zip
+        filename: 2011_10_03_calib.zip
+        size_bytes: 4075
+        md5: 20e722a129e0906a650481b5042e7f5c
+        format: zip
+      optional: false
+- id: road
+  name: Road
+  description: Raw sensor data from KITTI road benchmark sequences
+  sessions:
+  - id: 2011_09_26_drive_0015
+    name: 2011_09_26_drive_0015
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0015/2011_09_26_drive_0015_extract.zip
+        filename: 2011_09_26_drive_0015_extract.zip
+        size_bytes: 1822017870
+        md5: 31708459b2b49043660b840bd6c5a4bd
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0015/2011_09_26_drive_0015_sync.zip
+        filename: 2011_09_26_drive_0015_sync.zip
+        size_bytes: 1206523127
+        md5: e08b2b7f7872c15c5a4be051e8c10765
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0015/2011_09_26_drive_0015_tracklets.zip
+        filename: 2011_09_26_drive_0015_tracklets.zip
+        size_bytes: 725461
+        md5: 824a28c96d731075b4bd3069d91f855f
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0027
+    name: 2011_09_26_drive_0027
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0027/2011_09_26_drive_0027_extract.zip
+        filename: 2011_09_26_drive_0027_extract.zip
+        size_bytes: 1259106246
+        md5: 7f1a567e8e8cedb7ed832358b942fc3f
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0027/2011_09_26_drive_0027_sync.zip
+        filename: 2011_09_26_drive_0027_sync.zip
+        size_bytes: 849872514
+        md5: c9cccf42e271dcfb9c82b2c1f1f2e82a
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0027/2011_09_26_drive_0027_tracklets.zip
+        filename: 2011_09_26_drive_0027_tracklets.zip
+        size_bytes: 38104
+        md5: 0a5125801575c3a2d6d71cc8cc02dc00
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0028
+    name: 2011_09_26_drive_0028
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0028/2011_09_26_drive_0028_extract.zip
+        filename: 2011_09_26_drive_0028_extract.zip
+        size_bytes: 2801507082
+        md5: e52d5fe952dd71884df10c4a8c1e5961
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0028/2011_09_26_drive_0028_sync.zip
+        filename: 2011_09_26_drive_0028_sync.zip
+        size_bytes: 1907576425
+        md5: 2f13f329de12c6f36acd9272d9e010a0
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0028/2011_09_26_drive_0028_tracklets.zip
+        filename: 2011_09_26_drive_0028_tracklets.zip
+        size_bytes: 89906
+        md5: 64960113636b4e65d776e458a8e43b40
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0029
+    name: 2011_09_26_drive_0029
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0029/2011_09_26_drive_0029_extract.zip
+        filename: 2011_09_26_drive_0029_extract.zip
+        size_bytes: 2529338306
+        md5: da3418b0bd360d6baec191e40b607f77
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0029/2011_09_26_drive_0029_sync.zip
+        filename: 2011_09_26_drive_0029_sync.zip
+        size_bytes: 1684284933
+        md5: 83946fb9921cf7c58664df7709ab166c
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0029/2011_09_26_drive_0029_tracklets.zip
+        filename: 2011_09_26_drive_0029_tracklets.zip
+        size_bytes: 135027
+        md5: 6589b73d92487171a3d11213dfdfd8eb
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0032
+    name: 2011_09_26_drive_0032
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0032/2011_09_26_drive_0032_extract.zip
+        filename: 2011_09_26_drive_0032_extract.zip
+        size_bytes: 2180071807
+        md5: cd0aa5b4cd05378cdca3cec8b6b3ebb8
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0032/2011_09_26_drive_0032_sync.zip
+        filename: 2011_09_26_drive_0032_sync.zip
+        size_bytes: 1451679572
+        md5: c30eea833603a53e7b42e79f773c0901
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0032/2011_09_26_drive_0032_tracklets.zip
+        filename: 2011_09_26_drive_0032_tracklets.zip
+        size_bytes: 679338
+        md5: c3f5fcad26b891513bb418b0ca8b3b75
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0052
+    name: 2011_09_26_drive_0052
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0052/2011_09_26_drive_0052_extract.zip
+        filename: 2011_09_26_drive_0052_extract.zip
+        size_bytes: 443551116
+        md5: 4f5aeabf93fa13607bd0849d782403ba
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0052/2011_09_26_drive_0052_sync.zip
+        filename: 2011_09_26_drive_0052_sync.zip
+        size_bytes: 285158280
+        md5: bc79a8aa191ab05d4f56c916b9df5336
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0052/2011_09_26_drive_0052_tracklets.zip
+        filename: 2011_09_26_drive_0052_tracklets.zip
+        size_bytes: 295554
+        md5: 5b755e368ef052c70f46935ea734829e
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0070
+    name: 2011_09_26_drive_0070
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0070/2011_09_26_drive_0070_extract.zip
+        filename: 2011_09_26_drive_0070_extract.zip
+        size_bytes: 2624108219
+        md5: 64fe80672b74be2f57439b7b1270506e
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0070/2011_09_26_drive_0070_sync.zip
+        filename: 2011_09_26_drive_0070_sync.zip
+        size_bytes: 1759098358
+        md5: ccad2e2bd7a58f65a81beee2632f73ab
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+    - id: tracklets
+      name: Tracklets
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0070/2011_09_26_drive_0070_tracklets.zip
+        filename: 2011_09_26_drive_0070_tracklets.zip
+        size_bytes: 185200
+        md5: 8b3408643471a2cf3ae9e00e164ede1a
+        format: zip
+      optional: true
+  - id: 2011_09_26_drive_0101
+    name: 2011_09_26_drive_0101
+    date: '2011_09_26'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0101/2011_09_26_drive_0101_extract.zip
+        filename: 2011_09_26_drive_0101_extract.zip
+        size_bytes: 5349436472
+        md5: ba7628326123d7327a5b7737753728e7
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0101/2011_09_26_drive_0101_sync.zip
+        filename: 2011_09_26_drive_0101_sync.zip
+        size_bytes: 3617310729
+        md5: 588c424833fd37865ba00e94b6a3f663
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip
+        filename: 2011_09_26_calib.zip
+        size_bytes: 4068
+        md5: 5d6cfb6bd7ec7c5f5231d16ead7ce9f1
+        format: zip
+      optional: false
+  - id: 2011_09_29_drive_0004
+    name: 2011_09_29_drive_0004
+    date: '2011_09_29'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_drive_0004/2011_09_29_drive_0004_extract.zip
+        filename: 2011_09_29_drive_0004_extract.zip
+        size_bytes: 2087353007
+        md5: 13e0648eb09d4fa45e01c898bd6004d3
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_drive_0004/2011_09_29_drive_0004_sync.zip
+        filename: 2011_09_29_drive_0004_sync.zip
+        size_bytes: 1406686016
+        md5: 37cce91a70579a0b4842f3db01d25eae
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_29_calib.zip
+        filename: 2011_09_29_calib.zip
+        size_bytes: 4071
+        md5: bf7f7a150191338c7d0ce9790f3bc6d0
+        format: zip
+      optional: false
+  - id: 2011_09_30_drive_0016
+    name: 2011_09_30_drive_0016
+    date: '2011_09_30'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0016/2011_09_30_drive_0016_extract.zip
+        filename: 2011_09_30_drive_0016_extract.zip
+        size_bytes: 1724245728
+        md5: 1483fd08c23c2a1f1dbcfc11a43d6b46
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_drive_0016/2011_09_30_drive_0016_sync.zip
+        filename: 2011_09_30_drive_0016_sync.zip
+        size_bytes: 1134226963
+        md5: 4f015dd081f61770214a7bc77324402a
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_30_calib.zip
+        filename: 2011_09_30_calib.zip
+        size_bytes: 4073
+        md5: a5c96ed5b604a33bf0c392116999713f
+        format: zip
+      optional: false
+  - id: 2011_10_03_drive_0042
+    name: 2011_10_03_drive_0042
+    date: '2011_10_03'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_drive_0042/2011_10_03_drive_0042_extract.zip
+        filename: 2011_10_03_drive_0042_extract.zip
+        size_bytes: 6350995095
+        md5: 6ebc8b495d956a340c177fca2144ab9c
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_drive_0042/2011_10_03_drive_0042_sync.zip
+        filename: 2011_10_03_drive_0042_sync.zip
+        size_bytes: 4239391956
+        md5: 3faa05ae77d426f2b0786e9c6e97156e
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_calib.zip
+        filename: 2011_10_03_calib.zip
+        size_bytes: 4075
+        md5: 20e722a129e0906a650481b5042e7f5c
+        format: zip
+      optional: false
+  - id: 2011_10_03_drive_0047
+    name: 2011_10_03_drive_0047
+    date: '2011_10_03'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_drive_0047/2011_10_03_drive_0047_extract.zip
+        filename: 2011_10_03_drive_0047_extract.zip
+        size_bytes: 4625317184
+        md5: f9fc6c043f67ed7a3a525090b304e56b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_drive_0047/2011_10_03_drive_0047_sync.zip
+        filename: 2011_10_03_drive_0047_sync.zip
+        size_bytes: 3103291675
+        md5: bf1a45d0bbd1af31305d2d229045706e
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_10_03_calib.zip
+        filename: 2011_10_03_calib.zip
+        size_bytes: 4075
+        md5: 20e722a129e0906a650481b5042e7f5c
+        format: zip
+      optional: false
+- id: campus
+  name: Campus
+  description: Raw sensor data from KITTI campus benchmark sequences
+  sessions:
+  - id: 2011_09_28_drive_0016
+    name: 2011_09_28_drive_0016
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0016/2011_09_28_drive_0016_extract.zip
+        filename: 2011_09_28_drive_0016_extract.zip
+        size_bytes: 1157534953
+        md5: 1e18b28ab4049f50a6d4e2616a3b5f7d
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0016/2011_09_28_drive_0016_sync.zip
+        filename: 2011_09_28_drive_0016_sync.zip
+        size_bytes: 756451122
+        md5: af6a13dae7fc41a3288408d8cd0549b2
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0021
+    name: 2011_09_28_drive_0021
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0021/2011_09_28_drive_0021_extract.zip
+        filename: 2011_09_28_drive_0021_extract.zip
+        size_bytes: 1302590141
+        md5: 6c456da68e5a758afea691fbb5d54879
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0021/2011_09_28_drive_0021_sync.zip
+        filename: 2011_09_28_drive_0021_sync.zip
+        size_bytes: 855844547
+        md5: a2471105209f87231e9c18d86a4fd98a
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0034
+    name: 2011_09_28_drive_0034
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0034/2011_09_28_drive_0034_extract.zip
+        filename: 2011_09_28_drive_0034_extract.zip
+        size_bytes: 321185672
+        md5: 3be81129532db514b8e555086f89b1f8
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0034/2011_09_28_drive_0034_sync.zip
+        filename: 2011_09_28_drive_0034_sync.zip
+        size_bytes: 193510705
+        md5: 63073046b3a2a28a606c3450f4869f88
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0035
+    name: 2011_09_28_drive_0035
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0035/2011_09_28_drive_0035_extract.zip
+        filename: 2011_09_28_drive_0035_extract.zip
+        size_bytes: 218146890
+        md5: 2c2822723cf2b9b0f0c816bf0d0d7514
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0035/2011_09_28_drive_0035_sync.zip
+        filename: 2011_09_28_drive_0035_sync.zip
+        size_bytes: 131723850
+        md5: be0d92f1f598b0c7af4b8c083bb674aa
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0037
+    name: 2011_09_28_drive_0037
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0037/2011_09_28_drive_0037_extract.zip
+        filename: 2011_09_28_drive_0037_extract.zip
+        size_bytes: 575202057
+        md5: 2ff44146f5896993259c5ed343974a97
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0037/2011_09_28_drive_0037_sync.zip
+        filename: 2011_09_28_drive_0037_sync.zip
+        size_bytes: 369717988
+        md5: 815f4df915e898de61100ae94ed1b2aa
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0038
+    name: 2011_09_28_drive_0038
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0038/2011_09_28_drive_0038_extract.zip
+        filename: 2011_09_28_drive_0038_extract.zip
+        size_bytes: 701012296
+        md5: 4aa6ccaeecae2a14c94e7390e03c24a2
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0038/2011_09_28_drive_0038_sync.zip
+        filename: 2011_09_28_drive_0038_sync.zip
+        size_bytes: 451849097
+        md5: 07e2b70f9a534a8c72a697cacdd476fd
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0039
+    name: 2011_09_28_drive_0039
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0039/2011_09_28_drive_0039_extract.zip
+        filename: 2011_09_28_drive_0039_extract.zip
+        size_bytes: 2208977362
+        md5: f7452bba9d6bddfc538f19375543c137
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0039/2011_09_28_drive_0039_sync.zip
+        filename: 2011_09_28_drive_0039_sync.zip
+        size_bytes: 1476221896
+        md5: 425d2bc56a0fd018b1a6fa2ff598fd75
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0043
+    name: 2011_09_28_drive_0043
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0043/2011_09_28_drive_0043_extract.zip
+        filename: 2011_09_28_drive_0043_extract.zip
+        size_bytes: 921110553
+        md5: d8ee63b8a5775cf845b681e479279489
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0043/2011_09_28_drive_0043_sync.zip
+        filename: 2011_09_28_drive_0043_sync.zip
+        size_bytes: 604398155
+        md5: 5727b2b1ec47a13985def07e076c5872
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0045
+    name: 2011_09_28_drive_0045
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0045/2011_09_28_drive_0045_extract.zip
+        filename: 2011_09_28_drive_0045_extract.zip
+        size_bytes: 283931418
+        md5: 764ec4cf9130da7224a1156c826d5c2a
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0045/2011_09_28_drive_0045_sync.zip
+        filename: 2011_09_28_drive_0045_sync.zip
+        size_bytes: 173725652
+        md5: be97bd4a08ee931ed131d1310707ec78
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0047
+    name: 2011_09_28_drive_0047
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0047/2011_09_28_drive_0047_extract.zip
+        filename: 2011_09_28_drive_0047_extract.zip
+        size_bytes: 209746789
+        md5: 915867507fa8d8c841b91e4327c44216
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0047/2011_09_28_drive_0047_sync.zip
+        filename: 2011_09_28_drive_0047_sync.zip
+        size_bytes: 123103730
+        md5: 2e9771a52726f51b26ffbc93ad6c2a5f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+- id: person
+  name: Person
+  description: Raw sensor data from KITTI person benchmark sequences
+  sessions:
+  - id: 2011_09_28_drive_0053
+    name: 2011_09_28_drive_0053
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0053/2011_09_28_drive_0053_extract.zip
+        filename: 2011_09_28_drive_0053_extract.zip
+        size_bytes: 467874930
+        md5: 95e147213f8a40fb7a93b45ccb9b3112
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0053/2011_09_28_drive_0053_sync.zip
+        filename: 2011_09_28_drive_0053_sync.zip
+        size_bytes: 295337473
+        md5: a8b3e5731587f86c2be7f0896677e175
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0054
+    name: 2011_09_28_drive_0054
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0054/2011_09_28_drive_0054_extract.zip
+        filename: 2011_09_28_drive_0054_extract.zip
+        size_bytes: 319709074
+        md5: 6fcc379d64cf186987f3e879b3c81ae1
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0054/2011_09_28_drive_0054_sync.zip
+        filename: 2011_09_28_drive_0054_sync.zip
+        size_bytes: 195437062
+        md5: 7643646c7bee84cd23cb84ee3fffa937
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0057
+    name: 2011_09_28_drive_0057
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0057/2011_09_28_drive_0057_extract.zip
+        filename: 2011_09_28_drive_0057_extract.zip
+        size_bytes: 506902063
+        md5: 01d3ea2092d8d6d98c028c44784d7ec8
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0057/2011_09_28_drive_0057_sync.zip
+        filename: 2011_09_28_drive_0057_sync.zip
+        size_bytes: 320437507
+        md5: bf458ccde9547047c3b7d5caa2b8a145
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0065
+    name: 2011_09_28_drive_0065
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0065/2011_09_28_drive_0065_extract.zip
+        filename: 2011_09_28_drive_0065_extract.zip
+        size_bytes: 278089906
+        md5: 0db8dd6c960de2c0a2082c9a71ab65bf
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0065/2011_09_28_drive_0065_sync.zip
+        filename: 2011_09_28_drive_0065_sync.zip
+        size_bytes: 167935773
+        md5: 587dc994229b9ef37a72755ca1d2b218
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0066
+    name: 2011_09_28_drive_0066
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0066/2011_09_28_drive_0066_extract.zip
+        filename: 2011_09_28_drive_0066_extract.zip
+        size_bytes: 217988083
+        md5: bf4d2849189680e04a70858663156c7f
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0066/2011_09_28_drive_0066_sync.zip
+        filename: 2011_09_28_drive_0066_sync.zip
+        size_bytes: 125814469
+        md5: e5d57ad892a6a138313c79a41acbc8f8
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0068
+    name: 2011_09_28_drive_0068
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0068/2011_09_28_drive_0068_extract.zip
+        filename: 2011_09_28_drive_0068_extract.zip
+        size_bytes: 461791750
+        md5: 447bf45a4cc40d00829ba5df14878aea
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0068/2011_09_28_drive_0068_sync.zip
+        filename: 2011_09_28_drive_0068_sync.zip
+        size_bytes: 290664620
+        md5: f5f3fea6deab3017d47c19ce9c453c3f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0070
+    name: 2011_09_28_drive_0070
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0070/2011_09_28_drive_0070_extract.zip
+        filename: 2011_09_28_drive_0070_extract.zip
+        size_bytes: 277355298
+        md5: 9e91cf137c2c004d8d3811fff80aff75
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0070/2011_09_28_drive_0070_sync.zip
+        filename: 2011_09_28_drive_0070_sync.zip
+        size_bytes: 169295097
+        md5: cff45023e323a7776b1abe16e52ee2a9
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0071
+    name: 2011_09_28_drive_0071
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0071/2011_09_28_drive_0071_extract.zip
+        filename: 2011_09_28_drive_0071_extract.zip
+        size_bytes: 306071871
+        md5: ebab50fb479892f3ec5e31778de6902b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0071/2011_09_28_drive_0071_sync.zip
+        filename: 2011_09_28_drive_0071_sync.zip
+        size_bytes: 186674086
+        md5: c42d6f4b38234cf34aa41cb1a815b6b0
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0075
+    name: 2011_09_28_drive_0075
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0075/2011_09_28_drive_0075_extract.zip
+        filename: 2011_09_28_drive_0075_extract.zip
+        size_bytes: 477757227
+        md5: 80ddbd1de169975f99f293ddd9cfd5d1
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0075/2011_09_28_drive_0075_sync.zip
+        filename: 2011_09_28_drive_0075_sync.zip
+        size_bytes: 303143703
+        md5: 12a4e9986505bd32ec5b2f2b99e5c1aa
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0077
+    name: 2011_09_28_drive_0077
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0077/2011_09_28_drive_0077_extract.zip
+        filename: 2011_09_28_drive_0077_extract.zip
+        size_bytes: 300743283
+        md5: c5eb4034eab9b0880c07b7c39f82f8fa
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0077/2011_09_28_drive_0077_sync.zip
+        filename: 2011_09_28_drive_0077_sync.zip
+        size_bytes: 182314464
+        md5: e14b1c3f1b098b288234f0c8b459cf74
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0078
+    name: 2011_09_28_drive_0078
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0078/2011_09_28_drive_0078_extract.zip
+        filename: 2011_09_28_drive_0078_extract.zip
+        size_bytes: 269389565
+        md5: 4a3318d5cf0bf07c0244bf9092896756
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0078/2011_09_28_drive_0078_sync.zip
+        filename: 2011_09_28_drive_0078_sync.zip
+        size_bytes: 160697640
+        md5: 5ab507c2dbfc0d7dada4ca7c5ae362a6
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0080
+    name: 2011_09_28_drive_0080
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0080/2011_09_28_drive_0080_extract.zip
+        filename: 2011_09_28_drive_0080_extract.zip
+        size_bytes: 285800186
+        md5: e4c8d2359883d6d9a42268e047a191b2
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0080/2011_09_28_drive_0080_sync.zip
+        filename: 2011_09_28_drive_0080_sync.zip
+        size_bytes: 172762287
+        md5: fa6016a143785471cae179b39c1075bb
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0082
+    name: 2011_09_28_drive_0082
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0082/2011_09_28_drive_0082_extract.zip
+        filename: 2011_09_28_drive_0082_extract.zip
+        size_bytes: 510793403
+        md5: 3f5bf7bb70043f4f21d5f150826ce7ac
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0082/2011_09_28_drive_0082_sync.zip
+        filename: 2011_09_28_drive_0082_sync.zip
+        size_bytes: 324118229
+        md5: 44892f4248a6cdb1d560620d73ca460d
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0086
+    name: 2011_09_28_drive_0086
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0086/2011_09_28_drive_0086_extract.zip
+        filename: 2011_09_28_drive_0086_extract.zip
+        size_bytes: 224498412
+        md5: c8a0d021b2326286bb7011c4cc709166
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0086/2011_09_28_drive_0086_sync.zip
+        filename: 2011_09_28_drive_0086_sync.zip
+        size_bytes: 130739109
+        md5: 30a546fa0288dccd36f7e819c834743f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0087
+    name: 2011_09_28_drive_0087
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0087/2011_09_28_drive_0087_extract.zip
+        filename: 2011_09_28_drive_0087_extract.zip
+        size_bytes: 563108636
+        md5: 8f4eaa5047a6cdd8fa0d00fdbb723ce1
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0087/2011_09_28_drive_0087_sync.zip
+        filename: 2011_09_28_drive_0087_sync.zip
+        size_bytes: 357182085
+        md5: 03f323cfe9a257b4b926676fdb449310
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0089
+    name: 2011_09_28_drive_0089
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0089/2011_09_28_drive_0089_extract.zip
+        filename: 2011_09_28_drive_0089_extract.zip
+        size_bytes: 276719512
+        md5: ae14407b31160bff5290271740c26f5b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0089/2011_09_28_drive_0089_sync.zip
+        filename: 2011_09_28_drive_0089_sync.zip
+        size_bytes: 165564431
+        md5: 505a850d00f3443049f1d609926d8350
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0090
+    name: 2011_09_28_drive_0090
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0090/2011_09_28_drive_0090_extract.zip
+        filename: 2011_09_28_drive_0090_extract.zip
+        size_bytes: 327424271
+        md5: e41c0f2d7931374d6fccaea8b3b95b7f
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0090/2011_09_28_drive_0090_sync.zip
+        filename: 2011_09_28_drive_0090_sync.zip
+        size_bytes: 200362597
+        md5: 9e97e9abece0929ee185da7e81279ccd
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0094
+    name: 2011_09_28_drive_0094
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0094/2011_09_28_drive_0094_extract.zip
+        filename: 2011_09_28_drive_0094_extract.zip
+        size_bytes: 580323387
+        md5: 4f7b7ce46b44b1808d541b28c537c7f6
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0094/2011_09_28_drive_0094_sync.zip
+        filename: 2011_09_28_drive_0094_sync.zip
+        size_bytes: 372271335
+        md5: adf58fd661528571a1f6994ca5e549a0
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0095
+    name: 2011_09_28_drive_0095
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0095/2011_09_28_drive_0095_extract.zip
+        filename: 2011_09_28_drive_0095_extract.zip
+        size_bytes: 294103635
+        md5: 6c38db148e8d34712b6eeb949194a62c
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0095/2011_09_28_drive_0095_sync.zip
+        filename: 2011_09_28_drive_0095_sync.zip
+        size_bytes: 177817864
+        md5: b06f99c88c9469d3734405328e4373de
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0096
+    name: 2011_09_28_drive_0096
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0096/2011_09_28_drive_0096_extract.zip
+        filename: 2011_09_28_drive_0096_extract.zip
+        size_bytes: 319317478
+        md5: d68956573401213a6d60d6a5615f237b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0096/2011_09_28_drive_0096_sync.zip
+        filename: 2011_09_28_drive_0096_sync.zip
+        size_bytes: 195251631
+        md5: 2016baf4c0e88b2e8b57e14a1e339316
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0098
+    name: 2011_09_28_drive_0098
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0098/2011_09_28_drive_0098_extract.zip
+        filename: 2011_09_28_drive_0098_extract.zip
+        size_bytes: 309239907
+        md5: 5ff7bac3804c184a5ce61d843e734173
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0098/2011_09_28_drive_0098_sync.zip
+        filename: 2011_09_28_drive_0098_sync.zip
+        size_bytes: 190678556
+        md5: bf21ceae06d5ec97786deb4d41a11216
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0100
+    name: 2011_09_28_drive_0100
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0100/2011_09_28_drive_0100_extract.zip
+        filename: 2011_09_28_drive_0100_extract.zip
+        size_bytes: 504690881
+        md5: e36af571bab5ec6954fca4b62994d340
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0100/2011_09_28_drive_0100_sync.zip
+        filename: 2011_09_28_drive_0100_sync.zip
+        size_bytes: 323180083
+        md5: c0f78832d9e2e4cf28ec505fcc1b6c7e
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0102
+    name: 2011_09_28_drive_0102
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0102/2011_09_28_drive_0102_extract.zip
+        filename: 2011_09_28_drive_0102_extract.zip
+        size_bytes: 312669600
+        md5: 36c6e9805b25f7c3ce55aa758f3f3bff
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0102/2011_09_28_drive_0102_sync.zip
+        filename: 2011_09_28_drive_0102_sync.zip
+        size_bytes: 193048180
+        md5: 1a4b4d9a0d02ec1ae58675553e1c277f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0103
+    name: 2011_09_28_drive_0103
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0103/2011_09_28_drive_0103_extract.zip
+        filename: 2011_09_28_drive_0103_extract.zip
+        size_bytes: 263667710
+        md5: faa17b2e5f4f74700a2105f6e47a4a7e
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0103/2011_09_28_drive_0103_sync.zip
+        filename: 2011_09_28_drive_0103_sync.zip
+        size_bytes: 159515450
+        md5: 08dce31553c8d648d6ab78074006f96c
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0104
+    name: 2011_09_28_drive_0104
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0104/2011_09_28_drive_0104_extract.zip
+        filename: 2011_09_28_drive_0104_extract.zip
+        size_bytes: 302054735
+        md5: abbb7acc454ff600aab7a5fed2ab14ab
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0104/2011_09_28_drive_0104_sync.zip
+        filename: 2011_09_28_drive_0104_sync.zip
+        size_bytes: 184636446
+        md5: 63b187233b5744225124d4ca2ef8b34f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0106
+    name: 2011_09_28_drive_0106
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0106/2011_09_28_drive_0106_extract.zip
+        filename: 2011_09_28_drive_0106_extract.zip
+        size_bytes: 496670445
+        md5: 766551de68898a2cb5ad823028c8cb1a
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0106/2011_09_28_drive_0106_sync.zip
+        filename: 2011_09_28_drive_0106_sync.zip
+        size_bytes: 314547727
+        md5: ad9eb3ceecdc59d90a3cc274b53aef69
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0108
+    name: 2011_09_28_drive_0108
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0108/2011_09_28_drive_0108_extract.zip
+        filename: 2011_09_28_drive_0108_extract.zip
+        size_bytes: 327322408
+        md5: 453ff57eac718d16d3e6fa9b970a1492
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0108/2011_09_28_drive_0108_sync.zip
+        filename: 2011_09_28_drive_0108_sync.zip
+        size_bytes: 200917052
+        md5: 0282077b30a846e2d0d5899d1757b539
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0110
+    name: 2011_09_28_drive_0110
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0110/2011_09_28_drive_0110_extract.zip
+        filename: 2011_09_28_drive_0110_extract.zip
+        size_bytes: 418589563
+        md5: 04dff9f70597116ffd1026a8210eb074
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0110/2011_09_28_drive_0110_sync.zip
+        filename: 2011_09_28_drive_0110_sync.zip
+        size_bytes: 264196469
+        md5: 104a4594af27b9d2baa6b1549445b7e2
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0113
+    name: 2011_09_28_drive_0113
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0113/2011_09_28_drive_0113_extract.zip
+        filename: 2011_09_28_drive_0113_extract.zip
+        size_bytes: 487119961
+        md5: 6d91b17bc7202dfb892d576a531db052
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0113/2011_09_28_drive_0113_sync.zip
+        filename: 2011_09_28_drive_0113_sync.zip
+        size_bytes: 310511554
+        md5: 59fa425a35850235cf9e138a35176c0b
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0117
+    name: 2011_09_28_drive_0117
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0117/2011_09_28_drive_0117_extract.zip
+        filename: 2011_09_28_drive_0117_extract.zip
+        size_bytes: 250690584
+        md5: db9867476cce9541742cda0ed284da67
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0117/2011_09_28_drive_0117_sync.zip
+        filename: 2011_09_28_drive_0117_sync.zip
+        size_bytes: 150486958
+        md5: 34be9e0f9d88d28d9d29948294f810f2
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0119
+    name: 2011_09_28_drive_0119
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0119/2011_09_28_drive_0119_extract.zip
+        filename: 2011_09_28_drive_0119_extract.zip
+        size_bytes: 505521465
+        md5: 108c5f541e5c838fbd78cba96ae717b8
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0119/2011_09_28_drive_0119_sync.zip
+        filename: 2011_09_28_drive_0119_sync.zip
+        size_bytes: 322630862
+        md5: 146a41984aa9d94909bd9d80bcfc57d0
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0121
+    name: 2011_09_28_drive_0121
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0121/2011_09_28_drive_0121_extract.zip
+        filename: 2011_09_28_drive_0121_extract.zip
+        size_bytes: 309150868
+        md5: 7593f15eeab35cee59095abe7f587f38
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0121/2011_09_28_drive_0121_sync.zip
+        filename: 2011_09_28_drive_0121_sync.zip
+        size_bytes: 192762200
+        md5: 9d4360bb91a39a2e60fe9ac436d2733e
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0122
+    name: 2011_09_28_drive_0122
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0122/2011_09_28_drive_0122_extract.zip
+        filename: 2011_09_28_drive_0122_extract.zip
+        size_bytes: 294448576
+        md5: d554515d65aaff8b19f85c6730be69ca
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0122/2011_09_28_drive_0122_sync.zip
+        filename: 2011_09_28_drive_0122_sync.zip
+        size_bytes: 180266851
+        md5: c0111d0b64151f59a6cbac97ef10c38e
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0125
+    name: 2011_09_28_drive_0125
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0125/2011_09_28_drive_0125_extract.zip
+        filename: 2011_09_28_drive_0125_extract.zip
+        size_bytes: 397834313
+        md5: 71beddfb37e790cf9d9feb41b5ad52d5
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0125/2011_09_28_drive_0125_sync.zip
+        filename: 2011_09_28_drive_0125_sync.zip
+        size_bytes: 247319927
+        md5: d94835ae482581ead95aca0ebec3ff2f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0126
+    name: 2011_09_28_drive_0126
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0126/2011_09_28_drive_0126_extract.zip
+        filename: 2011_09_28_drive_0126_extract.zip
+        size_bytes: 222333321
+        md5: 29048873373c8f806ad6621d5fad3246
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0126/2011_09_28_drive_0126_sync.zip
+        filename: 2011_09_28_drive_0126_sync.zip
+        size_bytes: 134052781
+        md5: f1680d3f42f810e87e25ac1b2931cfe5
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0128
+    name: 2011_09_28_drive_0128
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0128/2011_09_28_drive_0128_extract.zip
+        filename: 2011_09_28_drive_0128_extract.zip
+        size_bytes: 203811478
+        md5: 0c7427cc77e974f9a7dcbc45c44a8587
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0128/2011_09_28_drive_0128_sync.zip
+        filename: 2011_09_28_drive_0128_sync.zip
+        size_bytes: 121502858
+        md5: 18b6358763fa6919b58f8bdbcdfb1e76
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0132
+    name: 2011_09_28_drive_0132
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0132/2011_09_28_drive_0132_extract.zip
+        filename: 2011_09_28_drive_0132_extract.zip
+        size_bytes: 481083177
+        md5: 496bdd6e397caa066eee25d001e84174
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0132/2011_09_28_drive_0132_sync.zip
+        filename: 2011_09_28_drive_0132_sync.zip
+        size_bytes: 306195410
+        md5: 065a45747734fa0105b269f1d4ff310f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0134
+    name: 2011_09_28_drive_0134
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0134/2011_09_28_drive_0134_extract.zip
+        filename: 2011_09_28_drive_0134_extract.zip
+        size_bytes: 370544462
+        md5: 68892b4a141b59a5bc456a62f1602424
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0134/2011_09_28_drive_0134_sync.zip
+        filename: 2011_09_28_drive_0134_sync.zip
+        size_bytes: 230595320
+        md5: 572dbf8350f733b11b11a4535aba1cd7
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0135
+    name: 2011_09_28_drive_0135
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0135/2011_09_28_drive_0135_extract.zip
+        filename: 2011_09_28_drive_0135_extract.zip
+        size_bytes: 285088184
+        md5: 7a4a2e876308cacb754d6bcffb42540e
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0135/2011_09_28_drive_0135_sync.zip
+        filename: 2011_09_28_drive_0135_sync.zip
+        size_bytes: 176161577
+        md5: a240b9ab8c597a0c940fa25e99e1c8b7
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0136
+    name: 2011_09_28_drive_0136
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0136/2011_09_28_drive_0136_extract.zip
+        filename: 2011_09_28_drive_0136_extract.zip
+        size_bytes: 219597888
+        md5: cd634cd9ae9059da2b313698c8c589f6
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0136/2011_09_28_drive_0136_sync.zip
+        filename: 2011_09_28_drive_0136_sync.zip
+        size_bytes: 130045777
+        md5: bc93d8eabc6796e39e45234c29e7a716
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0138
+    name: 2011_09_28_drive_0138
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0138/2011_09_28_drive_0138_extract.zip
+        filename: 2011_09_28_drive_0138_extract.zip
+        size_bytes: 447789853
+        md5: aabc4d5f41bdaf7922e2d616fd7c3c3d
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0138/2011_09_28_drive_0138_sync.zip
+        filename: 2011_09_28_drive_0138_sync.zip
+        size_bytes: 286710514
+        md5: 607071b36ceede65687c7281932d4ece
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0141
+    name: 2011_09_28_drive_0141
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0141/2011_09_28_drive_0141_extract.zip
+        filename: 2011_09_28_drive_0141_extract.zip
+        size_bytes: 466869854
+        md5: 7bfbd375d3a687a74d0a2aaea70db6b0
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0141/2011_09_28_drive_0141_sync.zip
+        filename: 2011_09_28_drive_0141_sync.zip
+        size_bytes: 297900856
+        md5: 6c98155bb05b8dfd8a8ff4bee162a903
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0143
+    name: 2011_09_28_drive_0143
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0143/2011_09_28_drive_0143_extract.zip
+        filename: 2011_09_28_drive_0143_extract.zip
+        size_bytes: 227043075
+        md5: db9aaa44d2f2f96ba4f2ed41c77e6e85
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0143/2011_09_28_drive_0143_sync.zip
+        filename: 2011_09_28_drive_0143_sync.zip
+        size_bytes: 134208483
+        md5: 97575958a89a0ea7ff4b983858657bac
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0145
+    name: 2011_09_28_drive_0145
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0145/2011_09_28_drive_0145_extract.zip
+        filename: 2011_09_28_drive_0145_extract.zip
+        size_bytes: 251525658
+        md5: 83f368a848e28573776315685d6e9bc1
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0145/2011_09_28_drive_0145_sync.zip
+        filename: 2011_09_28_drive_0145_sync.zip
+        size_bytes: 151015865
+        md5: ff9fcf10916504ef220f508bd919f3c1
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0146
+    name: 2011_09_28_drive_0146
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0146/2011_09_28_drive_0146_extract.zip
+        filename: 2011_09_28_drive_0146_extract.zip
+        size_bytes: 466681547
+        md5: dd72e75ecb59f47af503d13085781dda
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0146/2011_09_28_drive_0146_sync.zip
+        filename: 2011_09_28_drive_0146_sync.zip
+        size_bytes: 297735474
+        md5: 1b76584ecc966f3d628568ed4747905d
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0149
+    name: 2011_09_28_drive_0149
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0149/2011_09_28_drive_0149_extract.zip
+        filename: 2011_09_28_drive_0149_extract.zip
+        size_bytes: 312399075
+        md5: 7aaa290d64b6629ab551e7060db4d8a9
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0149/2011_09_28_drive_0149_sync.zip
+        filename: 2011_09_28_drive_0149_sync.zip
+        size_bytes: 192923310
+        md5: d1c8dab1f1039bcf2ebc6a02a216dbb6
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0153
+    name: 2011_09_28_drive_0153
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0153/2011_09_28_drive_0153_extract.zip
+        filename: 2011_09_28_drive_0153_extract.zip
+        size_bytes: 582937494
+        md5: 7d69aac9f1e0ea19511fae5229b2ccfc
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0153/2011_09_28_drive_0153_sync.zip
+        filename: 2011_09_28_drive_0153_sync.zip
+        size_bytes: 376787274
+        md5: 7afa8245211651058e338c65092d584e
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0154
+    name: 2011_09_28_drive_0154
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0154/2011_09_28_drive_0154_extract.zip
+        filename: 2011_09_28_drive_0154_extract.zip
+        size_bytes: 295000431
+        md5: ea4d6fe4e51176081d9d4a6b3ae19867
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0154/2011_09_28_drive_0154_sync.zip
+        filename: 2011_09_28_drive_0154_sync.zip
+        size_bytes: 180253120
+        md5: f2648dc97bbeacec34c01613bd020c6c
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0155
+    name: 2011_09_28_drive_0155
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0155/2011_09_28_drive_0155_extract.zip
+        filename: 2011_09_28_drive_0155_extract.zip
+        size_bytes: 325495071
+        md5: 0ad0280fc4d536d1111427f06060dd60
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0155/2011_09_28_drive_0155_sync.zip
+        filename: 2011_09_28_drive_0155_sync.zip
+        size_bytes: 201334439
+        md5: 696195590e6a67466c981d0c01c11f3f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0156
+    name: 2011_09_28_drive_0156
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0156/2011_09_28_drive_0156_extract.zip
+        filename: 2011_09_28_drive_0156_extract.zip
+        size_bytes: 215923894
+        md5: b0ef32edf8243ddfb7eab7c1f7a90d3d
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0156/2011_09_28_drive_0156_sync.zip
+        filename: 2011_09_28_drive_0156_sync.zip
+        size_bytes: 125713935
+        md5: 6e18ebbfa45a2e79c1067a1d6389960f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0160
+    name: 2011_09_28_drive_0160
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0160/2011_09_28_drive_0160_extract.zip
+        filename: 2011_09_28_drive_0160_extract.zip
+        size_bytes: 281076326
+        md5: ad3220ebf3a9315df64067f462c8f86a
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0160/2011_09_28_drive_0160_sync.zip
+        filename: 2011_09_28_drive_0160_sync.zip
+        size_bytes: 171702560
+        md5: 3a5095881e3413be83aea099aac8e4e9
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0161
+    name: 2011_09_28_drive_0161
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0161/2011_09_28_drive_0161_extract.zip
+        filename: 2011_09_28_drive_0161_extract.zip
+        size_bytes: 253691449
+        md5: 5a39e1f59ad91b28bb114fff2a24a3ce
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0161/2011_09_28_drive_0161_sync.zip
+        filename: 2011_09_28_drive_0161_sync.zip
+        size_bytes: 154892601
+        md5: fc3c08dd33bb5bab1f7753ec3b442193
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0162
+    name: 2011_09_28_drive_0162
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0162/2011_09_28_drive_0162_extract.zip
+        filename: 2011_09_28_drive_0162_extract.zip
+        size_bytes: 263391950
+        md5: a25ea2f1bc259eeef2ebea39bcdb07fe
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0162/2011_09_28_drive_0162_sync.zip
+        filename: 2011_09_28_drive_0162_sync.zip
+        size_bytes: 159121039
+        md5: 8df55a2cf54a62500049f6fb92e8768e
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0165
+    name: 2011_09_28_drive_0165
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0165/2011_09_28_drive_0165_extract.zip
+        filename: 2011_09_28_drive_0165_extract.zip
+        size_bytes: 540991567
+        md5: ab793a5749ca383456b9c7b760a86f36
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0165/2011_09_28_drive_0165_sync.zip
+        filename: 2011_09_28_drive_0165_sync.zip
+        size_bytes: 347674884
+        md5: b093ce91428973ee5c4445639cf4026e
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0166
+    name: 2011_09_28_drive_0166
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0166/2011_09_28_drive_0166_extract.zip
+        filename: 2011_09_28_drive_0166_extract.zip
+        size_bytes: 271583758
+        md5: 270b31f32caafad130581c6d581ab0dc
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0166/2011_09_28_drive_0166_sync.zip
+        filename: 2011_09_28_drive_0166_sync.zip
+        size_bytes: 163378555
+        md5: b02b105df62c6f68026d0849d574a7ed
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0167
+    name: 2011_09_28_drive_0167
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0167/2011_09_28_drive_0167_extract.zip
+        filename: 2011_09_28_drive_0167_extract.zip
+        size_bytes: 363195864
+        md5: 6b5088bb9b8edc775cb980565e8a810c
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0167/2011_09_28_drive_0167_sync.zip
+        filename: 2011_09_28_drive_0167_sync.zip
+        size_bytes: 226207751
+        md5: 25a7bca52f6601ebaf894a7480b0d41b
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0168
+    name: 2011_09_28_drive_0168
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0168/2011_09_28_drive_0168_extract.zip
+        filename: 2011_09_28_drive_0168_extract.zip
+        size_bytes: 382312247
+        md5: 0096984fade564fe9ca8908977a09011
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0168/2011_09_28_drive_0168_sync.zip
+        filename: 2011_09_28_drive_0168_sync.zip
+        size_bytes: 238715266
+        md5: 08a8559e5d53d427d76e36f6d41fb2e3
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0171
+    name: 2011_09_28_drive_0171
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0171/2011_09_28_drive_0171_extract.zip
+        filename: 2011_09_28_drive_0171_extract.zip
+        size_bytes: 196539319
+        md5: 8845d1bd5e40e4fe7d8b8518a38b7595
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0171/2011_09_28_drive_0171_sync.zip
+        filename: 2011_09_28_drive_0171_sync.zip
+        size_bytes: 117380254
+        md5: 8d63f46f3443865588500664dd55b59d
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0174
+    name: 2011_09_28_drive_0174
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0174/2011_09_28_drive_0174_extract.zip
+        filename: 2011_09_28_drive_0174_extract.zip
+        size_bytes: 363066833
+        md5: 057b576985b05f7b229b88b5969275b4
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0174/2011_09_28_drive_0174_sync.zip
+        filename: 2011_09_28_drive_0174_sync.zip
+        size_bytes: 225884553
+        md5: 567f723b98ac2c8acaee2ceb216101f6
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0177
+    name: 2011_09_28_drive_0177
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0177/2011_09_28_drive_0177_extract.zip
+        filename: 2011_09_28_drive_0177_extract.zip
+        size_bytes: 509494336
+        md5: 47cbd6f6480063bf60f1fcfac4f83185
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0177/2011_09_28_drive_0177_sync.zip
+        filename: 2011_09_28_drive_0177_sync.zip
+        size_bytes: 326712111
+        md5: 34eb8b7659c2bde7dcc8b1073634cf0b
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0179
+    name: 2011_09_28_drive_0179
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0179/2011_09_28_drive_0179_extract.zip
+        filename: 2011_09_28_drive_0179_extract.zip
+        size_bytes: 295321005
+        md5: 8c110094f0dc60904bb71a73822f01d6
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0179/2011_09_28_drive_0179_sync.zip
+        filename: 2011_09_28_drive_0179_sync.zip
+        size_bytes: 180155301
+        md5: b7f5c60476a48a967d58c0c281e70b5f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0183
+    name: 2011_09_28_drive_0183
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0183/2011_09_28_drive_0183_extract.zip
+        filename: 2011_09_28_drive_0183_extract.zip
+        size_bytes: 274891998
+        md5: ca828ba60a0a85163c126335acac7e7b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0183/2011_09_28_drive_0183_sync.zip
+        filename: 2011_09_28_drive_0183_sync.zip
+        size_bytes: 163488111
+        md5: 973816e3b9cdc0fe570ca68e9432b7f0
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0184
+    name: 2011_09_28_drive_0184
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0184/2011_09_28_drive_0184_extract.zip
+        filename: 2011_09_28_drive_0184_extract.zip
+        size_bytes: 558845502
+        md5: 57079693c7d471776277ed7c31e7fed0
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0184/2011_09_28_drive_0184_sync.zip
+        filename: 2011_09_28_drive_0184_sync.zip
+        size_bytes: 360343144
+        md5: 2657d54887ac691dd35a6fba40ef2e77
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0185
+    name: 2011_09_28_drive_0185
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0185/2011_09_28_drive_0185_extract.zip
+        filename: 2011_09_28_drive_0185_extract.zip
+        size_bytes: 521585399
+        md5: dae623d6d1b502baf500c3f746263aca
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0185/2011_09_28_drive_0185_sync.zip
+        filename: 2011_09_28_drive_0185_sync.zip
+        size_bytes: 334968556
+        md5: 73ce08ebfd8ff01594301da3c2351e88
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0186
+    name: 2011_09_28_drive_0186
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0186/2011_09_28_drive_0186_extract.zip
+        filename: 2011_09_28_drive_0186_extract.zip
+        size_bytes: 284984023
+        md5: e47554397af3c0208716947b8f4895c4
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0186/2011_09_28_drive_0186_sync.zip
+        filename: 2011_09_28_drive_0186_sync.zip
+        size_bytes: 171726108
+        md5: 539f3798128d4d577a8fd66c5cb2ca1f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0187
+    name: 2011_09_28_drive_0187
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0187/2011_09_28_drive_0187_extract.zip
+        filename: 2011_09_28_drive_0187_extract.zip
+        size_bytes: 368711441
+        md5: f495eee7cd291db70679e0b871b19931
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0187/2011_09_28_drive_0187_sync.zip
+        filename: 2011_09_28_drive_0187_sync.zip
+        size_bytes: 230477498
+        md5: 27f01471ad3595b75dc118df5e0a61b9
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0191
+    name: 2011_09_28_drive_0191
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0191/2011_09_28_drive_0191_extract.zip
+        filename: 2011_09_28_drive_0191_extract.zip
+        size_bytes: 264566185
+        md5: bdae2fc10c2194f2c2817bb7738569eb
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0191/2011_09_28_drive_0191_sync.zip
+        filename: 2011_09_28_drive_0191_sync.zip
+        size_bytes: 157634097
+        md5: b2d4f359b2cb51eef6ad50d20dbceaca
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0192
+    name: 2011_09_28_drive_0192
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0192/2011_09_28_drive_0192_extract.zip
+        filename: 2011_09_28_drive_0192_extract.zip
+        size_bytes: 546484582
+        md5: 2cc71394300bfc5373d9617bb015233b
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0192/2011_09_28_drive_0192_sync.zip
+        filename: 2011_09_28_drive_0192_sync.zip
+        size_bytes: 351788149
+        md5: bbca738d02e71112dede97d16955d6a8
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0195
+    name: 2011_09_28_drive_0195
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0195/2011_09_28_drive_0195_extract.zip
+        filename: 2011_09_28_drive_0195_extract.zip
+        size_bytes: 268699733
+        md5: 17621c0d386f5850728d21b8cf898e61
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0195/2011_09_28_drive_0195_sync.zip
+        filename: 2011_09_28_drive_0195_sync.zip
+        size_bytes: 162817175
+        md5: 5b3f9e7845bc2d0ec708cdb932063884
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0198
+    name: 2011_09_28_drive_0198
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0198/2011_09_28_drive_0198_extract.zip
+        filename: 2011_09_28_drive_0198_extract.zip
+        size_bytes: 416072093
+        md5: 933429a5115917243a6e6d716d08cb63
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0198/2011_09_28_drive_0198_sync.zip
+        filename: 2011_09_28_drive_0198_sync.zip
+        size_bytes: 263315557
+        md5: 7b4af14b34a2a00aa3a4180a1df7e2ed
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0199
+    name: 2011_09_28_drive_0199
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0199/2011_09_28_drive_0199_extract.zip
+        filename: 2011_09_28_drive_0199_extract.zip
+        size_bytes: 242981958
+        md5: 2c9c7d70fa3d325fa6d026e0514470bf
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0199/2011_09_28_drive_0199_sync.zip
+        filename: 2011_09_28_drive_0199_sync.zip
+        size_bytes: 145873361
+        md5: f7cbce10a72baaf402e2f780a9296b05
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0201
+    name: 2011_09_28_drive_0201
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0201/2011_09_28_drive_0201_extract.zip
+        filename: 2011_09_28_drive_0201_extract.zip
+        size_bytes: 536015636
+        md5: 317c2309d6a388a3953986e374182832
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0201/2011_09_28_drive_0201_sync.zip
+        filename: 2011_09_28_drive_0201_sync.zip
+        size_bytes: 345762778
+        md5: 297d8c016e75b0278caccf9f1469e67d
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0204
+    name: 2011_09_28_drive_0204
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0204/2011_09_28_drive_0204_extract.zip
+        filename: 2011_09_28_drive_0204_extract.zip
+        size_bytes: 341473357
+        md5: 2cad49a657b3fd4bff5c059d45e9c3af
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0204/2011_09_28_drive_0204_sync.zip
+        filename: 2011_09_28_drive_0204_sync.zip
+        size_bytes: 212190008
+        md5: 11c3f86e685f70fc2bb8d9b434967652
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0205
+    name: 2011_09_28_drive_0205
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0205/2011_09_28_drive_0205_extract.zip
+        filename: 2011_09_28_drive_0205_extract.zip
+        size_bytes: 240948781
+        md5: daac77b7c28a7025148e332eb4c87244
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0205/2011_09_28_drive_0205_sync.zip
+        filename: 2011_09_28_drive_0205_sync.zip
+        size_bytes: 145981018
+        md5: 22eb91272d96fe18671d68181c08afcf
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0208
+    name: 2011_09_28_drive_0208
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0208/2011_09_28_drive_0208_extract.zip
+        filename: 2011_09_28_drive_0208_extract.zip
+        size_bytes: 360146101
+        md5: 8f11ef9efc60913b08202b3b72cba480
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0208/2011_09_28_drive_0208_sync.zip
+        filename: 2011_09_28_drive_0208_sync.zip
+        size_bytes: 224367125
+        md5: bc815f84e7ef615d693da8ea64f846d8
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0209
+    name: 2011_09_28_drive_0209
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0209/2011_09_28_drive_0209_extract.zip
+        filename: 2011_09_28_drive_0209_extract.zip
+        size_bytes: 561007952
+        md5: 7b152fc1f1d6fdbff9892e26c7d7d871
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0209/2011_09_28_drive_0209_sync.zip
+        filename: 2011_09_28_drive_0209_sync.zip
+        size_bytes: 358923876
+        md5: 4f31a269d3c67db8d77c22cd6ebe6e88
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0214
+    name: 2011_09_28_drive_0214
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0214/2011_09_28_drive_0214_extract.zip
+        filename: 2011_09_28_drive_0214_extract.zip
+        size_bytes: 287529428
+        md5: 8000c7c382f816bcb419253c9eb3491f
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0214/2011_09_28_drive_0214_sync.zip
+        filename: 2011_09_28_drive_0214_sync.zip
+        size_bytes: 175470479
+        md5: 34c2f2e7bdf0fd05c3ff8e7c719bfddc
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0216
+    name: 2011_09_28_drive_0216
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0216/2011_09_28_drive_0216_extract.zip
+        filename: 2011_09_28_drive_0216_extract.zip
+        size_bytes: 395425604
+        md5: 6c144f3f0adbffb5aa0f86cf105ea404
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0216/2011_09_28_drive_0216_sync.zip
+        filename: 2011_09_28_drive_0216_sync.zip
+        size_bytes: 246629515
+        md5: 6f7a602977c8c0b96980a59d589a8602
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0220
+    name: 2011_09_28_drive_0220
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0220/2011_09_28_drive_0220_extract.zip
+        filename: 2011_09_28_drive_0220_extract.zip
+        size_bytes: 480343296
+        md5: d0f1cde1737eb373fdc366a7c20c5e04
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0220/2011_09_28_drive_0220_sync.zip
+        filename: 2011_09_28_drive_0220_sync.zip
+        size_bytes: 311130693
+        md5: f259ef34eadfa624e61b1959ece5158f
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false
+  - id: 2011_09_28_drive_0222
+    name: 2011_09_28_drive_0222
+    date: '2011_09_28'
+    parts:
+    - id: unsynced_unrectified
+      name: Unsynced + Unrectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0222/2011_09_28_drive_0222_extract.zip
+        filename: 2011_09_28_drive_0222_extract.zip
+        size_bytes: 356038453
+        md5: 4de1cb53499f91bcf548f7bc87f4831e
+        format: zip
+      optional: true
+    - id: synced_rectified
+      name: Synced + Rectified
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_drive_0222/2011_09_28_drive_0222_sync.zip
+        filename: 2011_09_28_drive_0222_sync.zip
+        size_bytes: 224626212
+        md5: 7b335cbefe1ea2723b66dd677e4f25eb
+        format: zip
+      optional: false
+    - id: calib
+      name: Calibration
+      download:
+        url: https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_28_calib.zip
+        filename: 2011_09_28_calib.zip
+        size_bytes: 4073
+        md5: 9bdc24e1cfee06e14166616cc76679d7
+        format: zip
+      optional: false

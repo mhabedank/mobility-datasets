@@ -1,8 +1,8 @@
 ================================================================================
-KITTI Dataset Overview
+KITTI Dataset Guide
 ================================================================================
 
-The KITTI Vision Benchmark Suite is one of the most influential datasets for autonomous driving research, providing synchronized multi-modal sensor data for various computer vision and robotics tasks.
+KITTI (Karlsruhe Institute of Technology and Toyota Technological Institute at Chicago) is one of the most influential datasets for autonomous driving research. This guide shows how to download, access, and work with KITTI data using mobility-datasets.
 
 .. contents::
    :local:
@@ -10,13 +10,13 @@ The KITTI Vision Benchmark Suite is one of the most influential datasets for aut
 
 ---
 
-Dataset Information
--------------------
+Dataset Overview
+-----------------
 
-Overview
-^^^^^^^^
+Introduction
+^^^^^^^^^^^^
 
-The KITTI (Karlsruhe Institute of Technology and Toyota Technological Institute at Chicago) dataset was created to advance computer vision and robotic algorithms for autonomous driving. It contains real-world traffic scenarios recorded in and around Karlsruhe, Germany.
+The KITTI Vision Benchmark Suite contains real-world traffic scenarios recorded in and around Karlsruhe, Germany. It provides synchronized multi-modal sensor data including cameras, LiDAR, and GPS/IMU measurements.
 
 **Key Characteristics:**
 
@@ -36,9 +36,9 @@ The recording platform was equipped with:
 
 - 2× PointGray Flea2 grayscale cameras (1392×512 px, global shutter)
 - 2× PointGray Flea2 color cameras (1392×512 px, global shutter)
-- 4× Edmund Optics lenses (4mm, ~90° horizontal FOV, ~35° vertical ROI)
+- 4× Edmund Optics lenses (4mm, ~90° horizontal FOV)
 - Stereo baseline: ~54 cm for both grayscale and color pairs
-- Frame rate: ~10 Hz (triggered by Velodyne)
+- Frame rate: ~10 Hz
 
 **3D LiDAR:**
 
@@ -46,152 +46,495 @@ The recording platform was equipped with:
 - 64 beams, 0.09° angular resolution
 - Rotation speed: 10 Hz
 - Range: 120 m
-- Accuracy: 2 cm distance
-- Point cloud density: ~100,000 points/scan (~1.3M points/second)
-- Field of view: 360° horizontal, 26.8° vertical
+- Point cloud density: ~100,000 points/scan
 
 **GPS/IMU:**
 
 - 1× OXTS RT3003 inertial navigation system
 - 6-axis IMU (3-axis gyroscope + 3-axis accelerometer)
 - Frequency: 100 Hz
-- GPS: L1/L2 RTK (Real-Time Kinematic) corrections
-- Position accuracy: <10 cm (with RTK), 0.02 m resolution
-- Orientation accuracy: 0.1° resolution
-
-Available Benchmarks
-^^^^^^^^^^^^^^^^^^^^
-
-The KITTI dataset supports multiple computer vision tasks:
-
-- **Stereo Vision** (2012/2015): 194/200 stereo pairs with ground truth disparities
-- **Optical Flow** (2012/2015): Semi-dense ground truth for motion estimation
-- **Visual Odometry/SLAM:** 22 sequences (11 training, 11 test) with accurate trajectories
-- **Object Detection/Tracking:** 7,481 training + 7,518 test images with 3D bounding boxes
-- **Semantic Segmentation:** Pixel-level and instance-level annotations
-- **Depth Prediction/Completion:** LiDAR-based depth maps
-- **Road/Lane Detection:** Road surface segmentation
-
-For sensor fusion applications, the **Odometry Benchmark** is most relevant as it provides:
-
-- Ground truth 6-DOF poses from RTK-GPS/IMU
-- Raw GPS/IMU measurements (OXTS data)
-- Synchronized camera images
-- LiDAR point clouds
+- GPS: L1/L2 RTK (Real-Time Kinematic)
+- Position accuracy: <10 cm (with RTK)
 
 ---
 
-Licensing and Citation
-----------------------
-
-License
-^^^^^^^
-
-The KITTI dataset is distributed under the **Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License** (CC BY-NC-SA 3.0).
-
-This means:
-
-- ✓ **Attribution:** You must cite the original authors
-- ✓ **Share-Alike:** Derivative works must use the same license
-- ✗ **Non-Commercial:** Commercial use is not permitted
-- ✓ **Academic Use:** Freely available for research and education
-
-.. important::
-
-   The KITTI dataset is **made available for academic use only**. Commercial applications require permission from the dataset creators.
-
-Required Citations
-^^^^^^^^^^^^^^^^^^
-
-When using the KITTI dataset, you must cite the appropriate papers:
-
-**For Odometry/Stereo/Flow/Object Detection/Tracking:**
-
-.. code-block:: bibtex
-
-   @inproceedings{Geiger2012CVPR,
-     author = {Andreas Geiger and Philip Lenz and Raquel Urtasun},
-     title = {Are we ready for Autonomous Driving?
-              The KITTI Vision Benchmark Suite},
-     booktitle = {Conference on Computer Vision and
-                  Pattern Recognition (CVPR)},
-     year = {2012}
-   }
-
-**For Raw Dataset:**
-
-.. code-block:: bibtex
-
-   @article{Geiger2013IJRR,
-     author = {Andreas Geiger and Philip Lenz and
-               Christoph Stiller and Raquel Urtasun},
-     title = {Vision meets Robotics: The KITTI Dataset},
-     journal = {International Journal of Robotics Research (IJRR)},
-     year = {2013}
-   }
-
-**Official Website:** http://www.cvlibs.net/datasets/kitti/
-
----
-
-Dataset Structure
+Downloading KITTI
 -----------------
 
-Directory Organization
-^^^^^^^^^^^^^^^^^^^^^^
+Quick Start
+^^^^^^^^^^^
 
-The KITTI dataset is organized into two main components:
+Show available KITTI collections and their sizes:
+
+.. code-block:: bash
+
+   mds info kitti
+
+Estimate download size before committing to download:
+
+.. code-block:: bash
+
+   mds download kitti --estimate-only
+
+Download a specific session from raw_data collection:
+
+.. code-block:: bash
+
+   mds download kitti --collection raw_data --sessions 2011_09_26_drive_0001
+
+Download multiple sessions:
+
+.. code-block:: bash
+
+   mds download kitti --collection raw_data --sessions 2011_09_26_drive_0001,2011_09_26_drive_0002
+
+Download to a custom directory:
+
+.. code-block:: bash
+
+   mds download kitti --collection raw_data --data-dir /mnt/datasets
+
+CLI Reference
+^^^^^^^^^^^^^
+
+**Show dataset info:**
+
+.. code-block:: bash
+
+   mds info kitti [OPTIONS]
+
+Options:
+
+- ``-c, --collection <name>`` — Show info for specific collection only
+- ``--verify`` — Verify files are available on remote servers (slow)
+- ``--timeout <seconds>`` — Timeout for verification requests (default: 10)
+
+**Example:**
+
+.. code-block:: bash
+
+   # Show all collections and their sizes
+   mds info kitti
+
+   # Show only raw_data collection
+   mds info kitti --collection raw_data
+
+   # Verify all files are accessible
+   mds info kitti --verify
+
+---
+
+**Download dataset files:**
+
+.. code-block:: bash
+
+   mds download kitti [OPTIONS]
+
+Options:
+
+- ``-c, --collection <name>`` — Collection to download (e.g., ``raw_data``, ``synced_data``)
+- ``-s, --sessions <ids>`` — Comma-separated session IDs. Download all sessions if not specified
+- ``--with-optional`` — Include optional dataset parts
+- ``--keep-zip`` — Keep archive files after extraction
+- ``--estimate-only`` — Show download size without downloading
+- ``--data-dir <path>`` — Download directory (default: ``./data``)
+
+**Examples:**
+
+.. code-block:: bash
+
+   # Download single session from raw_data
+   mds download kitti --collection raw_data --sessions 2011_09_26_drive_0001
+
+   # Download multiple sessions
+   mds download kitti -c raw_data -s 2011_09_26_drive_0001,2011_09_26_drive_0002
+
+   # Estimate size first (dry-run)
+   mds download kitti --collection raw_data --estimate-only
+
+   # Download all sessions in collection
+   mds download kitti --collection raw_data
+
+   # Download all collections
+   mds download kitti
+
+   # Keep archives for backup
+   mds download kitti --collection raw_data --keep-zip
+
+   # Custom download location
+   mds download kitti --data-dir /mnt/large_disk
+
+.. tip::
+
+   Always run with ``--estimate-only`` first to see how much disk space is required. Then download to a location with enough free space.
+
+---
+
+Available Collections
+^^^^^^^^^^^^^^^^^^^^^
+
+KITTI has several collections organized by data type:
+
+.. list-table:: KITTI Collections
+   :header-rows: 1
+   :widths: 25 60 15
+
+   * - Collection ID
+     - Description
+     - Typical Size
+   * - ``raw_data``
+     - Raw sensor data (OXTS GPS/IMU, camera images, point clouds)
+     - 4-10 GB per session
+   * - ``synced_data``
+     - Time-synchronized processed data (images, point clouds, IMU)
+     - 1-3 GB per session
+   * - ``poses``
+     - Ground truth trajectories (Odometry Benchmark)
+     - ~5 MB total
+   * - ``calib``
+     - Calibration files for camera-LiDAR alignment
+     - ~10 MB total
+
+**Available Sessions by Collection:**
+
+To see all available sessions in a collection:
+
+.. code-block:: bash
+
+   mds info kitti --collection raw_data
+
+This will list all available session IDs that you can reference with ``--sessions``.
+
+---
+
+Python API
+----------
+
+Using the Downloader
+^^^^^^^^^^^^^^^^^^^^
+
+**Import:**
+
+.. code-block:: python
+
+   from mobility_datasets import DatasetDownloader
+
+**Initialize:**
+
+.. code-block:: python
+
+   downloader = DatasetDownloader(dataset="kitti", data_dir="./data")
+
+**Check info before downloading:**
+
+.. code-block:: python
+
+   # Get download size estimate
+   size_info = downloader.get_download_size(
+       collection_id="raw_data",
+       sessions=["2011_09_26_drive_0001"]
+   )
+   print(f"Total size: {size_info['total_readable']}")
+
+**Download specific sessions:**
+
+.. code-block:: python
+
+   # Download single session
+   downloader.download(
+       collection_id="raw_data",
+       sessions=["2011_09_26_drive_0001"],
+       keep_zip=False
+   )
+
+   # Download multiple sessions
+   downloader.download(
+       collection_id="raw_data",
+       sessions=["2011_09_26_drive_0001", "2011_09_26_drive_0002"],
+       keep_zip=False
+   )
+
+**Download all sessions in a collection:**
+
+.. code-block:: python
+
+   # Download entire raw_data collection
+   downloader.download(
+       collection_id="raw_data",
+       sessions=downloader.config.get_collection_or_raise("raw_data").session_ids(),
+       keep_zip=False
+   )
+
+**Download all data:**
+
+.. code-block:: python
+
+   # Download all collections and sessions
+   downloader.download_all(keep_zip=False)
+
+**Check file availability:**
+
+.. code-block:: python
+
+   # Verify all files still exist on S3 before downloading
+   status = downloader.health_check()
+   unavailable = [k for k, v in status.items() if not v]
+   if unavailable:
+       print(f"Warning: {len(unavailable)} files unavailable")
+   else:
+       print("All files available!")
+
+Complete Example
+^^^^^^^^^^^^^^^^
+
+.. code-block:: python
+
+   from mobility_datasets import DatasetDownloader
+   from pathlib import Path
+   import numpy as np
+
+   # 1. Initialize and check what's available
+   downloader = DatasetDownloader(dataset="kitti", data_dir="./data")
+
+   # 2. See how big the download is
+   size_info = downloader.get_download_size(
+       collection_id="raw_data",
+       sessions=["2011_09_26_drive_0001"]
+   )
+   print(f"Download size: {size_info['total_readable']}")
+
+   # 3. Download the session
+   downloader.download(
+       collection_id="raw_data",
+       sessions=["2011_09_26_drive_0001"],
+       keep_zip=False
+   )
+
+   # 4. Load poses
+   poses_file = Path("./data/kitti/dataset/poses/00.txt")
+   poses = np.loadtxt(poses_file)
+   poses = poses.reshape(-1, 3, 4)
+   print(f"Loaded {len(poses)} poses")
+
+   # 5. Load OXTS data
+   oxts_dir = Path("./data/kitti/raw_data/2011_09_26/2011_09_26_drive_0001_sync/oxts/data")
+   oxts_files = sorted(oxts_dir.glob("*.txt"))
+   print(f"Found {len(oxts_files)} OXTS measurements")
+
+   for oxts_file in oxts_files[:5]:  # First 5 frames
+       data = np.loadtxt(oxts_file)
+       lat, lon, alt = data[0], data[1], data[2]
+       print(f"Frame {oxts_file.stem}: {lat:.6f}°, {lon:.6f}°, {alt:.2f}m")
+
+---
+
+Data Formats
+------------
+
+Ground Truth Poses
+^^^^^^^^^^^^^^^^^^
+
+**Location:** ``dataset/poses/00.txt`` (and 01.txt, 02.txt, etc. for other sequences)
+
+**Format:** One 3×4 transformation matrix per line
+
+Each line contains 12 space-separated values representing a 3×4 matrix:
 
 .. code-block:: text
 
-   kitti/
-   ├── dataset/                    # Processed benchmark data
-   │   ├── poses/                  # Ground truth poses (odometry)
-   │   │   ├── 00.txt              # Sequence 00 poses
-   │   │   ├── 01.txt              # Sequence 01 poses
-   │   │   └── ...                 # Sequences 02-10
-   │   └── sequences/              # Odometry sequences
-   │       ├── 00/                 # Sequence 00
-   │       │   ├── image_0/        # Left grayscale camera
-   │       │   ├── image_1/        # Right grayscale camera
-   │       │   ├── image_2/        # Left color camera
-   │       │   ├── image_3/        # Right color camera
-   │       │   ├── calib.txt       # Calibration data
-   │       │   └── times.txt       # Frame timestamps
-   │       └── 01/                 # Sequence 01
-   │           └── ...
-   │
-   └── raw_data/                   # Raw sensor data
-       └── 2011_10_03/             # Recording date
-           ├── 2011_10_03_drive_0027_sync/  # Drive (→ Sequence 00)
-           │   ├── image_00/       # Cameras
-           │   ├── image_01/
-           │   ├── image_02/
-           │   ├── image_03/
-           │   ├── oxts/           # GPS/IMU data (100 Hz)
-           │   │   ├── data/
-           │   │   │   ├── 0000000000.txt
-           │   │   │   └── ...
-           │   │   ├── dataformat.txt
-           │   │   └── timestamps.txt
-           │   └── velodyne_points/ # LiDAR scans
-           ├── 2011_10_03_drive_0042_sync/  # Drive (→ Sequence 01)
-           └── calib_*.txt         # Calibration files
+   r11 r12 r13 tx r21 r22 r23 ty r31 r32 r33 tz
 
-Odometry Sequences
+Where:
+
+- ``R`` (3×3): Rotation matrix (orientation)
+- ``t`` (3×1): Translation vector (position)
+
+**Python:**
+
+.. code-block:: python
+
+   import numpy as np
+
+   # Read poses
+   poses = np.loadtxt("dataset/poses/00.txt")
+   poses = poses.reshape(-1, 3, 4)  # Shape: (N_frames, 3, 4)
+
+   # Access individual pose
+   pose = poses[0]
+   rotation = pose[:3, :3]    # 3×3 matrix
+   position = pose[:3, 3]     # 3×1 vector
+
+   print(f"Position: {position}")
+   # Output: [-1.64048222e-02  5.10477959e-03 -8.61842105e-02]
+
+**Coordinate System:**
+
+- **X:** Right
+- **Y:** Down
+- **Z:** Forward
+
+**Frequency:** ~10 Hz
+**Accuracy:** <10 cm (RTK-GPS corrected)
+
+OXTS GPS/IMU Data
 ^^^^^^^^^^^^^^^^^^
 
-The odometry benchmark contains 22 sequences (00-21):
+**Location:** ``raw_data/{date}/{drive}_sync/oxts/data/*.txt``
 
-- **Training sequences:** 00-10 (ground truth available)
-- **Test sequences:** 11-21 (ground truth withheld for evaluation)
+Example: ``raw_data/2011_09_26/2011_09_26_drive_0001_sync/oxts/data/0000000000.txt``
 
-.. list-table:: Odometry Sequence Details
+**Format:** One measurement per line, 30 space-separated values
+
+**Frequency:** 100 Hz raw, ~10 Hz when synchronized
+
+**Python:**
+
+.. code-block:: python
+
+   import numpy as np
+
+   # Read single measurement
+   oxts = np.loadtxt("oxts/data/0000000000.txt")
+
+   # Extract key fields (see field reference below)
+   lat, lon, alt = oxts[0], oxts[1], oxts[2]
+   roll, pitch, yaw = oxts[3], oxts[4], oxts[5]
+   vn, ve, vf = oxts[6], oxts[7], oxts[8]  # Velocities
+   ax, ay, az = oxts[11], oxts[12], oxts[13]  # Accelerations
+   wx, wy, wz = oxts[17], oxts[18], oxts[19]  # Angular rates
+
+   print(f"Position: {lat:.6f}°N, {lon:.6f}°E, {alt:.2f}m")
+   print(f"Orientation: roll={roll:.3f} rad, pitch={pitch:.3f} rad, yaw={yaw:.3f} rad")
+
+OXTS Field Reference
+^^^^^^^^^^^^^^^^^^^^
+
+Each OXTS line contains 30 values:
+
+.. list-table:: OXTS Data Fields
    :header-rows: 1
-   :widths: 10 30 15 15 30
+   :widths: 5 25 20 50
+
+   * - Index
+     - Field
+     - Unit
+     - Description
+   * - 0-2
+     - lat, lon, alt
+     - deg, deg, m
+     - WGS84 position (latitude, longitude, altitude)
+   * - 3-5
+     - roll, pitch, yaw
+     - rad
+     - Vehicle orientation (vehicle frame)
+   * - 6-8
+     - vn, ve, vf
+     - m/s
+     - Velocity (north, east, forward on earth surface)
+   * - 9-10
+     - vl, vu
+     - m/s
+     - Velocity (left, up on earth surface)
+   * - 11-13
+     - ax, ay, az
+     - m/s²
+     - Acceleration (vehicle frame: forward, left, up)
+   * - 14-16
+     - af, al, au
+     - m/s²
+     - Acceleration (earth frame: forward, left, up)
+   * - 17-19
+     - wx, wy, wz
+     - rad/s
+     - Angular rate (vehicle frame)
+   * - 20-22
+     - wf, wl, wu
+     - rad/s
+     - Angular rate (earth frame)
+   * - 23-25
+     - pos_accuracy, vel_accuracy, navstat
+     - m, m/s, —
+     - GPS accuracy and navigation status
+   * - 26-29
+     - numsats, posmode, velmode, orimode
+     - —
+     - Satellite count and mode indicators
+
+Velodyne LiDAR
+^^^^^^^^^^^^^^
+
+**Location:** ``raw_data/{date}/{drive}_sync/velodyne_points/data/*.bin``
+
+**Format:** Binary files with (x, y, z, reflectance) point clouds
+
+**Data Type:** 4× ``float32`` (16 bytes per point)
+
+**Python:**
+
+.. code-block:: python
+
+   import numpy as np
+
+   # Read point cloud
+   points = np.fromfile("velodyne_points/data/0000000000.bin", dtype=np.float32)
+   points = points.reshape(-1, 4)  # Shape: (N_points, 4)
+
+   # Extract coordinates and intensity
+   xyz = points[:, :3]        # 3D positions
+   reflectance = points[:, 3] # Intensity values
+
+   print(f"Cloud contains {len(points)} points")
+
+**Coordinate System:**
+
+- **X:** Forward
+- **Y:** Left
+- **Z:** Up
+
+Camera Images & Timestamps
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Location:** ``sequences/{seq_id}/image_0/``, ``image_1/``, ``image_2/``, ``image_3/``
+
+**Format:** PNG images, one per frame
+
+**Cameras:**
+
+- ``image_0/``: Left grayscale
+- ``image_1/``: Right grayscale
+- ``image_2/``: Left color
+- ``image_3/``: Right color
+
+**Python:**
+
+.. code-block:: python
+
+   from pathlib import Path
+   from PIL import Image
+
+   # List all left grayscale images
+   images = sorted(Path("sequences/00/image_0").glob("*.png"))
+
+   # Load first image
+   img = Image.open(images[0])
+   print(f"Image size: {img.size}")  # Output: (1392, 512)
+
+---
+
+Working with Sequences
+----------------------
+
+Available Sequences
+^^^^^^^^^^^^^^^^^^^
+
+KITTI Odometry Benchmark contains 22 sequences:
+
+.. list-table:: Odometry Sequences
+   :header-rows: 1
+   :widths: 8 25 12 12 20
 
    * - Seq
-     - Raw Data Drive
+     - Raw Drive
      - Frames
      - Distance
      - Environment
@@ -209,7 +552,7 @@ The odometry benchmark contains 22 sequences (00-21):
      - 2011_10_03_drive_0034
      - 4,661
      - 5.1 km
-     - Urban + Residential
+     - Urban
    * - 03
      - 2011_09_26_drive_0067
      - 801
@@ -239,7 +582,7 @@ The odometry benchmark contains 22 sequences (00-21):
      - 2011_09_30_drive_0028
      - 4,071
      - 3.4 km
-     - Urban + Residential
+     - Urban
    * - 09
      - 2011_09_30_drive_0033
      - 1,591
@@ -251,396 +594,188 @@ The odometry benchmark contains 22 sequences (00-21):
      - 0.9 km
      - Residential
 
----
+**Training Sequences:** 00-10 (ground truth available)
 
-Data Formats
-------------
+**Test Sequences:** 11-21 (ground truth withheld)
 
-Ground Truth Poses (``dataset/poses/``)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Sequence 00 Example
+^^^^^^^^^^^^^^^^^^^
 
-**File Format:** Plain text files (e.g., ``00.txt``, ``01.txt``)
+Start with Sequence 00 for development. It provides:
 
-**Content:** One 3×4 transformation matrix per line (12 values)
+- **Duration:** 7.5 minutes
+- **Frames:** 4,541 images @ 10 Hz
+- **Environment:** Typical residential driving
+- **Data Size:** ~4 GB (raw_data)
 
-**Structure:** ``[R | t]`` where:
-
-- ``R``: 3×3 rotation matrix (orientation)
-- ``t``: 3×1 translation vector (position)
-
-**Format per line:**
-
-.. code-block:: text
-
-   r11 r12 r13 tx r21 r22 r23 ty r31 r32 r33 tz
-
-**Example (Frame 0 - Start position):**
-
-.. code-block:: text
-
-   1.000000e+00 9.043680e-12 2.326809e-11 5.551115e-17 ...
-
-Represents the matrix:
-
-.. math::
-
-   T_0 = \begin{bmatrix}
-   1.0 & 0.0 & 0.0 & 0.0 \\
-   0.0 & 1.0 & 0.0 & 0.0 \\
-   0.0 & 0.0 & 1.0 & 0.0
-   \end{bmatrix}
-
-**Coordinate System:**
-
-- **X:** Right
-- **Y:** Down
-- **Z:** Forward
-
-**Accuracy:** <10 cm (RTK-GPS corrected)
-
-**Frequency:** ~10 Hz (matches camera frame rate)
-
-OXTS GPS/IMU Data (``raw_data/.../oxts/``)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**Location:** ``raw_data/{date}/{drive}_sync/oxts/data/``
-
-**File Format:** Plain text files, one per frame (e.g., ``0000000000.txt``)
-
-**Content:** 30 space-separated values per line
-
-**Frequency:** 100 Hz (resampled to ~10 Hz for synchronized data)
-
-**Accuracy:**
-- Position: 0.02 m (RTK-GPS)
-- Orientation: 0.1°
-
-See :ref:`oxts-data-dictionary` for detailed field descriptions.
-
-Velodyne LiDAR (``raw_data/.../velodyne_points/``)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-**File Format:** Binary files (``*.bin``)
-
-**Content:** (x, y, z, reflectance) point cloud
-
-**Data Type:** 4× ``float32`` (4 bytes each = 16 bytes per point)
-
-**Structure:** Flat array ``[x0, y0, z0, r0, x1, y1, z1, r1, ...]``
-
-**Point Count:** ~100,000 points per scan
-
-**Reading in Python:**
-
-.. code-block:: python
-
-   import numpy as np
-
-   # Read point cloud
-   points = np.fromfile('0000000000.bin', dtype=np.float32)
-   points = points.reshape((-1, 4))  # Shape: (N, 4)
-
-   # Extract components
-   xyz = points[:, :3]        # 3D coordinates
-   reflectance = points[:, 3] # Intensity values
-
-**Coordinate System:**
-
-- **X:** Forward
-- **Y:** Left
-- **Z:** Up
-
-Timestamps
-^^^^^^^^^^
-
-**Location:** ``timestamps.txt`` in each sensor folder
-
-**Format:** One timestamp per line
-
-**Example:**
-
-.. code-block:: text
-
-   2011-10-03 09:47:51.802280320
-   2011-10-03 09:47:51.902263040
-   ...
-
-**Precision:** Nanosecond accuracy
-
-**Synchronization:**
-- Cameras triggered by Velodyne at ~10 Hz
-- GPS/IMU closest measurement selected from 100 Hz stream
-
----
-
-.. _oxts-data-dictionary:
-
-OXTS Data Dictionary
---------------------
-
-Each OXTS file contains 30 values representing GPS position, orientation, velocities, accelerations, and sensor metadata.
-
-Coordinate Systems
-^^^^^^^^^^^^^^^^^^
-
-OXTS data uses two coordinate systems:
-
-**1. Vehicle Body Frame (x, y, z):**
-
-- **x:** Forward (vehicle front)
-- **y:** Left
-- **z:** Up (vehicle top)
-
-**2. Earth-Surface Tangent Plane (f, l, u):**
-
-- **f:** Forward (tangent to earth surface)
-- **l:** Leftward (parallel to earth surface)
-- **u:** Upward (perpendicular to earth surface)
-
-Field Descriptions
-^^^^^^^^^^^^^^^^^^
-
-.. list-table:: OXTS Data Fields (30 values per frame)
-   :header-rows: 1
-   :widths: 5 20 15 15 45
-
-   * - #
-     - Field Name
-     - Unit
-     - Frame
-     - Description
-   * - 1
-     - ``lat``
-     - deg
-     - WGS84
-     - Latitude of OXTS unit
-   * - 2
-     - ``lon``
-     - deg
-     - WGS84
-     - Longitude of OXTS unit
-   * - 3
-     - ``alt``
-     - m
-     - WGS84
-     - Altitude above WGS84 ellipsoid
-   * - 4
-     - ``roll``
-     - rad
-     - Vehicle
-     - Roll angle (0=level, +left up, −right up), range: [−π, π]
-   * - 5
-     - ``pitch``
-     - rad
-     - Vehicle
-     - Pitch angle (0=level, +nose up, −nose down), range: [−π, π]
-   * - 6
-     - ``yaw``
-     - rad
-     - Vehicle
-     - Heading (0=east, +counterclockwise), range: [−π, π]
-   * - 7
-     - ``vn``
-     - m/s
-     - Earth
-     - Velocity north
-   * - 8
-     - ``ve``
-     - m/s
-     - Earth
-     - Velocity east
-   * - 9
-     - ``vf``
-     - m/s
-     - Earth
-     - Forward velocity (parallel to earth surface)
-   * - 10
-     - ``vl``
-     - m/s
-     - Earth
-     - Leftward velocity (parallel to earth surface)
-   * - 11
-     - ``vu``
-     - m/s
-     - Earth
-     - Upward velocity (perpendicular to earth surface)
-   * - 12
-     - ``ax``
-     - m/s²
-     - Vehicle
-     - Acceleration in x (forward direction)
-   * - 13
-     - ``ay``
-     - m/s²
-     - Vehicle
-     - Acceleration in y (left direction)
-   * - 14
-     - ``az``
-     - m/s²
-     - Vehicle
-     - Acceleration in z (up direction)
-   * - 15
-     - ``af``
-     - m/s²
-     - Earth
-     - Forward acceleration
-   * - 16
-     - ``al``
-     - m/s²
-     - Earth
-     - Leftward acceleration
-   * - 17
-     - ``au``
-     - m/s²
-     - Earth
-     - Upward acceleration
-   * - 18
-     - ``wx``
-     - rad/s
-     - Vehicle
-     - Angular rate around x (roll rate)
-   * - 19
-     - ``wy``
-     - rad/s
-     - Vehicle
-     - Angular rate around y (pitch rate)
-   * - 20
-     - ``wz``
-     - rad/s
-     - Vehicle
-     - Angular rate around z (yaw rate)
-   * - 21
-     - ``wf``
-     - rad/s
-     - Earth
-     - Angular rate around forward axis
-   * - 22
-     - ``wl``
-     - rad/s
-     - Earth
-     - Angular rate around leftward axis
-   * - 23
-     - ``wu``
-     - rad/s
-     - Earth
-     - Angular rate around upward axis
-   * - 24
-     - ``pos_accuracy``
-     - m
-     - —
-     - Position accuracy (north/east)
-   * - 25
-     - ``vel_accuracy``
-     - m/s
-     - —
-     - Velocity accuracy (north/east)
-   * - 26
-     - ``navstat``
-     - —
-     - —
-     - Navigation status (quality indicator)
-   * - 27
-     - ``numsats``
-     - —
-     - —
-     - Number of satellites tracked
-   * - 28
-     - ``posmode``
-     - —
-     - —
-     - Position mode of primary GPS receiver
-   * - 29
-     - ``velmode``
-     - —
-     - —
-     - Velocity mode of primary GPS receiver
-   * - 30
-     - ``orimode``
-     - —
-     - —
-     - Orientation mode of IMU
-
-.. note::
-
-   **Missing Data:** Communication outages (~1 second) are linearly interpolated, with fields 28-30 set to ``-1`` to indicate missing information.
-
-Reading OXTS Data
-^^^^^^^^^^^^^^^^^
-
-**Python Example:**
-
-.. code-block:: python
-
-   import numpy as np
-
-   # Read single OXTS measurement
-   oxts_file = 'raw_data/2011_10_03/drive_0027_sync/oxts/data/0000000000.txt'
-   data = np.loadtxt(oxts_file)
-
-   # Extract specific fields
-   lat, lon, alt = data[0], data[1], data[2]
-   roll, pitch, yaw = data[3], data[4], data[5]
-   ax, ay, az = data[11], data[12], data[13]  # Vehicle frame
-   wx, wy, wz = data[17], data[18], data[19]  # Angular rates
-
-   print(f"Position: {lat:.6f}°, {lon:.6f}°, {alt:.2f}m")
-   print(f"Orientation: roll={roll:.3f}, pitch={pitch:.3f}, yaw={yaw:.3f}")
-   print(f"IMU acc: ({ax:.3f}, {ay:.3f}, {az:.3f}) m/s²")
-
----
-
-Data Access
------------
-
-Official Downloads
-^^^^^^^^^^^^^^^^^^
-
-**Primary Source:** http://www.cvlibs.net/datasets/kitti/
-
-**AWS S3 (Public Access):**
+**Download via CLI:**
 
 .. code-block:: bash
 
-   # List available data
-   aws s3 ls --no-sign-request s3://avg-kitti/
+   mds download kitti --collection raw_data --sessions 2011_10_03_drive_0027
 
-   # Download specific sequences
-   aws s3 sync --no-sign-request \
-     s3://avg-kitti/data_odometry_poses/dataset/poses/ \
-     ./kitti/dataset/poses/
+**Download via Python:**
 
-**Registration Required:** Yes (free, for academic use tracking)
+.. code-block:: python
 
-Available Downloads
-^^^^^^^^^^^^^^^^^^^
+   from mobility_datasets import DatasetDownloader
 
-For sensor fusion applications, download:
+   downloader = DatasetDownloader(dataset="kitti")
+   downloader.download(
+       collection_id="raw_data",
+       sessions=["2011_10_03_drive_0027"]
+   )
 
-1. **Odometry Ground Truth Poses** (~1 MB)
-   - Contains: 3×4 pose matrices for sequences 00-10
+**Access in Python:**
 
-2. **Odometry Sequences** (~52 GB for all 22 sequences)
-   - Contains: Camera images, calibration, timestamps
+.. code-block:: python
 
-3. **Raw Data** (varies by sequence, ~4-10 GB each)
-   - Contains: OXTS (GPS/IMU), Velodyne LiDAR, cameras
-   - Download specific dates/drives as needed
+   from pathlib import Path
+   import numpy as np
 
-.. tip::
+   data_dir = Path("./data/kitti")
 
-   Start with **Sequence 00** (~4 GB raw data) for initial development and testing. It provides a good balance of duration (7.5 min) and scenario complexity (residential area).
+   # Poses for sequence 00
+   poses = np.loadtxt(data_dir / "dataset/poses/00.txt")
+
+   # OXTS for sequence 00 (from raw_data drive 0027)
+   oxts_dir = data_dir / "raw_data/2011_10_03/2011_10_03_drive_0027_sync/oxts/data"
+   oxts_files = sorted(oxts_dir.glob("*.txt"))
+
+   print(f"Sequence 00: {len(poses)} poses, {len(oxts_files)} OXTS measurements")
+
+---
+
+Licensing and Citation
+----------------------
+
+License
+^^^^^^^
+
+The KITTI dataset is distributed under the **Creative Commons Attribution-NonCommercial-ShareAlike 3.0 License** (CC BY-NC-SA 3.0).
+
+This means:
+
+- ✓ **Academic Use:** Freely available for research and education
+- ✓ **Attribution:** You must cite the original authors
+- ✓ **Share-Alike:** Derivative works must use the same license
+- ✗ **Commercial Use:** Commercial applications require permission
+
+.. important::
+
+   The KITTI dataset is **made available for academic use only**. Commercial applications require explicit permission from the dataset creators.
+
+Required Citations
+^^^^^^^^^^^^^^^^^^
+
+When using KITTI data, cite the appropriate papers:
+
+**For Odometry:**
+
+.. code-block:: bibtex
+
+   @inproceedings{Geiger2012CVPR,
+     author = {Andreas Geiger and Philip Lenz and Raquel Urtasun},
+     title = {Are we ready for Autonomous Driving?
+              The KITTI Vision Benchmark Suite},
+     booktitle = {Conference on Computer Vision and Pattern Recognition (CVPR)},
+     year = {2012}
+   }
+
+**For Raw Dataset:**
+
+.. code-block:: bibtex
+
+   @article{Geiger2013IJRR,
+     author = {Andreas Geiger and Philip Lenz and
+               Christoph Stiller and Raquel Urtasun},
+     title = {Vision meets Robotics: The KITTI Dataset},
+     journal = {International Journal of Robotics Research (IJRR)},
+     year = {2013}
+   }
+
+---
+
+Troubleshooting
+---------------
+
+Download Issues
+^^^^^^^^^^^^^^^
+
+**Issue:** Download is slow or times out
+
+**Solution:**
+
+.. code-block:: bash
+
+   # Estimate size first
+   mds download kitti --collection raw_data --sessions 2011_10_03_drive_0027 --estimate-only
+
+   # Then download with patience
+   mds download kitti --collection raw_data --sessions 2011_10_03_drive_0027
+
+**Issue:** "Collection not found"
+
+**Solution:**
+
+.. code-block:: bash
+
+   # Check available collections
+   mds info kitti
+
+   # Verify collection name and try again
+   mds download kitti --collection raw_data
+
+**Issue:** "Session not found in collection"
+
+**Solution:**
+
+.. code-block:: bash
+
+   # List available sessions for a collection
+   mds info kitti --collection raw_data
+
+   # Use exact session ID from the list
+   mds download kitti --collection raw_data --sessions 2011_10_03_drive_0027
+
+File Not Found After Download
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Issue:** After download, data directory is empty or incomplete
+
+**Solution:**
+
+.. code-block:: bash
+
+   # Check what was downloaded
+   ls -la ./data/kitti/
+
+   # Run health check to see if files are still available
+   mds info kitti --verify
+
+   # If files are available, retry the download
+   mds download kitti --collection raw_data
+
+Missing Data in OXTS
+^^^^^^^^^^^^^^^^^^^^^
+
+**Issue:** Some OXTS measurements have ``-1`` values
+
+**Note:** This is expected. Communication outages (~1 second) are indicated by ``-1`` in the ``posmode``, ``velmode``, and ``orimode`` fields (indices 28-30).
+
+**Solution:** Interpolate missing values or skip frames with missing data.
 
 ---
 
 See Also
 --------
 
-- :doc:`../quickstart/02_download_data` - Step-by-step download instructions
-- :doc:`coordinate_systems` - Understanding KITTI coordinate frames
-- :doc:`kitti_workflow` - Complete workflow for sensor fusion
+- :doc:`../quickstart/02_download_data` — Step-by-step download instructions
+- :doc:`coordinate_systems` — Understanding KITTI coordinate frames
+- :doc:`../api/index` — Python API reference
 
 **External Resources:**
 
-- `KITTI Official Documentation <http://www.cvlibs.net/datasets/kitti/setup.php>`_
-- `PyKITTI Library <https://github.com/utiasSTARS/pykitti>`_ - Python tools for KITTI
-- `KITTI Odometry Benchmark Paper <http://www.cvlibs.net/publications/Geiger2012CVPR.pdf>`_
+- `KITTI Official Website <http://www.cvlibs.net/datasets/kitti/>`_
+- `KITTI Raw Data Format <http://www.cvlibs.net/datasets/kitti/raw_data.php>`_
+- `KITTI Odometry Benchmark <http://www.cvlibs.net/datasets/kitti/eval_odometry.php>`_

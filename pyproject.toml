@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mobility-datasets"
-version = "0.1.2"
+version = "0.2.0"
 description = "Python library for downloading, loading, and working with autonomous driving and mobility datasets"
 authors = ["Martin Habedank, martin.habedank@gmail.com"]
 license = "MIT"
@@ -33,6 +33,9 @@ pyyaml = "^6.0"
 requests = "^2.31.0"
 tqdm = "^4.66.0"
 typing-extensions = {version = "^4.7.0", python = "<3.10"}
+pydantic = "^2.12.5"
+humanize = "^4.15.0"
+google-cloud-storage = "^3.7.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.0"
@@ -114,16 +117,6 @@ module = [
 ]
 ignore_missing_imports = true
 
-[tool.pytest.ini_options]
-minversion = "7.0"
-addopts = "-ra -q --strict-markers --cov=mobility_datasets --cov-report=term-missing"
-testpaths = [
-    "tests",
-]
-pythonpath = [
-    "src"
-]
-
 [tool.coverage.run]
 source = ["src"]
 omit = [
@@ -164,3 +157,16 @@ test-verbose.shell = "pytest -v"
 test-verbose.help = "Run pytest verbosely"
 test-cov.shell = "pytest --cov=mobility_datasets --cov-report=term-missing"
 test-cov.help = "Run pytest with coverage and report"
+test-fast.shell = "pytest -m 'not integration and not slow'"
+test-fast.help = "Run only fast unit tests (skip integration and slow)"
+test-integration.shell = "pytest -m integration -v"
+test-integration.help = "Run integration tests"
+test-smoke.shell = "pytest -m 'integration and not slow' -v"
+test-smoke.help = "Run quick integration tests (smoke test)"
+
+# ============================================================================
+# Developer Utilities
+# ============================================================================
+
+download-file.script = "mobility_datasets.scripts.download_and_verify:main"
+download-file.help = "Download file and get size + MD5. Usage: poe download-file <url> <output_dir>"

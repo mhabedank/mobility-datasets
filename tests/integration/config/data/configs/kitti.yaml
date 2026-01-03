@@ -1,0 +1,57 @@
+metadata:
+  name: "The KITTI Vision Benchmark Suite"
+  description: "A project of Karlsruhe Institute of Technology and Toyota Technological Institute at Chicago"
+  license:
+    name: "CC BY-NC-SA 3.0"
+    url: "https://creativecommons.org/licenses/by-nc-sa/3.0/"
+  citation:
+      bibtex: |-
+        @article{Geiger2013IJRR,
+          author = {Andreas Geiger and Philip Lenz and Christoph Stiller and Raquel Urtasun},
+          title = {Vision meets Robotics: The KITTI Dataset},
+          journal = {International Journal of Robotics Research (IJRR)},
+          year = {2013}
+        }
+collections:
+  - id: "raw_data"
+    name: "Raw Data"
+    description: "Raw sensor data."
+
+    sessions:
+      - id: "2011_09_26_drive_0001"
+        name: "2011_09_26_drive_0001"
+        date: "2011-09-26"
+        location_type: "City"
+        parts:
+          - id: "unsynced_unrectified"
+            name: "Unsynced + Unrectified"
+            download:
+              url: "https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0001/2011_09_26_drive_0001_extract.zip"
+              filename: "2011_09_26_drive_0001_extract.zip"
+              size_bytes: 696833348
+              md5: "f7caaeb27b06cb06b5f59a5203db35b5"
+              format: "zip"
+          - id: "synced_rectified"
+            name: "Synced + Rectified"
+            download:
+              url: "https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0001/2011_09_26_drive_0001_sync.zip"
+              filename: "2011_09_26_drive_0001_sync.zip"
+              size_bytes: 458643963
+              md5: "9ef3045154ddeb0f80c1983bc6e10149"
+              format: "zip"
+          - id: "calib"
+            name: "Calibration"
+            download:
+              url: "https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_calib.zip"
+              filename: "2011_09_26_calib.zip"
+              size_bytes: 4068
+              md5: "5d6cfb6bd7ec7c5f5231d16ead7ce9f1"
+              format: "zip"
+          - id: "tracklets"
+            name: "Tracklets"
+            download:
+              url: "https://s3.eu-central-1.amazonaws.com/avg-kitti/raw_data/2011_09_26_drive_0001/2011_09_26_drive_0001_tracklets.zip"
+              filename: "2011_09_26_drive_0001_tracklets"
+              size_bytes: 280497
+              md5: "5997da6e6b37d9120d357ade463c173d"
+              format: "zip"

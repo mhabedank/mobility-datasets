@@ -1,0 +1,280 @@
+metadata:
+  name: nuScenes
+  description: "A large-scale multimodal dataset for autonomous driving"
+  license:
+    name: "CC BY-NC-SA 4.0"
+    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    details: "Registration required at https://www.nuscenes.org/download"
+  citation:
+    bibtex: |
+      @article{nuscenes2019,
+        title={nuScenes: A multimodal dataset for autonomous driving},
+        author={Caesar, Holger and Bankiti, Varun and Lang, Alex H and Vora, Sourabh and
+                Liong, Venice Erin and Xu, Qiang and Krishnan, Anush and Pan, Yu and
+                Baldan, Giancarlo and Beijbom, Oscar},
+        journal={arXiv preprint arXiv:1903.11027},
+        year={2019}
+      }
+
+collections:
+  - id: "full_v1.0"
+    name: "Full Dataset (v1.0)"
+    description: "Complete nuScenes dataset with 1000 scenes (700 train, 150 val, 150 test). Released in March 2019."
+    sessions:
+      - id: "mini"
+        name: "Mini (10 scenes)"
+        date: "2019_03"
+        parts:
+          - id: "mini"
+            name: "Mini Split"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-mini.tgz"
+              filename: "v1.0-mini.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+      - id: "trainval"
+        name: "Trainval (850 scenes)"
+        date: "2019_03"
+        parts:
+          - id: "metadata"
+            name: "Metadata"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval_meta.tgz"
+              filename: "v1.0-trainval_meta.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_01"
+            name: "Trainval 01/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval01_blobs.tgz"
+              filename: "v1.0-trainval01_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_02"
+            name: "Trainval 02/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval02_blobs.tgz"
+              filename: "v1.0-trainval02_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_03"
+            name: "Trainval 03/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval03_blobs.tgz"
+              filename: "v1.0-trainval03_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_04"
+            name: "Trainval 04/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval04_blobs.tgz"
+              filename: "v1.0-trainval04_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_05"
+            name: "Trainval 05/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval05_blobs.tgz"
+              filename: "v1.0-trainval05_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_06"
+            name: "Trainval 06/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval06_blobs.tgz"
+              filename: "v1.0-trainval06_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_07"
+            name: "Trainval 07/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval07_blobs.tgz"
+              filename: "v1.0-trainval07_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_08"
+            name: "Trainval 08/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval08_blobs.tgz"
+              filename: "v1.0-trainval08_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_09"
+            name: "Trainval 09/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval09_blobs.tgz"
+              filename: "v1.0-trainval09_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "trainval_10"
+            name: "Trainval 10/10"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-trainval10_blobs.tgz"
+              filename: "v1.0-trainval10_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+      - id: "test"
+        name: "Test (150 scenes)"
+        date: "2019_03"
+        parts:
+          - id: "test_metadata"
+            name: "Test Metadata"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-test_meta.tgz"
+              filename: "v1.0-test_meta.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+          - id: "test_blobs"
+            name: "Test Sensor Data"
+            download:
+              url: "https://www.nuscenes.org/data/v1.0-test_blobs.tgz"
+              filename: "v1.0-test_blobs.tgz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+  - id: "lidarseg_v1.0"
+    name: "Panoptic Segmentation (nuScenes-lidarseg)"
+    description: "Point-level semantic segmentation (32 classes, 1.4B points). Released in August 2020."
+    sessions:
+      - id: "lidarseg_mini"
+        name: "Mini Split"
+        date: "2020_08"
+        parts:
+          - id: "lidarseg_mini"
+            name: "Mini Split"
+            download:
+              url: "https://www.nuscenes.org/data/nuScenes-lidarseg-mini-v1.0.tar.bz2"
+              filename: "nuScenes-lidarseg-mini-v1.0.tar.bz2"
+              size_bytes: 0
+              format: "tar.bz2"
+              md5: "unknown"
+
+      - id: "lidarseg_trainval"
+        name: "Trainval Split"
+        date: "2020_08"
+        parts:
+          - id: "lidarseg_trainval"
+            name: "Trainval Split"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuScenes-lidarseg-v1.0-trainval.tar.bz2"
+              size_bytes: 0
+              format: "tar.bz2"
+              md5: "unknown"
+
+      - id: "lidarseg_test"
+        name: "Test Split"
+        date: "2020_08"
+        parts:
+          - id: "lidarseg_test"
+            name: "Test Split"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuScenes-lidarseg-v1.0-test.tar.bz2"
+              size_bytes: 0
+              format: "tar.bz2"
+              md5: "unknown"
+
+  - id: "panoptic_v1.0"
+    name: "Panoptic nuScenes"
+    description: "Combined semantic and instance segmentation for all lidar points. Released in July 2021."
+    sessions:
+      - id: "panoptic_mini"
+        name: "Mini Split"
+        date: "2021_07"
+        parts:
+          - id: "panoptic_mini"
+            name: "Mini Split"
+            download:
+              url: "https://www.nuscenes.org/data/nuScenes-panoptic-v1.0-mini.tar.gz"
+              filename: "nuScenes-panoptic-v1.0-mini.tar.gz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+      - id: "panoptic_trainval"
+        name: "Trainval Split"
+        date: "2021_07"
+        parts:
+          - id: "panoptic_trainval"
+            name: "Trainval Split"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuScenes-panoptic-v1.0-trainval.tar.gz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+      - id: "panoptic_test"
+        name: "Test Split"
+        date: "2021_07"
+        parts:
+          - id: "panoptic_test"
+            name: "Test Split"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuScenes-panoptic-v1.0-test.tar.gz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+  - id: "map_v1.3"
+    name: "Map Expansion (v1.3)"
+    description: "11 semantic map layers (crosswalk, lanes, traffic lights, etc.). Released in July 2019."
+    sessions:
+      - id: "maps"
+        name: "Semantic Maps"
+        date: "2019_07"
+        parts:
+          - id: "maps"
+            name: "Semantic Maps"
+            download:
+              url: "https://www.nuscenes.org/data/nuScenes-map-expansion-v1.3.tar.gz"
+              filename: "nuScenes-map-expansion-v1.3.tar.gz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"
+
+  - id: "can_bus"
+    name: "CAN Bus Expansion"
+    description: "Low-level vehicle telemetry (IMU, steering, throttle, etc.). Released in February 2020."
+    sessions:
+      - id: "can_bus_data"
+        name: "CAN Bus Data"
+        date: "2020_02"
+        parts:
+          - id: "can_bus_data"
+            name: "CAN Bus Data"
+            download:
+              url: "https://www.nuscenes.org/data/nuScenes-can-bus-expansion-v1.0.tar.gz"
+              filename: "nuScenes-can-bus-expansion-v1.0.tar.gz"
+              size_bytes: 0
+              format: "tar.gz"
+              md5: "unknown"

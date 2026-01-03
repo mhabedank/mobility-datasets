@@ -1,0 +1,217 @@
+metadata:
+  name: nuPlan
+  description: "The world's first large-scale planning benchmark for autonomous driving"
+  license:
+    name: "CC BY-NC-SA 4.0"
+    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    details: "Registration required at https://www.nuscenes.org/nuplan"
+  citation:
+    bibtex: |
+      @inproceedings{caesaretal2021nuplan,
+        title={nuPlan: A closed-loop ML-based planning benchmark for autonomous driving},
+        author={Caesar, Holger and Kabzan, Juraj and Tan, Whye Kit and others},
+        booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
+        year={2021}
+      }
+
+collections:
+  - id: "nuplan_v1.1"
+    name: "nuPlan v1.1 Dataset"
+    description: "Improved dataset with better scenario tagging, traffic lights, and routes. Released in 2022."
+    sessions:
+      - id: "mini"
+        name: "Mini Split"
+        date: "2022_01"
+        parts:
+          - id: "mini_split"
+            name: "Mini Split Log Databases"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_mini.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+          - id: "mini_sensors"
+            name: "Mini Sensors"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_mini_sensors.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+      - id: "train"
+        name: "Training Split"
+        date: "2022_01"
+        parts:
+          - id: "train_boston"
+            name: "Train Split - Boston"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_train_boston.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+          - id: "train_pittsburgh"
+            name: "Train Split - Pittsburgh"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_train_pittsburgh.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+          - id: "train_singapore"
+            name: "Train Split - Singapore"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_train_singapore.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+          - id: "train_las_vegas"
+            name: "Train Split - Las Vegas"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_train_las_vegas.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+      - id: "val"
+        name: "Validation Split"
+        date: "2022_01"
+        parts:
+          - id: "val_split"
+            name: "Validation Split Log Databases"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_val.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+      - id: "test"
+        name: "Test Split"
+        date: "2022_01"
+        parts:
+          - id: "test_split"
+            name: "Test Split Log Databases"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_test.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+      - id: "maps"
+        name: "Maps"
+        date: "2022_01"
+        parts:
+          - id: "maps"
+            name: "HD Maps"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.1_maps.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+  - id: "nuplan_v1.0"
+    name: "nuPlan v1.0 Dataset"
+    description: "Original nuPlan dataset with 1300+ hours of driving data from 4 cities. Released in 2021."
+    sessions:
+      - id: "mini"
+        name: "Mini Split"
+        date: "2021_12"
+        parts:
+          - id: "mini_split"
+            name: "Mini Split Log Databases"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.0_mini.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+      - id: "train"
+        name: "Training Split"
+        date: "2021_12"
+        parts:
+          - id: "train_boston"
+            name: "Train Split - Boston"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.0_train_boston.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+          - id: "train_pittsburgh"
+            name: "Train Split - Pittsburgh"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.0_train_pittsburgh.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+          - id: "train_singapore"
+            name: "Train Split - Singapore"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.0_train_singapore.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+          - id: "train_las_vegas"
+            name: "Train Split - Las Vegas"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.0_train_las_vegas.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+      - id: "val"
+        name: "Validation Split"
+        date: "2021_12"
+        parts:
+          - id: "val_split"
+            name: "Validation Split Log Databases"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.0_val.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+      - id: "test"
+        name: "Test Split"
+        date: "2021_12"
+        parts:
+          - id: "test_split"
+            name: "Test Split Log Databases"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.0_test.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"
+
+      - id: "maps"
+        name: "Maps"
+        date: "2021_12"
+        parts:
+          - id: "maps"
+            name: "HD Maps"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nuplan_v1.0_maps.zip"
+              size_bytes: 0
+              format: "zip"
+              md5: "unknown"

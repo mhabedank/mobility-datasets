@@ -1,0 +1,47 @@
+metadata:
+  name: "nuScenes"
+  description: "A multimodal dataset for autonomous driving"
+  license:
+    name: "CC BY-NC-SA 4.0"
+    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+  citation:
+    bibtex: |-
+      @article{caesar2020nuscenes,
+        title={nuScenes: A multimodal dataset for autonomous driving},
+        author={Caesar, Holger and Bankiti, Varun and Lang, Alex H and Vora, Sourabh and Liong, Venice Erin and Xu, Qiang and Krishnan, Anush and Pan, Yu and Baldan, Giancarlo and Beijbom, Oscar},
+        journal={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+        year={2020}
+      }
+
+collections:
+  - id: "trainval"
+    name: "Train/Val"
+    description: "Training and validation dataset."
+    sessions:
+      - id: "scene-0001"
+        name: "Scene 0001"
+        date: "2023-12-01"
+        location_type: "Boston"
+        parts:
+          - id: "lidar_keyframes"
+            name: "Lidar Keyframes"
+            download:
+              url: "https://cdn.nuscenes.org/trainval/lidar/scene-0001.zip"
+              filename: "scene-0001.zip"
+              size_bytes: 1024000000
+              md5: "abc123def456"
+              format: "zip"
+
+      - id: "scene-0002"
+        name: "Scene 0002"
+        date: "2023-12-01"
+        location_type: "Singapore"
+        parts:
+          - id: "lidar_keyframes"
+            name: "Lidar Keyframes"
+            download:
+              url: "https://cdn.nuscenes.org/trainval/lidar/scene-0002.zip"
+              filename: "scene-0002.zip"
+              size_bytes: 1024000000
+              md5: "xyz789uvw012"
+              format: "zip"
