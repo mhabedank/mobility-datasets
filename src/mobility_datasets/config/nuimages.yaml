@@ -1,0 +1,212 @@
+metadata:
+  name: nuImages
+  description: "A large-scale image dataset for autonomous driving with 2D annotations (bounding boxes and instance masks)"
+  license:
+    name: "CC BY-NC-SA 4.0"
+    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    details: "Registration required at https://www.nuscenes.org/nuimages"
+  citation:
+    bibtex: |
+      @article{nuimages2020,
+        title={nuImages: A large-scale autonomous driving image dataset},
+        author={Gupta, Anush and Dollar, Piotr and Girshick, Ross},
+        journal={arXiv preprint arXiv:2006.14608},
+        year={2020}
+      }
+
+collections:
+  - id: "nuimages_v1.0"
+    name: "nuImages v1.0"
+    description: "Complete nuImages dataset with 93k annotated 2D images from autonomous driving, plus 6 past and 6 future frames per image (1.2M total frames). Includes instance masks, bounding boxes, and semantic segmentation masks for foreground and background objects."
+    sessions:
+      - id: "mini"
+        name: "Mini Split (50 images)"
+        date: "2020_08"
+        parts:
+          - id: "metadata_mini"
+            name: "Mini Metadata"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-mini-metadata.zip"
+              filename: "nuimages-v1.0-mini-metadata.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "images_mini"
+            name: "Mini Images (13 frames per image)"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-mini.zip"
+              filename: "nuimages-v1.0-mini.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+      - id: "trainval_full"
+        name: "Train/Val Split (83k images)"
+        date: "2020_08"
+        parts:
+          - id: "metadata"
+            name: "Metadata (Annotations Database)"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-metadata.zip"
+              filename: "nuimages-v1.0-metadata.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "samples"
+            name: "Keyframe Images (Annotated)"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-samples.zip"
+              filename: "nuimages-v1.0-samples.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "sweeps_cam_back"
+            name: "Past/Future Frames - CAM_BACK"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-sweeps-cam-back.zip"
+              filename: "nuimages-v1.0-sweeps-cam-back.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "sweeps_cam_back_left"
+            name: "Past/Future Frames - CAM_BACK_LEFT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-sweeps-cam-back-left.zip"
+              filename: "nuimages-v1.0-sweeps-cam-back-left.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "sweeps_cam_back_right"
+            name: "Past/Future Frames - CAM_BACK_RIGHT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-sweeps-cam-back-right.zip"
+              filename: "nuimages-v1.0-sweeps-cam-back-right.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "sweeps_cam_front"
+            name: "Past/Future Frames - CAM_FRONT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-sweeps-cam-front.zip"
+              filename: "nuimages-v1.0-sweeps-cam-front.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "sweeps_cam_front_left"
+            name: "Past/Future Frames - CAM_FRONT_LEFT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-sweeps-cam-front-left.zip"
+              filename: "nuimages-v1.0-sweeps-cam-front-left.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "sweeps_cam_front_right"
+            name: "Past/Future Frames - CAM_FRONT_RIGHT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-sweeps-cam-front-right.zip"
+              filename: "nuimages-v1.0-sweeps-cam-front-right.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+      - id: "test"
+        name: "Test Split (10k images, no annotations)"
+        date: "2020_08"
+        parts:
+          - id: "test_metadata"
+            name: "Test Metadata"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-test-metadata.zip"
+              filename: "nuimages-v1.0-test-metadata.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "test_samples"
+            name: "Test Keyframe Images"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-test-samples.zip"
+              filename: "nuimages-v1.0-test-samples.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "test_sweeps_cam_back"
+            name: "Test Past/Future Frames - CAM_BACK"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-test-sweeps-cam-back.zip"
+              filename: "nuimages-v1.0-test-sweeps-cam-back.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "test_sweeps_cam_back_left"
+            name: "Test Past/Future Frames - CAM_BACK_LEFT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-test-sweeps-cam-back-left.zip"
+              filename: "nuimages-v1.0-test-sweeps-cam-back-left.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "test_sweeps_cam_back_right"
+            name: "Test Past/Future Frames - CAM_BACK_RIGHT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-test-sweeps-cam-back-right.zip"
+              filename: "nuimages-v1.0-test-sweeps-cam-back-right.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "test_sweeps_cam_front"
+            name: "Test Past/Future Frames - CAM_FRONT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-test-sweeps-cam-front.zip"
+              filename: "nuimages-v1.0-test-sweeps-cam-front.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "test_sweeps_cam_front_left"
+            name: "Test Past/Future Frames - CAM_FRONT_LEFT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-test-sweeps-cam-front-left.zip"
+              filename: "nuimages-v1.0-test-sweeps-cam-front-left.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "test_sweeps_cam_front_right"
+            name: "Test Past/Future Frames - CAM_FRONT_RIGHT"
+            download:
+              url: "https://www.nuscenes.org/data/nuimages-v1.0-test-sweeps-cam-front-right.zip"
+              filename: "nuimages-v1.0-test-sweeps-cam-front-right.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true

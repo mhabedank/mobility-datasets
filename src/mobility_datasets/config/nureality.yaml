@@ -1,0 +1,184 @@
+metadata:
+  name: nuReality
+  description: "An open source virtual reality environment for testing interactions between pedestrians and autonomous vehicles, with expressive behavior scenarios"
+  license:
+    name: "CC BY-NC-SA 4.0"
+    url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+    details: "Open source VR environment by Motional"
+  citation:
+    bibtex: |
+      @article{nureality2021,
+        title={nuReality: Expressive Robotics for Pedestrian-AV Interaction},
+        author={Schmitt, Paul and others},
+        journal={arXiv preprint arXiv:2201.04742},
+        year={2021}
+      }
+
+collections:
+  - id: "nureality_v1.0"
+    name: "nuReality VR Environment v1.0"
+    description: "Virtual reality environment for studying AV-pedestrian interactions. Contains 12 vehicle/pedestrian interaction scenarios with various expressive behaviors (Light Bar, Deceleration, Stop Short, Sound, Nose Dive). Includes 3D assets, animations, and source code for Autodesk Maya and Unreal Engine."
+    sessions:
+      - id: "complete_environment"
+        name: "Complete VR Environment"
+        date: "2021_11"
+        parts:
+          - id: "vr_environment"
+            name: "VR City Intersection Environment"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-environment.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "ambient_audio"
+            name: "Ambient City Audio"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-audio.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_orientation"
+            name: "Orientation Scenario"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-orientation.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_practice"
+            name: "Practice Scenario"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-practice.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_human_driver_stops"
+            name: "Scenario 1 - Human Driver Stops at Intersection"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-1-human-driver-stops.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_av_stops"
+            name: "Scenario 2 - AV Stops at Intersection"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-2-av-stops.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_av_light_bar"
+            name: "Scenario 3 - AV with Light Bar Expressive Behavior"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-3-av-light-bar.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_av_deceleration"
+            name: "Scenario 4 - AV with Deceleration Expressive Behavior"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-4-av-deceleration.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_av_stop_short"
+            name: "Scenario 5 - AV with Stop Short Expressive Behavior"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-5-av-stop-short.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_av_explicit_sound"
+            name: "Scenario 6 - AV with Explicit Sound Expressive Behavior"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-6-av-explicit-sound.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_av_nose_dive_sound"
+            name: "Scenario 7 - AV with Nose Dive and Sound Expressive Behavior"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-7-av-nose-dive-sound.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_human_driver_no_stop"
+            name: "Scenario 8 - Human Driver Doesn't Stop at Intersection"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-8-human-driver-no-stop.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_av_no_stop"
+            name: "Scenario 9 - AV Doesn't Stop at Intersection"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-9-av-no-stop.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "scenario_av_expressive_nose_dive"
+            name: "Scenario 10 - AV with Expressive Nose Dive Behavior"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-scenario-10-av-expressive-nose-dive.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: false
+
+          - id: "source_code_maya"
+            name: "Autodesk Maya Source Code"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-maya-source.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
+
+          - id: "source_code_unreal"
+            name: "Unreal Engine Source Code"
+            download:
+              url: "https://www.nuscenes.org/download"
+              filename: "nureality-v1.0-unreal-source.zip"
+              size_bytes: 0
+              md5: ""
+              format: "zip"
+            optional: true
